@@ -47,7 +47,7 @@ public class Conductor : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     void FixedUpdate()
@@ -87,6 +87,25 @@ public class Conductor : MonoBehaviour
             }
         }
 
+    }
+
+    public void OnMovePressed(InputAction.CallbackContext context)
+    {
+        if (context.phase == InputActionPhase.Started)
+        {
+            Vector2 inputVec2 = context.ReadValue<Vector2>();
+            Vector3 inputVec3 = new Vector3(inputVec2.x, inputVec2.y, 0);
+            if (OnBeat)
+            {
+                Debug.Log($"On beat - key pressed: {inputVec2}");
+                StartCoroutine(Flash());
+                _sphere.transform.position += inputVec3;
+            }
+            else
+            {
+                Debug.Log($"Missed beat - key pressed: {inputVec2}");
+            }
+        }
     }
 
     private IEnumerator Flash()
