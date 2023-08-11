@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class PowerOrbController : MonoBehaviour
 {
-    private HashSet<BasicMachineController> targetMachines;
+    private HashSet<IMachine> targetMachines;
 
     private float moveSpeed;
 
-    private BasicMachineController target;
+    private IMachine target;
 
     private Vector2 moveDirection;
 
@@ -22,10 +22,10 @@ public class PowerOrbController : MonoBehaviour
     void Update()
     {
         transform.position += (Vector3)(moveSpeed * Time.deltaTime * moveDirection);
-        if (Vector3.Distance(transform.position, target.transform.position) < 0.25f)
+        if (Vector3.Distance(transform.position, target.Transform.position) < 0.25f)
         {
             // Activate machine
-            target.ActivateMachine();
+            target.Activate();
 
             // Remove machine from machine set
             targetMachines.Remove(target);
@@ -46,19 +46,19 @@ public class PowerOrbController : MonoBehaviour
                     continue;
                 }
 
-                if (Vector3.Distance(transform.position, machine.transform.position) < Vector3.Distance(transform.position, target.transform.position))
+                if (Vector3.Distance(transform.position, machine.Transform.position) < Vector3.Distance(transform.position, target.Transform.position))
                 {
                     target = machine;
                 }
             }
 
-            moveDirection = (target.transform.position - transform.position).normalized;
+            moveDirection = (target.Transform.position - transform.position).normalized;
         }
     }
 
-    public void SetProperties(float speed, List<BasicMachineController> machines)
+    public void SetProperties(float speed, List<IMachine> machines)
     {
-        targetMachines = new HashSet<BasicMachineController>(machines);
+        targetMachines = new HashSet<IMachine>(machines);
 
         if (machines.Count <= 0)
         {
@@ -77,12 +77,12 @@ public class PowerOrbController : MonoBehaviour
                 continue;
             }
 
-            if (Vector3.Distance(transform.position, machine.transform.position) < Vector3.Distance(transform.position, target.transform.position))
+            if (Vector3.Distance(transform.position, machine.Transform.position) < Vector3.Distance(transform.position, target.Transform.position))
             {
                 target = machine;
             }
         }
 
-        moveDirection = (target.transform.position - transform.position).normalized;
+        moveDirection = (target.Transform.position - transform.position).normalized;
     }
 }

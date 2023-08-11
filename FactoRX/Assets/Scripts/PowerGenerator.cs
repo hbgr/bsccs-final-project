@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,13 +14,19 @@ public class PowerGenerator : MonoBehaviour
     [SerializeField]
     private float orbSpeed;
 
-    private List<BasicMachineController> machineList;
+    private List<IMachine> machineList;
 
     // Start is called before the first frame update
     void Start()
     {
-        machineList = new List<BasicMachineController>();
+        machineList = new List<IMachine>();
         StartCoroutine(PowerCoroutine(cooldown));
+        Events.MachineCreatedEvent += OnMachineCreated;
+    }
+
+    private void OnMachineCreated(object sender, IMachine machine)
+    {
+        machineList.Add(machine);
     }
 
     // Update is called once per frame
@@ -35,10 +42,5 @@ public class PowerGenerator : MonoBehaviour
         powerOrb.SetProperties(orbSpeed, machineList);
         yield return new WaitForSeconds(cooldown);
         StartCoroutine(PowerCoroutine(cooldown));
-    }
-
-    public void AddMachine(BasicMachineController machine)
-    {
-        machineList.Add(machine);
     }
 }

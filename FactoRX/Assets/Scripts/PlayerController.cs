@@ -21,8 +21,17 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI gemCounterText;
 
-    [SerializeField]
-    private PowerGenerator generator;
+    private int _requiredGems = 3;
+
+    private int RequiredGems
+    {
+        get => _requiredGems;
+        set
+        {
+            _requiredGems = value;
+            UpdateGemCounterText(_collectedGems, _requiredGems);
+        }
+    }
 
     private int _collectedGems;
 
@@ -32,7 +41,7 @@ public class PlayerController : MonoBehaviour
         set
         {
             _collectedGems = value;
-            UpdateGemCounterText(_collectedGems);
+            UpdateGemCounterText(_collectedGems, _requiredGems);
         }
     }
 
@@ -57,15 +66,14 @@ public class PlayerController : MonoBehaviour
     {
         if (collider.gameObject.GetComponent<GemController>())
         {
-            // Collect gem
             CollectedGems++;
             Destroy(collider.gameObject);
         }
     }
 
-    private void UpdateGemCounterText(int gemCount)
+    private void UpdateGemCounterText(int gemCount, int requiredGems)
     {
-        gemCounterText.text = $"{gemCount}/3";
+        gemCounterText.text = $"{gemCount}/{requiredGems}";
     }
 
     public void OnMove(InputAction.CallbackContext context)
@@ -78,12 +86,11 @@ public class PlayerController : MonoBehaviour
         if (context.performed)
         {
             // Create machine
-            if (CollectedGems >= 3)
+            if (CollectedGems >= RequiredGems)
             {
                 BasicMachineController machine = Instantiate(machinePrefab, transform.position, Quaternion.identity);
-                machine.SetArenaController(arenaController);
-                generator.AddMachine(machine);
-                CollectedGems -= 3;
+                CollectedGems -= RequiredGems;
+                RequiredGems += 3;
             }
         }
     }
