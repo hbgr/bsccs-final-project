@@ -21,8 +21,17 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI gemCounterText;
 
-    [SerializeField]
-    private PowerGenerator generator;
+    private int _requiredGems;
+
+    private int RequiredGems
+    {
+        get => _requiredGems;
+        set
+        {
+            _requiredGems = value;
+            UpdateGemCounterText(_collectedGems, _requiredGems);
+        }
+    }
 
     private int _collectedGems;
 
@@ -32,7 +41,7 @@ public class PlayerController : MonoBehaviour
         set
         {
             _collectedGems = value;
-            UpdateGemCounterText(_collectedGems);
+            UpdateGemCounterText(_collectedGems, _requiredGems);
         }
     }
 
@@ -40,6 +49,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         CollectedGems = 0;
+        RequiredGems = 3;
     }
 
     // Update is called once per frame
@@ -57,15 +67,19 @@ public class PlayerController : MonoBehaviour
     {
         if (collider.gameObject.GetComponent<GemController>())
         {
-            // Collect gem
             CollectedGems++;
             Destroy(collider.gameObject);
         }
+
+        if (collider.gameObject.GetComponent<IBullet>() != null)
+        {
+            Debug.Log("You died!");
+        }
     }
 
-    private void UpdateGemCounterText(int gemCount)
+    private void UpdateGemCounterText(int gemCount, int requiredGems)
     {
-        gemCounterText.text = $"{gemCount}/3";
+        gemCounterText.text = $"{gemCount}/{requiredGems}";
     }
 
     public void OnMove(InputAction.CallbackContext context)
@@ -78,12 +92,11 @@ public class PlayerController : MonoBehaviour
         if (context.performed)
         {
             // Create machine
-            if (CollectedGems >= 3)
+            if (CollectedGems >= RequiredGems)
             {
                 BasicMachineController machine = Instantiate(machinePrefab, transform.position, Quaternion.identity);
-                machine.SetArenaController(arenaController);
-                generator.AddMachine(machine);
-                CollectedGems -= 3;
+                CollectedGems -= RequiredGems;
+                RequiredGems += 3;
             }
         }
     }

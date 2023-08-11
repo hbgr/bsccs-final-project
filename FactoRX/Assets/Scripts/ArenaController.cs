@@ -20,20 +20,20 @@ public class ArenaController : MonoBehaviour
     private float shrinkRateIncreaseInterval;
 
     [SerializeField]
-    private float gemSpawnDelay;
-
-    [SerializeField]
     private float gemSpawnStartDelay;
-
-    [SerializeField]
-    private GemController gemPrefab;
 
     // Start is called before the first frame update
     void Start()
     {
         currentRadius = startRadius;
         SetRadius(startRadius);
-        StartCoroutine(OnStartCoroutine(gemSpawnStartDelay, gemSpawnDelay, shrinkRateIncreaseInterval));
+        StartCoroutine(OnStartCoroutine(gemSpawnStartDelay, shrinkRateIncreaseInterval));
+        Events.MachineCreatedEvent += OnMachineCreated;
+    }
+
+    private void OnMachineCreated(object sender, IMachine machine)
+    {
+        machine.SetArenaController(this);
     }
 
     // Update is called once per frame
@@ -66,20 +66,10 @@ public class ArenaController : MonoBehaviour
         }
     }
 
-    private IEnumerator OnStartCoroutine(float startDelay, float spawnDelay, float rateIncDelay)
+    private IEnumerator OnStartCoroutine(float startDelay, float rateIncDelay)
     {
         StartCoroutine(ShrinkRateIncreaseCoroutine(rateIncDelay));
         yield return new WaitForSeconds(startDelay);
-        StartCoroutine(GemSpawnCoroutine(spawnDelay));
-        yield return null;
-    }
-
-    private IEnumerator GemSpawnCoroutine(float spawnDelay)
-    {
-        Vector2 randPos = 0.8f * currentRadius * Random.insideUnitCircle;
-        var gem = Instantiate(gemPrefab, transform.position + (Vector3)randPos, Quaternion.identity);
-        yield return new WaitForSeconds(spawnDelay);
-        StartCoroutine(GemSpawnCoroutine(spawnDelay));
         yield return null;
     }
 

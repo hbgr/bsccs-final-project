@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BulletController : MonoBehaviour
+public class BulletController : MonoBehaviour, IBullet
 {
     [SerializeField]
     private float bulletLifetime;
@@ -43,11 +43,11 @@ public class BulletController : MonoBehaviour
     //     yield return null;
     // }
 
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.gameObject.GetComponent<PlayerController>())
-        {
-            Debug.Log("You died!");
-        }
-    }
+    // private void OnTriggerEnter2D(Collider2D other)
+    // {
+    //     if (other.gameObject.GetComponent<PlayerController>())
+    //     {
+    //         Debug.Log("You died!");
+    //     }
+    // }
 }
