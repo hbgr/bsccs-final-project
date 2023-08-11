@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PowerOrbController : MonoBehaviour
+public class PowerOrbController : MonoBehaviour, IBullet
 {
     private HashSet<IMachine> targetMachines;
 

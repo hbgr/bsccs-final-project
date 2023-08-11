@@ -21,7 +21,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI gemCounterText;
 
-    private int _requiredGems = 3;
+    private int _requiredGems;
 
     private int RequiredGems
     {
@@ -49,6 +49,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         CollectedGems = 0;
+        RequiredGems = 3;
     }
 
     // Update is called once per frame
@@ -68,6 +69,11 @@ public class PlayerController : MonoBehaviour
         {
             CollectedGems++;
             Destroy(collider.gameObject);
+        }
+
+        if (collider.gameObject.GetComponent<IBullet>() != null)
+        {
+            Debug.Log("You died!");
         }
     }
 
