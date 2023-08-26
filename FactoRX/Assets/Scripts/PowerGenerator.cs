@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PowerGenerator : MonoBehaviour
+public class PowerGenerator : MonoBehaviour, IPickUpBehaviour
 {
     [SerializeField]
     private float cooldown;
@@ -14,33 +14,61 @@ public class PowerGenerator : MonoBehaviour
     [SerializeField]
     private float orbSpeed;
 
-    private List<IMachine> machineList;
+    private bool Enabled => GameStateManager.IsState(GameState.Game);
 
     // Start is called before the first frame update
     void Start()
     {
-        machineList = new List<IMachine>();
         StartCoroutine(PowerCoroutine(cooldown));
-        Events.MachineCreatedEvent += OnMachineCreated;
     }
 
-    private void OnMachineCreated(object sender, IMachine machine)
+    void OnEnable()
     {
-        machineList.Add(machine);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
+        //StartCoroutine(PowerCoroutine(cooldown));
     }
 
     private IEnumerator PowerCoroutine(float cooldown)
     {
+        float t = 0;
+        while (t <= 0.25f * cooldown)
+        {
+            if (Enabled)
+            {
+                t += Time.fixedDeltaTime;
+            }
+
+            yield return new 
+            WaitForFixedUpdate();
+        }
         // Shoot power orb
         var powerOrb = Instantiate(powerOrbPrefab, transform.position, Quaternion.identity);
-        powerOrb.SetProperties(orbSpeed, machineList);
-        yield return new WaitForSeconds(cooldown);
+        powerOrb.SetProperties(orbSpeed, transform.rotation * Vector2.up, gameObject);
+        
+        t = 0;
+        while (t <= 0.75f * cooldown)
+        {
+            if (Enabled)
+            {
+                t += Time.fixedDeltaTime;
+            }
+
+            yield return new WaitForFixedUpdate();
+        }
+        StartCoroutine(PowerCoroutine(cooldown));
+    }
+
+    public bool CanBePickedUp()
+    {
+        return true;
+    }
+
+    public void OnPickUp()
+    {
+        StopAllCoroutines();
+    }
+
+    public void OnDrop()
+    {
         StartCoroutine(PowerCoroutine(cooldown));
     }
 }

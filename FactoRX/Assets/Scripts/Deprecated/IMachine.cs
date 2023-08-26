@@ -8,4 +8,6 @@ public interface IMachine
     void Activate();
     Transform Transform { get; }
     void SetArenaController(ArenaController arenaController);
+
+    bool CanBePickedUp();
 }
