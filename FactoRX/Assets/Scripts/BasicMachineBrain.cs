@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "MachineBrain/BasicMachineBrain")]
@@ -13,6 +14,9 @@ public class BasicMachineBrain : ScriptableMachineBrain
 
     [SerializeField]
     float increaseRate;
+
+    [SerializeField]
+    float range;
 
     [SerializeField]
     private ScriptableGameEvents events;
@@ -38,10 +42,26 @@ public class BasicMachineBrain : ScriptableMachineBrain
 
         for (int i = 0; i < 3; i++)
         {
-            Vector2 spawnPos = Random.insideUnitCircle.normalized * arenaProps.currentRadius;
-            BulletController bullet = Instantiate(bulletPrefab, spawnPos, Quaternion.identity);
-            bullet.SetProperties(bulletSpeed, machine.transform.position);
-            events.OnIncreaseArenaRadius(this, increaseRate);
+            var closest_abysses = Physics2D.OverlapCircleAll(machine.transform.position, range).
+                    Where(c => c.gameObject.TryGetComponent(out Abyss a)).
+                    OrderBy(c => Vector2.Distance(c.transform.position, machine.transform.position)).
+                    Select(c => c.gameObject.GetComponent<Abyss>()).
+                    ToList();
+
+            if (closest_abysses.Count > 0)
+            {
+                Abyss closest_abyss = closest_abysses[0];
+                Vector2 spawnPos = closest_abyss.transform.position;
+                BulletController bullet = Instantiate(bulletPrefab, spawnPos, Quaternion.identity);
+                bullet.SetProperties(bulletSpeed, machine.transform.position);
+                closest_abyss.Shrink();
+            }
+
+            // Vector2 spawnPos = Random.insideUnitCircle.normalized * arenaProps.currentRadius;
+            // BulletController bullet = Instantiate(bulletPrefab, spawnPos, Quaternion.identity);
+            // bullet.SetProperties(bulletSpeed, machine.transform.position);
+            // events.OnIncreaseArenaRadius(this, increaseRate);
+
             t = 0;
             while (t <= 0.25f)
             {
@@ -53,6 +73,23 @@ public class BasicMachineBrain : ScriptableMachineBrain
             }
         }
 
+        // for (int i = 0; i < 3; i++)
+        // {
+        //     Vector2 spawnPos = Random.insideUnitCircle.normalized * arenaProps.currentRadius;
+        //     BulletController bullet = Instantiate(bulletPrefab, spawnPos, Quaternion.identity);
+        //     bullet.SetProperties(bulletSpeed, machine.transform.position);
+        //     events.OnIncreaseArenaRadius(this, increaseRate);
+        //     t = 0;
+        //     while (t <= 0.25f)
+        //     {
+        //         if (Enabled)
+        //         {
+        //             t += Time.fixedDeltaTime;
+        //         }
+        //         yield return new WaitForFixedUpdate();
+        //     }
+        // }
+
         t = 0;
         while (t <= 2f)
         {
@@ -62,7 +99,6 @@ public class BasicMachineBrain : ScriptableMachineBrain
             }
             yield return new WaitForFixedUpdate();
         }
-
 
         t = 0;
         while (t <= 0.75f)

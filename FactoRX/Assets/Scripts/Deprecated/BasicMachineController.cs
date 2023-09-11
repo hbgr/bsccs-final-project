@@ -60,7 +60,7 @@ public class BasicMachineController : MonoBehaviour, IMachine
             Vector2 spawnPos = Random.insideUnitCircle.normalized * arenaController.GetCurrentRadius();
             BulletController bullet = Instantiate(bulletPrefab, spawnPos, Quaternion.identity);
             bullet.SetProperties(bulletSpeed, transform.position);
-            arenaController.IncreaseRadius(increaseRate);
+            //arenaController.IncreaseRadius(increaseRate);
             yield return new WaitForSeconds(0.25f);
         }
 
