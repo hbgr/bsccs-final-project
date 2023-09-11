@@ -10,10 +10,7 @@ public class ArenaController : MonoBehaviour
     [SerializeField]
     private ScriptableArenaProperties arenaProps;
 
-    private void Awake()
-    {
-
-    }
+    private bool Enabled => GameStateManager.IsState(GameState.Game);
 
     // Start is called before the first frame update
     void Start()
@@ -38,6 +35,8 @@ public class ArenaController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!Enabled) return;
+
         SetRadius(arenaProps.currentRadius - arenaProps.shrinkRate * Time.deltaTime);
     }
 
@@ -67,7 +66,15 @@ public class ArenaController : MonoBehaviour
 
     private IEnumerator ShrinkRateIncreaseCoroutine(float delay)
     {
-        yield return new WaitForSeconds(delay);
+        float t = 0;
+        while (t <= delay)
+        {
+            if (Enabled)
+            {
+                t += Time.fixedDeltaTime;
+            }
+            yield return new WaitForFixedUpdate();
+        }
         arenaProps.shrinkRate *= 1.33f;
         StartCoroutine(ShrinkRateIncreaseCoroutine(delay));
         yield return null;
@@ -78,9 +85,12 @@ public class ArenaController : MonoBehaviour
         float t = 0;
         while (t <= 0.25f)
         {
-            SetRadius(arenaProps.currentRadius + Time.deltaTime / 0.25f * amount);
-            t += Time.deltaTime;
-            yield return new WaitForEndOfFrame();
+            if (Enabled)
+            {
+                SetRadius(arenaProps.currentRadius + Time.deltaTime / 0.25f * amount);
+                t += Time.deltaTime;
+            }
+            yield return new WaitForFixedUpdate();
         }
         yield return null;
     }

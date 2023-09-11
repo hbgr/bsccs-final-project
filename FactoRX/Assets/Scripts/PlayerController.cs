@@ -4,13 +4,13 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviourExtended
 {
     [SerializeField]
     private ScriptableInputEvents inputEvents;
 
     [SerializeField]
-    private ScriptableGameState gameState;
+    private TransformVariable playerTransform;
 
     [SerializeField]
     private Vector2 _moveInputDir;
@@ -27,14 +27,18 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private Machine gemMachinePrefab;
 
-    private PickUp heldObject;    
+    private PickUp heldObject;
 
-    private bool Enabled => GameStateManager.IsState(GameState.Game);
+    protected override void Awake()
+    {
+        base.Awake();
+    }
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         heldObject = null;
+        playerTransform.value = transform;
         inputEvents.OnMoveEvent += OnMove;
         inputEvents.OnAction1Event += OnAction1;
         inputEvents.OnAction2Event += OnAction2;
@@ -42,7 +46,7 @@ public class PlayerController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
 
     }
@@ -67,7 +71,25 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("You died!");
         }
-    }    
+    }
+
+    protected override void OnGameStateChanged(object sender, GameState state)
+    {
+        // if (activeGameStates.Contains(state))
+        // {
+        //     inputEvents.OnMoveEvent += OnMove;
+        //     inputEvents.OnAction1Event += OnAction1;
+        //     inputEvents.OnAction2Event += OnAction2;
+        //     inputEvents.OnAction3Event += OnAction3;
+        // }
+        // else
+        // {
+        //     inputEvents.OnMoveEvent -= OnMove;
+        //     inputEvents.OnAction1Event -= OnAction1;
+        //     inputEvents.OnAction2Event -= OnAction2;
+        //     inputEvents.OnAction3Event -= OnAction3;
+        // }
+    }
 
     // private Machine TryBuildMachine(Machine machine, int cost)
     // {
@@ -86,101 +108,50 @@ public class PlayerController : MonoBehaviour
     //     _moveInputDir = context.ReadValue<Vector2>();
     // }
 
-    public void OnMove(object sender, InputAction.CallbackContext context)
+    private void OnMove(object sender, InputAction.CallbackContext context)
     {
-        if (!Enabled) return;
+        if (!Enabled)
+        {
+            _moveInputDir = Vector2.zero;
+            return;
+        }
 
         _moveInputDir = context.ReadValue<Vector2>();
     }
 
-    // public void OnAction(InputAction.CallbackContext context)
-    // {
-    //     if (context.performed)
-    //     {
-    //         if (heldObject == null)
-    //         {
-    //             var pickups = Physics2D.OverlapCircleAll(transform.position, 1f).
-    //                 Where(c => c.gameObject.TryGetComponent(out PickUp p) && p.CanBePickedUp()).
-    //                 OrderBy(c => Vector2.Distance(c.transform.position, transform.position)).
-    //                 Select(c => c.gameObject.GetComponent<PickUp>()).
-    //                 ToList();
-
-    //             if (pickups.Count > 0)
-    //             {
-    //                 heldObject = pickups[0];
-    //                 heldObject.gameObject.SetActive(false);
-    //             }
-    //         }
-    //         else
-    //         {
-    //             //drop held object
-    //             heldObject.transform.position = transform.position;
-    //             heldObject.gameObject.SetActive(true);
-    //             heldObject = null;
-    //         }
-    //     }
-    // }
-
-    // public void OnAction1(InputAction.CallbackContext context)
-    // {
-    //     if (context.performed)
-    //     {
-    //         // Create basic machine
-    //         TryBuildMachine(machinePrefab, 3);
-    //     }
-    // }
-
-    public void OnAction1(object sender, InputAction.CallbackContext context)
+    private void OnAction1(object sender, InputAction.CallbackContext context)
     {
         if (!Enabled) return;
 
-        // if (context.performed)
-        // {
-        //     // Create basic machine
-        //     TryBuildMachine(machinePrefab, 3);
-        // }
-
-        if (heldObject == null)
+        if (context.performed)
         {
-            var rotatables = Physics2D.OverlapCircleAll(transform.position, 1f).
-                Where(c => c.gameObject.TryGetComponent(out Rotatable r)).
-                OrderBy(c => Vector2.Distance(c.transform.position, transform.position)).
-                Select(c => c.gameObject.GetComponent<Rotatable>()).
-                ToList();
-
-            if (rotatables.Count > 0)
+            if (heldObject == null)
             {
-                rotatables[0].RotateBy(-90);
+                var rotatables = Physics2D.OverlapCircleAll(transform.position, 1f).
+                    Where(c => c.gameObject.TryGetComponent(out Rotatable r)).
+                    OrderBy(c => Vector2.Distance(c.transform.position, transform.position)).
+                    Select(c => c.gameObject.GetComponent<Rotatable>()).
+                    ToList();
+
+                if (rotatables.Count > 0)
+                {
+                    rotatables[0].RotateBy(90);
+                }
             }
-        }
-        else
-        {
-            if (heldObject.TryGetComponent(out Rotatable rotatable))
+            else
             {
-                rotatable.RotateBy(-90);
+                if (heldObject.TryGetComponent(out Rotatable rotatable))
+                {
+                    rotatable.RotateBy(90);
+                }
             }
         }
 
     }
 
-    // public void OnAction2(InputAction.CallbackContext context)
-    // {
-    //     if (context.performed)
-    //     {
-    //         // Create basic machine
-    //         TryBuildMachine(gemMachinePrefab, 5);
-    //     }
-    // }
-
-    public void OnAction2(object sender, InputAction.CallbackContext context)
+    private void OnAction2(object sender, InputAction.CallbackContext context)
     {
         if (!Enabled) return;
-
-        // if (context.performed)
-        // {
-        //     // Create basic machine
-        //     TryBuildMachine(gemMachinePrefab, 5);
-        // }
 
         if (context.performed)
         {
@@ -209,43 +180,31 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    // public void OnAction3(InputAction.CallbackContext context)
-    // {
-    //     if (context.performed)
-    //     {
-    //         // Create basic machine
-    //         TryBuildMachine(splitterMachinePrefab, 4);
-    //     }
-    // }
-
-    public void OnAction3(object sender, InputAction.CallbackContext context)
+    private void OnAction3(object sender, InputAction.CallbackContext context)
     {
         if (!Enabled) return;
 
-        // if (context.performed)
-        // {
-        //     // Create basic machine
-        //     TryBuildMachine(splitterMachinePrefab, 4);
-        // }
-
-        if (heldObject == null)
+        if (context.performed)
         {
-            var rotatables = Physics2D.OverlapCircleAll(transform.position, 1f).
-                Where(c => c.gameObject.TryGetComponent(out Rotatable r)).
-                OrderBy(c => Vector2.Distance(c.transform.position, transform.position)).
-                Select(c => c.gameObject.GetComponent<Rotatable>()).
-                ToList();
-
-            if (rotatables.Count > 0)
+            if (heldObject == null)
             {
-                rotatables[0].RotateBy(90);
+                var rotatables = Physics2D.OverlapCircleAll(transform.position, 1f).
+                    Where(c => c.gameObject.TryGetComponent(out Rotatable r)).
+                    OrderBy(c => Vector2.Distance(c.transform.position, transform.position)).
+                    Select(c => c.gameObject.GetComponent<Rotatable>()).
+                    ToList();
+
+                if (rotatables.Count > 0)
+                {
+                    rotatables[0].RotateBy(-90);
+                }
             }
-        }
-        else
-        {
-            if (heldObject.TryGetComponent(out Rotatable rotatable))
+            else
             {
-                rotatable.RotateBy(90);
+                if (heldObject.TryGetComponent(out Rotatable rotatable))
+                {
+                    rotatable.RotateBy(-90);
+                }
             }
         }
     }

@@ -14,6 +14,8 @@ public class PowerOrbController : MonoBehaviour
 
     private HashSet<GameObject> hitList;
 
+    private bool Enabled => GameStateManager.IsState(GameState.Game);
+
     // Start is called before the first frame update
     void Start()
     {
@@ -26,7 +28,9 @@ public class PowerOrbController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position += (Vector3)(moveSpeed * Time.deltaTime * moveDirection);        
+        if (!Enabled) return;
+
+        transform.position += (Vector3)(moveSpeed * Time.deltaTime * moveDirection);
     }
 
     public void SetProperties(float speed, List<IMachine> machines)
@@ -73,7 +77,6 @@ public class PowerOrbController : MonoBehaviour
     public void SetProperties(Vector2 direction)
     {
         moveDirection = direction;
-
     }
 
     public bool CanCollideWith(GameObject go)
@@ -83,14 +86,5 @@ public class PowerOrbController : MonoBehaviour
             return true;
         }
         return false;
-    }
-
-    private void OnTriggerEnter2D(Collider2D collider)
-    {
-        if (collider.gameObject.TryGetComponent<IMachine>(out IMachine machine) && !hitList.Contains(collider.gameObject))
-        {
-            //machine.Activate();
-            //hitList.Add(collider.gameObject);
-        }
     }
 }

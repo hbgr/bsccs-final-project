@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startRadius: 5
   maxRadius: 6
-  currentRadius: 0
+  currentRadius: 2.6951852
   shrinkRate: 0.1
   shrinkRateIncreaseInterval: 20

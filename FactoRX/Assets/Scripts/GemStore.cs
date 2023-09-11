@@ -31,6 +31,7 @@ public class GemStore : ScriptableObject
     {
         Gems += value;
         // check if level up
+        events.OnLevelUp(this, EventArgs.Empty);
         // if level up trigger level up event, which will enable reward ui etc
     }
 
