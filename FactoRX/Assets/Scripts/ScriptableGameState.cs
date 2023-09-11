@@ -1,15 +1,45 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public enum GameState
 {
+    None,
     Game,
-    Menu
+    Menu,
+    LevelUpMenu
 }
 
 [CreateAssetMenu(menuName = "GameState")]
 public class ScriptableGameState : ScriptableObject
 {
-    public GameState state;
+    [SerializeField]
+    private ScriptableGameEvents events;
+
+    [SerializeField]
+    private GameState state;
+
+    public GameState State
+    {
+        get => state;
+        private set
+        {
+            state = value;
+            events.OnGameStateChanged(this, value);
+        }
+    }
+
+    public void SetGameState(GameState state)
+    {
+        if (State != state)
+        {
+            State = state;
+        }
+    }
+
+    private void OnDisable()
+    {
+        State = GameState.None;
+    }
 }

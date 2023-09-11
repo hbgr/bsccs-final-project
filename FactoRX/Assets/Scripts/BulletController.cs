@@ -13,15 +13,19 @@ public class BulletController : MonoBehaviour
 
     private Vector2 target;
 
+    private bool Enabled => GameStateManager.IsState(GameState.Game);
+
     // Start is called before the first frame update
     void Start()
     {
-        //StartCoroutine(DestroyBulletCoroutine(bulletLifetime));
+
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (!Enabled) return;
+
         transform.position += (Vector3)(moveSpeed * Time.deltaTime * moveDirection);
         if (Vector2.Distance(transform.position, target) < 0.25f)
         {
@@ -35,19 +39,4 @@ public class BulletController : MonoBehaviour
         moveDirection = ((Vector3)targetPos - transform.position).normalized;
         target = targetPos;
     }
-
-    // private IEnumerator DestroyBulletCoroutine(float bulletLifetime)
-    // {
-    //     yield return new WaitForSeconds(bulletLifetime);
-    //     Destroy(gameObject);
-    //     yield return null;
-    // }
-
-    // private void OnTriggerEnter2D(Collider2D other)
-    // {
-    //     if (other.gameObject.GetComponent<PlayerController>())
-    //     {
-    //         Debug.Log("You died!");
-    //     }
-    // }
 }
