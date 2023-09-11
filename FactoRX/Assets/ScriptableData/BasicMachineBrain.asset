@@ -15,4 +15,5 @@ MonoBehaviour:
   bulletPrefab: {fileID: 2704340074285355779, guid: 71c321381cb934f498ae3a1738977a10, type: 3}
   bulletSpeed: 1.5
   increaseRate: 0.2
+  range: 5
   events: {fileID: 11400000, guid: 1a3c4ae5866d2e344a4f1bfaf714a6bb, type: 2}
