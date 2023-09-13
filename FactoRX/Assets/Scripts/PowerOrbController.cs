@@ -6,6 +6,7 @@ public class PowerOrbController : MonoBehaviourExtended
 {
     // private HashSet<IMachine> targetMachines;
 
+    [SerializeField]
     private float moveSpeed = 2f;
 
     // private IMachine target;
@@ -72,13 +73,13 @@ public class PowerOrbController : MonoBehaviourExtended
 
     public void SetProperties(float speed, Vector2 direction, GameObject creator)
     {
-        moveSpeed = speed;
-        moveDirection = direction;
-        if (hitList == null)
-        {
-            hitList = new HashSet<GameObject>();
-        }
-        hitList.Add(creator);
+        // moveSpeed = speed;
+        // moveDirection = direction;
+        // if (hitList == null)
+        // {
+        //     hitList = new HashSet<GameObject>();
+        // }
+        // hitList.Add(creator);
     }
 
     public void SetProperties(Vector2 direction)

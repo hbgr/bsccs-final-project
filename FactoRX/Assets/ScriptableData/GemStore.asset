@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: GemStore
   m_EditorClassIdentifier: 
   events: {fileID: 11400000, guid: 1a3c4ae5866d2e344a4f1bfaf714a6bb, type: 2}
+  levelUpThresholdGrowth: 3
