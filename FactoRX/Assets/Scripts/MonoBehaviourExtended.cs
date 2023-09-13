@@ -10,7 +10,7 @@ public abstract class MonoBehaviourExtended : MonoBehaviour
     [SerializeField]
     protected List<GameState> activeGameStates;
 
-    public bool Enabled => GameStateManager.IsState(activeGameStates);
+    public virtual bool Enabled => GameStateManager.IsState(activeGameStates) && enabled;
 
     protected virtual void OnGameStateChanged(object sender, GameState state)
     {
@@ -20,5 +20,10 @@ public abstract class MonoBehaviourExtended : MonoBehaviour
     protected virtual void Awake()
     {
         events.GameStateChangedEvent += OnGameStateChanged;
+    }
+
+    protected virtual void OnDestroy()
+    {
+        events.GameStateChangedEvent -= OnGameStateChanged;
     }
 }

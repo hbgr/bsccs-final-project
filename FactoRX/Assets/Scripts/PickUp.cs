@@ -2,9 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 
 [RequireComponent(typeof(Collider2D))]
+[RequireComponent(typeof(SpriteRenderer))]
 public class PickUp : MonoBehaviour
 {
     public bool CanBePickedUp()
@@ -27,6 +27,9 @@ public class PickUp : MonoBehaviour
         {
             pickUpBehaviour.OnPickUp();
         }
+
+        var renderer = GetComponent<SpriteRenderer>();
+        renderer.color = new Color(renderer.color.r, renderer.color.g, renderer.color.b, 0.33f);
     }
 
     public void OnDrop()
@@ -36,5 +39,8 @@ public class PickUp : MonoBehaviour
         {
             pickUpBehaviour.OnDrop();
         }
+
+        var renderer = GetComponent<SpriteRenderer>();
+        renderer.color = new Color(renderer.color.r, renderer.color.g, renderer.color.b, 1f);
     }
 }

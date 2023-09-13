@@ -1,9 +1,12 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+[RequireComponent(typeof(Collider2D))]
+[RequireComponent(typeof(SpriteRenderer))]
 public class PlayerController : MonoBehaviourExtended
 {
     [SerializeField]
@@ -13,40 +16,75 @@ public class PlayerController : MonoBehaviourExtended
     private TransformVariable playerTransform;
 
     [SerializeField]
-    private Vector2 _moveInputDir;
+    private IntVariable lives;
 
     [SerializeField]
-    private float _moveSpeed;
+    private Transform spawnPosition;
+
+    private Vector2 moveInputDir;
+
+    [SerializeField]
+    private float moveSpeed;
 
     private PickUp heldObject;
+
+    private bool Damageable => invincibilityDuration <= 0f;
+
+    private float invincibilityDuration;
 
     protected override void Awake()
     {
         base.Awake();
+
+        playerTransform.value = transform;
     }
 
     // Start is called before the first frame update
     private void Start()
     {
         heldObject = null;
-        playerTransform.value = transform;
+        invincibilityDuration = 0f;
+
         inputEvents.OnMoveEvent += OnMove;
         inputEvents.OnAction1Event += OnAction1;
         inputEvents.OnAction2Event += OnAction2;
         inputEvents.OnAction3Event += OnAction3;
+
+        events.LoseLifeEvent += OnLoseLife;
     }
 
     // Update is called once per frame
     private void Update()
     {
+        if (!Enabled) return;
 
+        if (invincibilityDuration > 0f)
+        {
+            invincibilityDuration -= Time.deltaTime;
+        }
     }
 
     private void FixedUpdate()
     {
         if (!Enabled) return;
 
-        transform.position += (Vector3)(_moveSpeed * Time.deltaTime * _moveInputDir);
+        transform.position += (Vector3)(moveSpeed * Time.deltaTime * moveInputDir);
+
+        if (heldObject != null)
+        {
+            heldObject.transform.position = Vector3Int.RoundToInt(transform.position + transform.rotation * Vector3.up);
+        }
+    }
+
+    protected override void OnDestroy()
+    {
+        base.OnDestroy();
+        inputEvents.OnMoveEvent -= OnMove;
+        inputEvents.OnAction1Event -= OnAction1;
+        inputEvents.OnAction2Event -= OnAction2;
+        inputEvents.OnAction3Event -= OnAction3;
+
+        events.LoseLifeEvent += OnLoseLife;
     }
 
     private void OnTriggerEnter2D(Collider2D collider)
@@ -58,10 +96,43 @@ public class PlayerController : MonoBehaviourExtended
             collectable.Collect();
         }
 
-        if (collider.gameObject.GetComponent<DamagesPlayer>())
+        if (collider.gameObject.GetComponent<DamagesPlayer>() && Damageable)
         {
-            Debug.Log("You died!");
+            Debug.Log("You lost a life");
+            TakeDamage();
         }
+    }
+
+    private void TakeDamage()
+    {
+        lives.value--;
+        events.OnLoseLife(this, lives.value);
+    }
+
+    private void OnLoseLife(object sender, int remainingLives)
+    {
+        // drop held object
+        if (heldObject != null)
+        {
+            heldObject.OnDrop();
+            heldObject = null;
+        }
+
+        if (remainingLives > 0)
+        {
+            Respawn();
+        }
+    }
+
+    private void AddInvincibility(float duration)
+    {
+        invincibilityDuration += duration;
+    }
+
+    private void Respawn()
+    {
+        AddInvincibility(1f);
+        transform.position = spawnPosition.position;
     }
 
     protected override void OnGameStateChanged(object sender, GameState state)
@@ -86,11 +157,11 @@ public class PlayerController : MonoBehaviourExtended
     {
         if (!Enabled)
         {
-            _moveInputDir = Vector2.zero;
+            moveInputDir = Vector2.zero;
             return;
         }
 
-        _moveInputDir = context.ReadValue<Vector2>();
+        moveInputDir = context.ReadValue<Vector2>();
     }
 
     private void OnAction1(object sender, InputAction.CallbackContext context)
@@ -140,14 +211,11 @@ public class PlayerController : MonoBehaviourExtended
                 if (pickups.Count > 0)
                 {
                     heldObject = pickups[0];
-                    heldObject.gameObject.SetActive(false);
+                    heldObject.OnPickUp();
                 }
             }
             else
             {
-                //drop held object
-                heldObject.transform.position = transform.position;
-                heldObject.gameObject.SetActive(true);
                 heldObject.OnDrop();
                 heldObject = null;
             }

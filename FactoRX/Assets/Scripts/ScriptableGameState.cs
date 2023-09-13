@@ -8,7 +8,8 @@ public enum GameState
     None,
     Game,
     Menu,
-    LevelUpMenu
+    LevelUpMenu,
+    GameOver
 }
 
 [CreateAssetMenu(menuName = "GameState")]

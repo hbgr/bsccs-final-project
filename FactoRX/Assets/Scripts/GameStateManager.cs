@@ -33,7 +33,15 @@ public class GameStateManager : MonoBehaviour
     {
         events.LevelUpEvent += OnLevelUp;
         events.LevelUpCompletedEvent += OnLevelUpCompleted;
+        events.LoseLifeEvent += OnLoseLife;
         SetGameState(GameState.Game);
+    }
+
+    private void OnDestroy()
+    {
+        events.LevelUpEvent -= OnLevelUp;
+        events.LevelUpCompletedEvent -= OnLevelUpCompleted;
+        events.LoseLifeEvent -= OnLoseLife;
     }
 
     private void OnLevelUp(object sender, EventArgs args)
@@ -44,6 +52,14 @@ public class GameStateManager : MonoBehaviour
     private void OnLevelUpCompleted(object sender, EventArgs args)
     {
         SetGameState(GameState.Game);
+    }
+
+    private void OnLoseLife(object sender, int remainingLives)
+    {
+        if (remainingLives <= 0)
+        {
+            SetGameState(GameState.GameOver);
+        }
     }
 
     public static bool IsState(GameState state)
@@ -58,7 +74,6 @@ public class GameStateManager : MonoBehaviour
 
     private void SetGameState(GameState state)
     {
-        // gameState.SetGameState(state);
         StartCoroutine(SetGameStateCoroutine(state));
     }
 

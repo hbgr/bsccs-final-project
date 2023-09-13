@@ -1,34 +1,16 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
-public class LevelUpMenu : MonoBehaviourExtended
+public class GameOverMenu : MonoBehaviourExtended
 {
     [SerializeField]
     private ScriptableInputEvents inputEvents;
 
     [SerializeField]
     private GameObject menuObject;
-
-    [SerializeField]
-    private LevelUpMenuOption option1;
-
-    [SerializeField]
-    private LevelUpMenuOption option2;
-
-    [SerializeField]
-    private LevelUpMenuOption option3;
-
-    [SerializeField]
-    private List<LevelUpBehaviour> levelUpBehaviours;
-
-    private LevelUpBehaviour levelUpBehaviour1;
-
-    private LevelUpBehaviour levelUpBehaviour2;
-
-    private LevelUpBehaviour levelUpBehaviour3;
 
     // Start is called before the first frame update
     void Start()
@@ -58,25 +40,11 @@ public class LevelUpMenu : MonoBehaviourExtended
         if (activeGameStates.Contains(state))
         {
             menuObject.SetActive(true);
-
-            levelUpBehaviour1 = levelUpBehaviours[0];
-            levelUpBehaviour2 = levelUpBehaviours[1];
-            levelUpBehaviour3 = levelUpBehaviours[2];
-
-            option1.SetProperties(levelUpBehaviour1);
-            option2.SetProperties(levelUpBehaviour2);
-            option3.SetProperties(levelUpBehaviour3);
         }
         else
         {
             menuObject.SetActive(false);
         }
-    }
-
-    private void SelectLevelUpOption(LevelUpBehaviour levelUpBehaviour)
-    {
-        levelUpBehaviour.Apply();
-        events.OnLevelUpCompleted(this, EventArgs.Empty);
     }
 
     private void OnAction1(object sender, InputAction.CallbackContext context)
@@ -85,7 +53,7 @@ public class LevelUpMenu : MonoBehaviourExtended
 
         if (context.performed)
         {
-            SelectLevelUpOption(levelUpBehaviour1);
+
         }
     }
 
@@ -95,7 +63,7 @@ public class LevelUpMenu : MonoBehaviourExtended
 
         if (context.performed)
         {
-            SelectLevelUpOption(levelUpBehaviour2);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
 
@@ -105,7 +73,7 @@ public class LevelUpMenu : MonoBehaviourExtended
 
         if (context.performed)
         {
-            SelectLevelUpOption(levelUpBehaviour3);
+
         }
     }
 }

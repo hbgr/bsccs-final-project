@@ -137,6 +137,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7a64d1202832fc48a58ca701c872759, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  events: {fileID: 11400000, guid: 1a3c4ae5866d2e344a4f1bfaf714a6bb, type: 2}
+  activeGameStates: 01000000
+  lifetime: 10
 --- !u!114 &3810821202557633149
 MonoBehaviour:
   m_ObjectHideFlags: 0
