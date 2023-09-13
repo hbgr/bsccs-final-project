@@ -3,18 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PowerGenerator : MonoBehaviour, IPickUpBehaviour
+public class PowerGenerator : MonoBehaviourExtended, IPickUpBehaviour
 {
     [SerializeField]
     private float cooldown;
 
     [SerializeField]
-    private PowerOrbController powerOrbPrefab;
+    private PowerOrbController powerOrbPrefab;    
 
-    [SerializeField]
-    private float orbSpeed;
-
-    private bool Enabled => GameStateManager.IsState(GameState.Game);
 
     // Start is called before the first frame update
     void Start()
@@ -42,7 +38,7 @@ public class PowerGenerator : MonoBehaviour, IPickUpBehaviour
         }
         // Shoot power orb
         var powerOrb = Instantiate(powerOrbPrefab, transform.position, Quaternion.identity);
-        powerOrb.SetProperties(orbSpeed, transform.rotation * Vector2.up, gameObject);
+        powerOrb.SetProperties(transform.rotation * Vector2.up, gameObject);
         
         t = 0;
         while (t <= 0.75f * cooldown)

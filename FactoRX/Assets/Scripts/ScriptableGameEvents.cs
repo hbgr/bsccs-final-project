@@ -49,4 +49,11 @@ public class ScriptableGameEvents : ScriptableObject
     {
         LevelUpCompletedEvent?.Invoke(sender, args);
     }
+
+    public event EventHandler<int> LoseLifeEvent;
+
+    public void OnLoseLife(object sender, int remainingLives)
+    {
+        LoseLifeEvent?.Invoke(sender, remainingLives);
+    }
 }

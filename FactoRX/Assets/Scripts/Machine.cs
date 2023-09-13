@@ -75,16 +75,16 @@ public class Machine : MonoBehaviourExtended, IPickUpBehaviour
 
     public bool CanBePickedUp()
     {
-        return !isActive;
+        return true;
     }
 
     public void OnPickUp()
     {
-
+        enabled = false;
     }
 
     public void OnDrop()
     {
-
+        enabled = true;
     }
 }

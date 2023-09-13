@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Transformer : MonoBehaviourExtended
+public class Transformer : MonoBehaviourExtended, IPickUpBehaviour
 {
 
     [SerializeField]
@@ -33,5 +33,20 @@ public class Transformer : MonoBehaviourExtended
     private void AcceptEnergy(PowerOrbController powerOrb)
     {
         StartCoroutine(brain.TransformerCoroutine(this, powerOrb));
+    }
+
+    public bool CanBePickedUp()
+    {
+        return true;
+    }
+
+    public void OnPickUp()
+    {
+        enabled = false;
+    }
+
+    public void OnDrop()
+    {
+        enabled = true;
     }
 }
