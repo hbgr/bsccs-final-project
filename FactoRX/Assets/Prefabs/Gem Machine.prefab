@@ -127,6 +127,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   events: {fileID: 11400000, guid: 1a3c4ae5866d2e344a4f1bfaf714a6bb, type: 2}
+  activeGameStates: 01000000
   gameState: {fileID: 0}
   brain: {fileID: 11400000, guid: 3b8c203dbbcf5694da6d8790e2277b77, type: 2}
   isActive: 0

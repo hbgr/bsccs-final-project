@@ -10,7 +10,7 @@ public abstract class MonoBehaviourExtended : MonoBehaviour
     [SerializeField]
     protected List<GameState> activeGameStates;
 
-    protected bool Enabled => GameStateManager.IsState(activeGameStates);
+    public bool Enabled => GameStateManager.IsState(activeGameStates);
 
     protected virtual void OnGameStateChanged(object sender, GameState state)
     {
