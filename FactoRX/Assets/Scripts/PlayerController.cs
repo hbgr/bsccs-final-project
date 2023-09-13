@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -22,6 +23,8 @@ public class PlayerController : MonoBehaviourExtended
     private Transform spawnPosition;
 
     private Vector2 moveInputDir;
+
+    private Vector2 facingDirection;
 
     [SerializeField]
     private float moveSpeed;
@@ -69,10 +72,14 @@ public class PlayerController : MonoBehaviourExtended
         if (!Enabled) return;
 
         transform.position += (Vector3)(moveSpeed * Time.deltaTime * moveInputDir);
+        if (moveInputDir != Vector2.zero)
+        {
+            facingDirection = moveInputDir;
+        }        
 
         if (heldObject != null)
         {
-            heldObject.transform.position = Vector3Int.RoundToInt(transform.position + transform.rotation * Vector3.up);
+            heldObject.transform.position = Vector3Int.RoundToInt(transform.position + transform.rotation * facingDirection);
         }
     }
 
@@ -105,8 +112,8 @@ public class PlayerController : MonoBehaviourExtended
 
     private void TakeDamage()
     {
-        lives.value--;
-        events.OnLoseLife(this, lives.value);
+        lives.Value--;
+        events.OnLoseLife(this, lives.Value);
     }
 
     private void OnLoseLife(object sender, int remainingLives)

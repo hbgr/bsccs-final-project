@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 3864481191722548791}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
+  m_LocalScale: {x: 0.7, y: 0.7, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -128,10 +128,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   events: {fileID: 11400000, guid: 1a3c4ae5866d2e344a4f1bfaf714a6bb, type: 2}
   activeGameStates: 01000000
-  gameState: {fileID: 0}
   brain: {fileID: 11400000, guid: 3b8c203dbbcf5694da6d8790e2277b77, type: 2}
   isActive: 0
   arenaProps: {fileID: 0}
+  energy: 0
 --- !u!114 &3864481191722548779
 MonoBehaviour:
   m_ObjectHideFlags: 0

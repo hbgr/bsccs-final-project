@@ -12,4 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcb385c170ed21b43b4e4a48c3ddad69, type: 3}
   m_Name: PlayerLives
   m_EditorClassIdentifier: 
-  value: -11
+  value: 3
+  resetValue: 3
+  resetOnEnable: 1
