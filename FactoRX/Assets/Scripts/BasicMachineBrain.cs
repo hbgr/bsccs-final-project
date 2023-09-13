@@ -54,7 +54,7 @@ public class BasicMachineBrain : ScriptableMachineBrain
                 Vector2 spawnPos = closest_abyss.transform.position;
                 BulletController bullet = Instantiate(bulletPrefab, spawnPos, Quaternion.identity);
                 bullet.SetProperties(bulletSpeed, machine.transform.position);
-                closest_abyss.Shrink();
+                //closest_abyss.Shrink();
             }
 
             // Vector2 spawnPos = Random.insideUnitCircle.normalized * arenaProps.currentRadius;

@@ -5,28 +5,24 @@ using UnityEngine;
 
 [RequireComponent(typeof(Collider2D))]
 [RequireComponent(typeof(SpriteRenderer))]
-public class Machine : MonoBehaviour, IPickUpBehaviour
+public class Machine : MonoBehaviourExtended, IPickUpBehaviour
 {
     [SerializeField]
-    private ScriptableGameEvents events;
-
-    [SerializeField]
-    private ScriptableGameState gameState;
-
-    [SerializeField]
-    private ScriptableMachineBrain brain;
+    private MachineBrain brain;
 
     public bool isActive = false;
 
-    private bool Enabled => GameStateManager.IsState(GameState.Game);
-
     [SerializeField]
     private ScriptableArenaProperties arenaProps;
+
+    [SerializeField]
+    private int energy;
 
     // Start is called before the first frame update
     void Start()
     {
         events.OnMachineCreated(this, this);
+        energy = 0;
     }
 
     // Update is called once per frame
@@ -51,16 +47,29 @@ public class Machine : MonoBehaviour, IPickUpBehaviour
 
         if (collider.TryGetComponent(out PowerOrbController powerOrb) && powerOrb.CanCollideWith(gameObject))
         {
-            if (!isActive)
-            {
-                Destroy(collider.gameObject);
-                Activate();
-            }
-            else
-            {
-                powerOrb.transform.position = transform.position;
-                powerOrb.SetProperties(transform.rotation * Vector3.up);
-            }
+            // if (!isActive)
+            // {
+            //     Destroy(collider.gameObject);
+            //     Activate();
+            // }
+            // else
+            // {
+            //     powerOrb.transform.position = transform.position;
+            //     powerOrb.SetProperties(transform.rotation * Vector3.up);
+            // }
+
+            Destroy(collider.gameObject);
+            GainEnergy(1);
+        }
+    }
+
+    public void GainEnergy(int e)
+    {
+        energy += e;
+        if (energy >= brain.ActivationEnergy)
+        {
+            Activate();
+            energy = 0;
         }
     }
 

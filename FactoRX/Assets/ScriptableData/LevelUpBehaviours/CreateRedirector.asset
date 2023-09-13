@@ -9,12 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa6946cef5ef6a449a857e5e3598e4db, type: 3}
-  m_Name: CreateSplitterMachine
+  m_Script: {fileID: 11500000, guid: 2636100811f52074f8abff3b204c829d, type: 3}
+  m_Name: CreateRedirector
   m_EditorClassIdentifier: 
-  behaviourName: New Splitter
-  behaviourDescription: Creates a new machine that splits resources passed through
-    it.
+  behaviourName: New Redirector Transformer
+  behaviourDescription: Creates a new redirector transformer.
   image: {fileID: 0}
-  machinePrefab: {fileID: 6485347121827993359, guid: 7b93e7ebfe12ca94ab72db1b6e88a1e4, type: 3}
+  transformer: {fileID: 7664416805545349795, guid: 6111b042c016aba47a9da8ed0a7a28ec, type: 3}
   playerTransform: {fileID: 11400000, guid: 32a30e4295a43794593ab82ad20eb363, type: 2}

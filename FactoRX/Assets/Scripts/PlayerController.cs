@@ -18,15 +18,6 @@ public class PlayerController : MonoBehaviourExtended
     [SerializeField]
     private float _moveSpeed;
 
-    [SerializeField]
-    private Machine machinePrefab;
-
-    [SerializeField]
-    private Machine splitterMachinePrefab;
-
-    [SerializeField]
-    private Machine gemMachinePrefab;
-
     private PickUp heldObject;
 
     protected override void Awake()
@@ -90,23 +81,6 @@ public class PlayerController : MonoBehaviourExtended
         //     inputEvents.OnAction3Event -= OnAction3;
         // }
     }
-
-    // private Machine TryBuildMachine(Machine machine, int cost)
-    // {
-    //     if (CollectedGems >= cost)
-    //     {
-    //         Machine m = Instantiate(machine, transform.position, Quaternion.identity);
-    //         CollectedGems -= cost;
-    //         return m;
-    //     }
-    //     return null;
-    // }
-
-    // public void OnMove(InputAction.CallbackContext context)
-    // {
-    //     if (!Active) return;
-    //     _moveInputDir = context.ReadValue<Vector2>();
-    // }
 
     private void OnMove(object sender, InputAction.CallbackContext context)
     {

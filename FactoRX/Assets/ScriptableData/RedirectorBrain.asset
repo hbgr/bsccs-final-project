@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ba307f72cf92b44ea9b63ac7510a327, type: 3}
-  m_Name: GemMachineBrain
+  m_Script: {fileID: 11500000, guid: 5e7f387f1460ba3409cd3206e63482aa, type: 3}
+  m_Name: RedirectorBrain
   m_EditorClassIdentifier: 
-  activationEnergy: 5
-  gemPrefab: {fileID: 7830232477198661073, guid: b8e5b468a133e9642afc3e41d4954ff0, type: 3}
+  direction: {x: 0, y: 1, z: 0}
+  boostFactor: 1.5
