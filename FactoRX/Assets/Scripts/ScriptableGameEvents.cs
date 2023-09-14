@@ -56,4 +56,11 @@ public class ScriptableGameEvents : ScriptableObject
     {
         LoseLifeEvent?.Invoke(sender, remainingLives);
     }
+
+    public event EventHandler<ScriptableAudio> PlayAudioEvent;
+
+    public void OnPlayAudio(GameObject obj, ScriptableAudio audio)
+    {
+        PlayAudioEvent?.Invoke(obj, audio);
+    }
 }

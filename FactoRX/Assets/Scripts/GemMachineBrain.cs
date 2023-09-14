@@ -17,33 +17,19 @@ public class GemMachineBrain : MachineBrain
         var scale = machine.transform.localScale;
 
         float t = 0;
-        while (t <= 0.5f)
+        while (t <= 0.25f)
         {
             if (machine.Enabled)
             {
-                renderer.color = Color.Lerp(colour, Color.cyan, t / 0.5f);
+                renderer.color = Color.Lerp(colour, Color.white, t / 0.5f);
                 machine.transform.localScale = Vector3.Lerp(scale, scale * 1.2f, t / 0.5f);
                 t += Time.deltaTime;
             }
             yield return new WaitForFixedUpdate();
         }
 
-        for (int i = 0; i < 3; i++)
-        {
-            // Vector2 spawnPos = 0.8f * arenaProps.currentRadius * Random.insideUnitCircle;
-
-            Vector2 spawnPos = 2f * Random.insideUnitCircle;
-            GemController gem = Instantiate(gemPrefab, spawnPos, Quaternion.identity);
-            t = 0;
-            while (t <= 0.25f)
-            {
-                if (machine.Enabled)
-                {
-                    t += Time.fixedDeltaTime;
-                }
-                yield return new WaitForFixedUpdate();
-            }
-        }
+        Vector2 spawnPos = 2f * Random.insideUnitCircle;
+        GemController gem = Instantiate(gemPrefab, spawnPos, Quaternion.identity);
 
         // t = 0;
         // while (t <= 0.5f)
@@ -56,7 +42,7 @@ public class GemMachineBrain : MachineBrain
         // }
 
         t = 0;
-        while (t <= 0.75f)
+        while (t <= 0.25f)
         {
             if (machine.Enabled)
             {
