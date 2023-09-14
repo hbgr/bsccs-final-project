@@ -7,10 +7,11 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0aed66ea9ca1d3e409941afa659b325f, type: 3}
-  m_Name: GemStore
+  m_Script: {fileID: 11500000, guid: aa121c7e8395b6147b5e6158d1c6a57e, type: 3}
+  m_Name: AudioPlayer
   m_EditorClassIdentifier: 
   events: {fileID: 11400000, guid: 1a3c4ae5866d2e344a4f1bfaf714a6bb, type: 2}
-  levelUpThresholdGrowth: 7
+  audioObject: {fileID: 4829071022608516229, guid: 0d18081a4a801754c96f5c536f91f552, type: 3}
+  maxAudioSources: 16

@@ -9,8 +9,10 @@ public class PowerGenerator : MonoBehaviourExtended, IPickUpBehaviour
     private float cooldown;
 
     [SerializeField]
-    private PowerOrbController powerOrbPrefab;    
+    private PowerOrbController powerOrbPrefab;
 
+    [SerializeField]
+    private ScriptableAudio orbAudio;
 
     // Start is called before the first frame update
     void Start()
@@ -26,22 +28,49 @@ public class PowerGenerator : MonoBehaviourExtended, IPickUpBehaviour
     private IEnumerator PowerCoroutine(float cooldown)
     {
         float t = 0;
-        while (t <= 0.25f * cooldown)
+        while (t <= 0.2f * cooldown)
         {
             if (Enabled)
             {
                 t += Time.fixedDeltaTime;
             }
 
-            yield return new 
+            yield return new
             WaitForFixedUpdate();
         }
-        // Shoot power orb
-        var powerOrb = Instantiate(powerOrbPrefab, transform.position, Quaternion.identity);
-        powerOrb.SetProperties(transform.rotation * Vector2.up, gameObject);
-        
+
+        var scale = transform.localScale;
+
         t = 0;
-        while (t <= 0.75f * cooldown)
+        while (t <= 0.05f * cooldown)
+        {
+            if (Enabled)
+            {
+                transform.localScale = Vector3.Lerp(transform.localScale, scale * 2f, t * 2f);
+                t += Time.deltaTime;
+            }
+            yield return new WaitForFixedUpdate();
+        }
+
+        // Shoot power orb
+        var powerOrb = Instantiate(powerOrbPrefab, transform.position + transform.rotation * (Vector2.right / 2f), Quaternion.identity);
+        powerOrb.SetProperties(transform.rotation * Vector2.right, gameObject);
+        events.OnPlayAudio(gameObject, orbAudio);
+
+        t = 0;
+        while (t <= 0.05 * cooldown)
+        {
+            if (Enabled)
+            {
+                transform.localScale = Vector3.Lerp(transform.localScale, scale, t * 2f);
+                t += Time.deltaTime;
+            }
+            yield return new WaitForFixedUpdate();
+        }
+        transform.localScale = scale;
+
+        t = 0;
+        while (t <= 0.7f * cooldown)
         {
             if (Enabled)
             {
