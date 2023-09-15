@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -17,7 +16,7 @@ public class PlayerController : MonoBehaviourExtended
     private TransformVariable playerTransform;
 
     [SerializeField]
-    private IntVariable lives;
+    private LivesManager lives;
 
     [SerializeField]
     private Transform spawnPosition;
@@ -116,8 +115,8 @@ public class PlayerController : MonoBehaviourExtended
     {
         if (Damageable)
         {
-            lives.Value--;
-            events.OnLoseLife(this, lives.Value);
+            lives.Lives--;
+            events.OnLoseLife(this, lives.Lives);
         }
     }
 

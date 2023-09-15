@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class LevelUpProgressBar : MonoBehaviour
@@ -10,6 +11,12 @@ public class LevelUpProgressBar : MonoBehaviour
 
     [SerializeField]
     private RectTransform barTransform;
+
+    [SerializeField]
+    private TextMeshProUGUI currentLevelText;
+
+    [SerializeField]
+    private TextMeshProUGUI nextLevelText;
 
     [SerializeField]
     private ExperienceManager expManager;
@@ -25,7 +32,10 @@ public class LevelUpProgressBar : MonoBehaviour
         var maxWidth = backgroundTransform.rect.width;
         float barPercent = (float)e.Experience / (float)e.LevelUpThreshold;
         barTransform.sizeDelta = new Vector2(barPercent * maxWidth, barTransform.sizeDelta.y);
-    }    
+
+        currentLevelText.text = $"{e.Level}";
+        nextLevelText.text = $"{e.Level + 1}";
+    }
 
     // Update is called once per frame
     void Update()

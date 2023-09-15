@@ -9,8 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff33f81123c1d9642841e4ff07e4287d, type: 3}
-  m_Name: SplitterMachineBrain
+  m_Script: {fileID: 11500000, guid: 69b608fb57b934e4c9d0bc52d0871d57, type: 3}
+  m_Name: LivesManager
   m_EditorClassIdentifier: 
-  orbSpeed: 1.5
-  powerOrbPrefab: {fileID: 7196507520383837509, guid: 30c0c294fe779f648bea759ad9bae338, type: 3}
+  lives: 3

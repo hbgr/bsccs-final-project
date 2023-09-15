@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [CreateAssetMenu(menuName = "Systems/ExperienceManager")]
 public class ExperienceManager : ScriptableObject
@@ -46,11 +47,20 @@ public class ExperienceManager : ScriptableObject
         level = 0;
         levelUpThreshold = levelUpThresholdGrowth;
         events.ExperienceGainedEvent += OnExperienceGained;
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene arg0, LoadSceneMode arg1)
+    {
+        experience = 0;
+        level = 0;
+        levelUpThreshold = levelUpThresholdGrowth;
     }
 
     private void OnDisable()
     {
         events.ExperienceGainedEvent -= OnExperienceGained;
+        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
     private void OnExperienceGained(object sender, int e)

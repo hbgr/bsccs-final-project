@@ -10,18 +10,18 @@ public class LivesText : MonoBehaviour
     private TextMeshProUGUI livesText;
 
     [SerializeField]
-    private IntVariable lives;
+    private LivesManager lives;
 
     // Start is called before the first frame update
     void Start()
     {
-        lives.ValueChangedEvent += OnValueChanged;
-        SetText(lives.Value);
+        lives.LivesChangedEvent += OnLivesChanged;
+        SetText(lives.Lives);
     }
 
-    private void OnValueChanged(object sender, IntVariable lives)
+    private void OnLivesChanged(object sender, int lives)
     {
-        SetText(lives.Value);
+        SetText(lives);
     }
 
     private void SetText(int lives)

@@ -8,6 +8,11 @@ using UnityEngine.Events;
 [CreateAssetMenu(menuName = "Events/GameEvents")]
 public class ScriptableGameEvents : ScriptableObject
 {
+    private void Awake()
+    {
+
+    }
+
     public event EventHandler<GameState> GameStateChangedEvent;
 
     public void OnGameStateChanged(object sender, GameState state)
@@ -27,7 +32,7 @@ public class ScriptableGameEvents : ScriptableObject
     public void OnIncreaseArenaRadius(object sender, float amount)
     {
         IncreaseArenaRadiusEvent?.Invoke(sender, amount);
-    }    
+    }
 
     public event EventHandler<int> ExperienceGainedEvent;
 
@@ -69,5 +74,5 @@ public class ScriptableGameEvents : ScriptableObject
     public void OnShieldCollected(object sender, ShieldCollectable shield)
     {
         ShieldCollectedEvent?.Invoke(sender, shield);
-    }    
+    }
 }
