@@ -18,11 +18,16 @@ public class Machine : MonoBehaviourExtended, IPickUpBehaviour
     [SerializeField]
     private int energy;
 
+    private Vector3 scale;
+
+    public Vector3 Scale => scale;
+
     // Start is called before the first frame update
     void Start()
     {
         events.OnMachineCreated(this, this);
         energy = 0;
+        scale = transform.localScale;
     }
 
     // Update is called once per frame
@@ -47,17 +52,6 @@ public class Machine : MonoBehaviourExtended, IPickUpBehaviour
 
         if (collider.TryGetComponent(out PowerOrbController powerOrb) && powerOrb.CanCollideWith(gameObject))
         {
-            // if (!isActive)
-            // {
-            //     Destroy(collider.gameObject);
-            //     Activate();
-            // }
-            // else
-            // {
-            //     powerOrb.transform.position = transform.position;
-            //     powerOrb.SetProperties(transform.rotation * Vector3.up);
-            // }
-
             Destroy(collider.gameObject);
             GainEnergy(1);
         }

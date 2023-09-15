@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Collider2D))]
+[RequireComponent(typeof(PickUp))]
 public class Rotatable : MonoBehaviour
 {
     public void RotateBy(float amount)

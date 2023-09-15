@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PowerGenerator : MonoBehaviourExtended, IPickUpBehaviour
+public class PowerGenerator : MonoBehaviourExtended
 {
     [SerializeField]
     private float cooldown;
@@ -46,7 +46,7 @@ public class PowerGenerator : MonoBehaviourExtended, IPickUpBehaviour
         {
             if (Enabled)
             {
-                transform.localScale = Vector3.Lerp(transform.localScale, scale * 2f, t * 2f);
+                transform.localScale = Vector3.Lerp(transform.localScale, scale * 1.2f, t / (0.05f * cooldown));
                 t += Time.deltaTime;
             }
             yield return new WaitForFixedUpdate();
@@ -62,7 +62,7 @@ public class PowerGenerator : MonoBehaviourExtended, IPickUpBehaviour
         {
             if (Enabled)
             {
-                transform.localScale = Vector3.Lerp(transform.localScale, scale, t * 2f);
+                transform.localScale = Vector3.Lerp(transform.localScale, scale, t / (0.05f * cooldown));
                 t += Time.deltaTime;
             }
             yield return new WaitForFixedUpdate();
@@ -79,21 +79,6 @@ public class PowerGenerator : MonoBehaviourExtended, IPickUpBehaviour
 
             yield return new WaitForFixedUpdate();
         }
-        StartCoroutine(PowerCoroutine(cooldown));
-    }
-
-    public bool CanBePickedUp()
-    {
-        return true;
-    }
-
-    public void OnPickUp()
-    {
-        StopAllCoroutines();
-    }
-
-    public void OnDrop()
-    {
         StartCoroutine(PowerCoroutine(cooldown));
     }
 }

@@ -15,10 +15,18 @@ public class LevelUpMenuOption : MonoBehaviour
     [SerializeField]
     private Image image;
 
+    private LevelUpBehaviour behaviour;
+
     public void SetProperties(LevelUpBehaviour levelUpBehaviour)
     {
         nameText.text = levelUpBehaviour.Name;
         descriptionText.text = levelUpBehaviour.Description;
         image.sprite = null;
+        behaviour = levelUpBehaviour;
+    }
+
+    public void Select()
+    {
+        behaviour.Apply();
     }
 }

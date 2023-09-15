@@ -13,7 +13,7 @@ public class GemCollectable : ScriptableCollectable
 
     public override void Collect(Collectable collectable)
     {
-        events.OnGemCollected(this, value);
+        events.OnExperienceGained(this, value);
         Destroy(collectable.gameObject);
     }
 }

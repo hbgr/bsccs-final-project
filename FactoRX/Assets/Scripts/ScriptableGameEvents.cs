@@ -27,13 +27,13 @@ public class ScriptableGameEvents : ScriptableObject
     public void OnIncreaseArenaRadius(object sender, float amount)
     {
         IncreaseArenaRadiusEvent?.Invoke(sender, amount);
-    }
+    }    
 
-    public event EventHandler<int> GemCollectedEvent;
+    public event EventHandler<int> ExperienceGainedEvent;
 
-    public void OnGemCollected(object sender, int value)
+    public void OnExperienceGained(object sender, int experienceGained)
     {
-        GemCollectedEvent?.Invoke(sender, value);
+        ExperienceGainedEvent?.Invoke(sender, experienceGained);
     }
 
     public event EventHandler LevelUpEvent;
@@ -63,4 +63,11 @@ public class ScriptableGameEvents : ScriptableObject
     {
         PlayAudioEvent?.Invoke(obj, audio);
     }
+
+    public event EventHandler<ShieldCollectable> ShieldCollectedEvent;
+
+    public void OnShieldCollected(object sender, ShieldCollectable shield)
+    {
+        ShieldCollectedEvent?.Invoke(sender, shield);
+    }    
 }

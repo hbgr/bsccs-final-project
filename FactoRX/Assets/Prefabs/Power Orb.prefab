@@ -139,7 +139,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   events: {fileID: 11400000, guid: 1a3c4ae5866d2e344a4f1bfaf714a6bb, type: 2}
   activeGameStates: 01000000
-  moveSpeed: 3
+  moveSpeed: 4
   lifetime: 10
 --- !u!114 &3810821202557633149
 MonoBehaviour:
@@ -153,3 +153,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6858b5b82100e2c4985db815502db947, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  destroyOnDamage: 1

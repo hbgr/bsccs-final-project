@@ -4,5 +4,15 @@ using UnityEngine;
 
 public class DamagesPlayer : MonoBehaviour
 {
+    [SerializeField]
+    private bool destroyOnDamage;
+
+    public void DidDamage()
+    {
+        if (destroyOnDamage)
+        {
+            Destroy(gameObject);
+        }
+    }
 
 }

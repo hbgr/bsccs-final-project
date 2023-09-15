@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1f3d4fd9146c7542b817855ded45be0, type: 3}
+  m_Name: LevelUpBehaviourStore
+  m_EditorClassIdentifier: 
+  levelUpBehaviours:
+  - {fileID: 11400000, guid: 590072d6dda75c143afc9797757afa9e, type: 2}
+  - {fileID: 11400000, guid: cbc54e8053014c248b7453b0f487fa17, type: 2}
+  - {fileID: 11400000, guid: 576e1ad26c0ea5840a533e591c3f60bb, type: 2}
+  - {fileID: 11400000, guid: 5c93d485f5d3a7344b3a2a6a62b340dc, type: 2}
+  - {fileID: 11400000, guid: 453291d8104a82b44861327123da8279, type: 2}
+  - {fileID: 11400000, guid: 33a935c5fecd4614484a7ca1acbfb094, type: 2}

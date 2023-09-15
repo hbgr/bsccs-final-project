@@ -8,10 +8,14 @@ public class Transformer : MonoBehaviourExtended, IPickUpBehaviour
     [SerializeField]
     private TransformerBrain brain;
 
+    private Vector3 scale;
+
+    public Vector3 Scale => scale;
+
     // Start is called before the first frame update
     void Start()
     {
-
+        scale = transform.localScale;
     }
 
     // Update is called once per frame
