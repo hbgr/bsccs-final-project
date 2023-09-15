@@ -94,10 +94,7 @@ MonoBehaviour:
   option1: {fileID: 3307988345215439482}
   option2: {fileID: 8245480307236385671}
   option3: {fileID: 8245480306638194524}
-  levelUpBehaviours:
-  - {fileID: 11400000, guid: 5c93d485f5d3a7344b3a2a6a62b340dc, type: 2}
-  - {fileID: 11400000, guid: cbc54e8053014c248b7453b0f487fa17, type: 2}
-  - {fileID: 11400000, guid: 576e1ad26c0ea5840a533e591c3f60bb, type: 2}
+  levelUpBehaviourStore: {fileID: 11400000, guid: ba7815cdc16832348a807db655fa5ee7, type: 2}
 --- !u!1 &6746295801716761668
 GameObject:
   m_ObjectHideFlags: 0

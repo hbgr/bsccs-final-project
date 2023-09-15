@@ -22,13 +22,7 @@ public class LevelUpMenu : MonoBehaviourExtended
     private LevelUpMenuOption option3;
 
     [SerializeField]
-    private List<LevelUpBehaviour> levelUpBehaviours;
-
-    private LevelUpBehaviour levelUpBehaviour1;
-
-    private LevelUpBehaviour levelUpBehaviour2;
-
-    private LevelUpBehaviour levelUpBehaviour3;
+    private LevelUpBehaviourStore levelUpBehaviourStore;
 
     // Start is called before the first frame update
     void Start()
@@ -59,13 +53,9 @@ public class LevelUpMenu : MonoBehaviourExtended
         {
             menuObject.SetActive(true);
 
-            levelUpBehaviour1 = levelUpBehaviours[0];
-            levelUpBehaviour2 = levelUpBehaviours[1];
-            levelUpBehaviour3 = levelUpBehaviours[2];
-
-            option1.SetProperties(levelUpBehaviour1);
-            option2.SetProperties(levelUpBehaviour2);
-            option3.SetProperties(levelUpBehaviour3);
+            option1.SetProperties(levelUpBehaviourStore.LevelUpBehaviours[UnityEngine.Random.Range(0, levelUpBehaviourStore.LevelUpBehaviours.Count)]);
+            option2.SetProperties(levelUpBehaviourStore.LevelUpBehaviours[UnityEngine.Random.Range(0, levelUpBehaviourStore.LevelUpBehaviours.Count)]);
+            option3.SetProperties(levelUpBehaviourStore.LevelUpBehaviours[UnityEngine.Random.Range(0, levelUpBehaviourStore.LevelUpBehaviours.Count)]);
         }
         else
         {
@@ -73,9 +63,9 @@ public class LevelUpMenu : MonoBehaviourExtended
         }
     }
 
-    private void SelectLevelUpOption(LevelUpBehaviour levelUpBehaviour)
+    private void SelectLevelUpOption(LevelUpMenuOption option)
     {
-        levelUpBehaviour.Apply();
+        option.Select();
         events.OnLevelUpCompleted(this, EventArgs.Empty);
     }
 
@@ -85,7 +75,7 @@ public class LevelUpMenu : MonoBehaviourExtended
 
         if (context.performed)
         {
-            SelectLevelUpOption(levelUpBehaviour1);
+            SelectLevelUpOption(option1);
         }
     }
 
@@ -95,7 +85,7 @@ public class LevelUpMenu : MonoBehaviourExtended
 
         if (context.performed)
         {
-            SelectLevelUpOption(levelUpBehaviour2);
+            SelectLevelUpOption(option2);
         }
     }
 
@@ -105,7 +95,7 @@ public class LevelUpMenu : MonoBehaviourExtended
 
         if (context.performed)
         {
-            SelectLevelUpOption(levelUpBehaviour3);
+            SelectLevelUpOption(option3);
         }
     }
 }

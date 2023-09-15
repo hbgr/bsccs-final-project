@@ -12,20 +12,20 @@ public class LevelUpProgressBar : MonoBehaviour
     private RectTransform barTransform;
 
     [SerializeField]
-    private GemStore gemStore;
+    private ExperienceManager expManager;
 
     // Start is called before the first frame update
     void Start()
     {
-        gemStore.GemValueChangedEvent += OnGemValueChanged;
+        expManager.ExperienceChangedEvent += OnExperienceChanged;
     }
 
-    private void OnGemValueChanged(object sender, GemStore e)
+    private void OnExperienceChanged(object sender, ExperienceManager e)
     {
         var maxWidth = backgroundTransform.rect.width;
-        float barPercent = (float)e.Gems / (float)e.LevelUpThreshold;
+        float barPercent = (float)e.Experience / (float)e.LevelUpThreshold;
         barTransform.sizeDelta = new Vector2(barPercent * maxWidth, barTransform.sizeDelta.y);
-    }
+    }    
 
     // Update is called once per frame
     void Update()
@@ -35,6 +35,6 @@ public class LevelUpProgressBar : MonoBehaviour
 
     private void OnDestroy()
     {
-        gemStore.GemValueChangedEvent -= OnGemValueChanged;
+        expManager.ExperienceChangedEvent -= OnExperienceChanged;
     }
 }

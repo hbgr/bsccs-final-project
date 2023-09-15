@@ -13,7 +13,7 @@ public class SplitterMachineBrain : ScriptableMachineBrain
 
     public override IEnumerator MachineCoroutine(Machine machine, ScriptableArenaProperties arenaProps)
     {
-        Instantiate(powerOrbPrefab, machine.transform.position, Quaternion.identity).SetProperties(orbSpeed, machine.transform.rotation * Vector3.up, machine.gameObject);
+        Instantiate(powerOrbPrefab, machine.transform.position + machine.transform.rotation * Vector3.up * 0.5f, Quaternion.identity).SetProperties(orbSpeed, machine.transform.rotation * Vector3.up, machine.gameObject);
         Instantiate(powerOrbPrefab, machine.transform.position, Quaternion.identity).SetProperties(orbSpeed, machine.transform.rotation * Vector3.down, machine.gameObject);
         yield return null;
     }

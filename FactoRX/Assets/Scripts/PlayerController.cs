@@ -54,6 +54,7 @@ public class PlayerController : MonoBehaviourExtended
         inputEvents.OnAction3Event += OnAction3;
 
         events.LoseLifeEvent += OnLoseLife;
+        events.ShieldCollectedEvent += OnShieldCollected;
     }
 
     // Update is called once per frame
@@ -75,7 +76,7 @@ public class PlayerController : MonoBehaviourExtended
         if (moveInputDir != Vector2.zero)
         {
             facingDirection = moveInputDir;
-        }        
+        }
 
         if (heldObject != null)
         {
@@ -91,7 +92,8 @@ public class PlayerController : MonoBehaviourExtended
         inputEvents.OnAction2Event -= OnAction2;
         inputEvents.OnAction3Event -= OnAction3;
 
-        events.LoseLifeEvent += OnLoseLife;
+        events.LoseLifeEvent -= OnLoseLife;
+        events.ShieldCollectedEvent -= OnShieldCollected;
     }
 
     private void OnTriggerEnter2D(Collider2D collider)
@@ -103,17 +105,20 @@ public class PlayerController : MonoBehaviourExtended
             collectable.Collect();
         }
 
-        if (collider.gameObject.GetComponent<DamagesPlayer>() && Damageable)
+        if (collider.gameObject.TryGetComponent(out DamagesPlayer damager))
         {
-            Debug.Log("You lost a life");
             TakeDamage();
+            damager.DidDamage();
         }
     }
 
     private void TakeDamage()
     {
-        lives.Value--;
-        events.OnLoseLife(this, lives.Value);
+        if (Damageable)
+        {
+            lives.Value--;
+            events.OnLoseLife(this, lives.Value);
+        }
     }
 
     private void OnLoseLife(object sender, int remainingLives)
@@ -129,6 +134,11 @@ public class PlayerController : MonoBehaviourExtended
         {
             Respawn();
         }
+    }
+
+    private void OnShieldCollected(object sender, ShieldCollectable shield)
+    {
+        AddInvincibility(shield.Duration);
     }
 
     private void AddInvincibility(float duration)
@@ -177,20 +187,7 @@ public class PlayerController : MonoBehaviourExtended
 
         if (context.performed)
         {
-            if (heldObject == null)
-            {
-                var rotatables = Physics2D.OverlapCircleAll(transform.position, 1f).
-                    Where(c => c.gameObject.TryGetComponent(out Rotatable r)).
-                    OrderBy(c => Vector2.Distance(c.transform.position, transform.position)).
-                    Select(c => c.gameObject.GetComponent<Rotatable>()).
-                    ToList();
-
-                if (rotatables.Count > 0)
-                {
-                    rotatables[0].RotateBy(90);
-                }
-            }
-            else
+            if (heldObject != null)
             {
                 if (heldObject.TryGetComponent(out Rotatable rotatable))
                 {
@@ -235,20 +232,7 @@ public class PlayerController : MonoBehaviourExtended
 
         if (context.performed)
         {
-            if (heldObject == null)
-            {
-                var rotatables = Physics2D.OverlapCircleAll(transform.position, 1f).
-                    Where(c => c.gameObject.TryGetComponent(out Rotatable r)).
-                    OrderBy(c => Vector2.Distance(c.transform.position, transform.position)).
-                    Select(c => c.gameObject.GetComponent<Rotatable>()).
-                    ToList();
-
-                if (rotatables.Count > 0)
-                {
-                    rotatables[0].RotateBy(-90);
-                }
-            }
-            else
+            if (heldObject != null)
             {
                 if (heldObject.TryGetComponent(out Rotatable rotatable))
                 {

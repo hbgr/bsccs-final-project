@@ -28,6 +28,7 @@ public class AudioPlayer : ScriptableObject
     private void OnDisable()
     {
         events.PlayAudioEvent -= OnPlayAudio;
+        audioSourcePool.Clear();
     }
 
     private void OnPlayAudio(object sender, ScriptableAudio audio)
@@ -51,12 +52,12 @@ public class AudioPlayer : ScriptableObject
 
     private void PlayAudio(GameObject obj, ScriptableAudio audio)
     {
-        DetachedAudioSource audioSource;
+        DetachedAudioSource audioSource = null;
         if (audioSourcePool.Count >= maxAudioSources)
         {
             audioSource = audioSourcePool.Dequeue();
         }
-        else
+        if (audioSource == null)
         {
             audioSource = Instantiate(audioObject, Vector3.zero, Quaternion.identity);
         }
