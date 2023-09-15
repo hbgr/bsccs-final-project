@@ -28,7 +28,7 @@ public class PowerGenerator : MonoBehaviourExtended
     private IEnumerator PowerCoroutine(float cooldown)
     {
         float t = 0;
-        while (t <= 0.2f * cooldown)
+        while (t <= 0.7f * cooldown)
         {
             if (Enabled)
             {
@@ -70,7 +70,7 @@ public class PowerGenerator : MonoBehaviourExtended
         transform.localScale = scale;
 
         t = 0;
-        while (t <= 0.7f * cooldown)
+        while (t <= 0.2f * cooldown)
         {
             if (Enabled)
             {
