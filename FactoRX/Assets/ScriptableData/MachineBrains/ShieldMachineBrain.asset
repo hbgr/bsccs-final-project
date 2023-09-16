@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   activationEnergy: 3
   collectable: {fileID: 410336713818105475, guid: fa0c7f0be6984a547ba0bb7fd1ce0577, type: 3}
-  radius: 3
+  radius: 8

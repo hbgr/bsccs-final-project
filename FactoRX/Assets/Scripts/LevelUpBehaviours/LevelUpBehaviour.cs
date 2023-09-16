@@ -23,12 +23,12 @@ public abstract class LevelUpBehaviour : ScriptableObject
     }
 
     [SerializeField]
-    private Image image;
+    private Sprite sprite;
 
-    public Image Image
+    public Sprite Sprite
     {
-        get => image;
-        private set => image = value;
+        get => sprite;
+        private set => sprite = value;
     }
 
     public abstract void Apply();

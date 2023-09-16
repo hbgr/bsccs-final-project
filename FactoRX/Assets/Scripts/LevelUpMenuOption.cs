@@ -21,7 +21,7 @@ public class LevelUpMenuOption : MonoBehaviour
     {
         nameText.text = levelUpBehaviour.Name;
         descriptionText.text = levelUpBehaviour.Description;
-        image.sprite = null;
+        image.sprite = levelUpBehaviour.Sprite;
         behaviour = levelUpBehaviour;
     }
 

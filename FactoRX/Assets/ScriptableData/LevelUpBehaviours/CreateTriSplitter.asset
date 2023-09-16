@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2636100811f52074f8abff3b204c829d, type: 3}
   m_Name: CreateTriSplitter
   m_EditorClassIdentifier: 
-  behaviourName: New Tri Splitter
-  behaviourDescription: Creates a new tri splitter transformer.
-  image: {fileID: 0}
+  behaviourName: Triple Splitter
+  behaviourDescription: Creates a new triple splitter at your location.
+  sprite: {fileID: 21300000, guid: 66fe5ab264ed8944196e5546046abbb0, type: 3}
   transformer: {fileID: 2574166658854285881, guid: 34ec71b6fd9dc9d4d94ef50ebbd463f5, type: 3}
   playerTransform: {fileID: 11400000, guid: 32a30e4295a43794593ab82ad20eb363, type: 2}

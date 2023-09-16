@@ -13,6 +13,6 @@ public class CreateTransformerLevelUpBehaviour : LevelUpBehaviour
 
     public override void Apply()
     {
-        Transformer t = Instantiate(transformer, playerTransform.value.position, Quaternion.identity);
+        Transformer t = Instantiate(transformer, Vector3Int.RoundToInt(playerTransform.value.position), Quaternion.identity);
     }
 }

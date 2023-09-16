@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ec801c1f00aa4b44940016e0ea5c24d, type: 3}
   m_Name: ArenaProperties
   m_EditorClassIdentifier: 
-  startRadius: 5
-  maxRadius: 6
-  currentRadius: 2.6951852
+  startRadius: 10.5
+  maxRadius: 10.5
+  currentRadius: 10.5
   shrinkRate: 0.1
   shrinkRateIncreaseInterval: 20

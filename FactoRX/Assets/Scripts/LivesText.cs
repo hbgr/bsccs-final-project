@@ -26,6 +26,6 @@ public class LivesText : MonoBehaviour
 
     private void SetText(int lives)
     {
-        livesText.text = $"Lives: {lives}";
+        livesText.text = $"x {lives}";
     }
 }
