@@ -81,6 +81,29 @@ public class PlayerController : MonoBehaviourExtended
         {
             heldObject.transform.position = Vector3Int.RoundToInt(transform.position + transform.rotation * facingDirection);
         }
+
+        // Handle fliping sprite to match direction
+        if (moveInputDir.x > 0)
+        {
+            var renderer = GetComponent<SpriteRenderer>();
+            renderer.flipX = false;
+        }
+        else if (moveInputDir.x < 0)
+        {
+            var renderer = GetComponent<SpriteRenderer>();
+            renderer.flipX = true;
+        }
+
+        // Handle rotation when moving
+        if (moveInputDir != Vector2.zero)
+        {
+            float rotationAmount = Mathf.PingPong(Time.time * 75f, 14f) - 7f;
+            transform.rotation = Quaternion.Euler(new Vector3(0, 0, rotationAmount));
+        }
+        else
+        {
+            transform.rotation = Quaternion.identity;
+        }
     }
 
     protected override void OnDestroy()
@@ -108,6 +131,17 @@ public class PlayerController : MonoBehaviourExtended
         {
             TakeDamage();
             damager.DidDamage();
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (!Enabled) return;
+
+        if (other.gameObject.GetComponent<ArenaController>())
+        {
+            lives.Lives--;
+            events.OnLoseLife(this, lives.Lives);
         }
     }
 

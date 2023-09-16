@@ -8,6 +8,9 @@ public class Transformer : MonoBehaviourExtended, IPickUpBehaviour
     [SerializeField]
     private TransformerBrain brain;
 
+    [SerializeField]
+    private List<PowerDeadZone> deadZones;
+
     private Vector3 scale;
 
     public Vector3 Scale => scale;
@@ -47,10 +50,19 @@ public class Transformer : MonoBehaviourExtended, IPickUpBehaviour
     public void OnPickUp()
     {
         enabled = false;
+        foreach (var deadZone in deadZones)
+        {
+            deadZone.enabled = false;
+        }
     }
 
     public void OnDrop()
     {
+        transform.position = Vector3Int.RoundToInt(transform.position);
         enabled = true;
+        foreach (var deadZone in deadZones)
+        {
+            deadZone.enabled = true;
+        }
     }
 }

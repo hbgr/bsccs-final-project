@@ -184,8 +184,8 @@ MonoBehaviour:
   activeGameStates: 01000000
   spawnSize: 0.5
   maxSize: 2
-  cycleDuration: 3
-  growthRate: 0.2
+  cycleDuration: 1.5
+  growthRate: 0.1
   health: 5
   orbPrefab: {fileID: 9095715005418213013, guid: 15d997e0cdd13d94d906f935c12233af, type: 3}
 --- !u!114 &8194414780464766071

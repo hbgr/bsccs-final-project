@@ -13,6 +13,6 @@ public class CreateMachineLevelUpBehaviour : LevelUpBehaviour
 
     public override void Apply()
     {
-        Machine m = Instantiate(machinePrefab, playerTransform.value.position, Quaternion.identity);
+        Machine m = Instantiate(machinePrefab, Vector3Int.RoundToInt(playerTransform.value.position), Quaternion.identity);
     }
 }

@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa6946cef5ef6a449a857e5e3598e4db, type: 3}
   m_Name: CreateShieldMachine
   m_EditorClassIdentifier: 
-  behaviourName: New Shield Machine
-  behaviourDescription: Creates a new shield machine
-  image: {fileID: 0}
+  behaviourName: Shield Machine
+  behaviourDescription: Creates a new shield machine at your location.
+  sprite: {fileID: 21300000, guid: 415a334f07fedb841afa904fc1e3846d, type: 3}
   machinePrefab: {fileID: 4895500026982794283, guid: ac09f4970cabe4b47bb6a7703904c283, type: 3}
   playerTransform: {fileID: 11400000, guid: 32a30e4295a43794593ab82ad20eb363, type: 2}
