@@ -8,8 +8,8 @@ public class PowerSplitterMachine : MonoBehaviour, IMachine
 
     public void Activate()
     {
-        Instantiate(powerOrbPrefab, transform.position, Quaternion.identity).SetProperties(orbSpeed, Vector2.left, gameObject);
-        Instantiate(powerOrbPrefab, transform.position, Quaternion.identity).SetProperties(orbSpeed, Vector2.right, gameObject);
+        // Instantiate(powerOrbPrefab, transform.position, Quaternion.identity).SetProperties(orbSpeed, Vector2.left, gameObject);
+        // Instantiate(powerOrbPrefab, transform.position, Quaternion.identity).SetProperties(orbSpeed, Vector2.right, gameObject);
     }
 
     public void SetArenaController(ArenaController arenaController)

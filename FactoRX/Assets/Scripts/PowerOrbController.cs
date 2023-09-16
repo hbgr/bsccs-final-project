@@ -4,12 +4,8 @@ using UnityEngine;
 
 public class PowerOrbController : MonoBehaviourExtended
 {
-    // private HashSet<IMachine> targetMachines;
-
     [SerializeField]
     private float moveSpeed = 2f;
-
-    // private IMachine target;
 
     private Vector2 moveDirection;
 
@@ -39,47 +35,6 @@ public class PowerOrbController : MonoBehaviourExtended
         {
             Destroy(gameObject);
         }
-    }
-
-    // public void SetProperties(float speed, List<IMachine> machines)
-    // {
-    //     targetMachines = new HashSet<IMachine>(machines);
-
-    //     if (machines.Count <= 0)
-    //     {
-    //         Destroy(gameObject);
-    //         return;
-    //     }
-
-    //     moveSpeed = speed;
-
-    //     target = null;
-    //     foreach (var machine in targetMachines)
-    //     {
-    //         if (target == null)
-    //         {
-    //             target = machine;
-    //             continue;
-    //         }
-
-    //         if (Vector3.Distance(transform.position, machine.Transform.position) < Vector3.Distance(transform.position, target.Transform.position))
-    //         {
-    //             target = machine;
-    //         }
-    //     }
-
-    //     moveDirection = (target.Transform.position - transform.position).normalized;
-    // }
-
-    public void SetProperties(float speed, Vector2 direction, GameObject creator)
-    {
-        // moveSpeed = speed;
-        // moveDirection = direction;
-        // if (hitList == null)
-        // {
-        //     hitList = new HashSet<GameObject>();
-        // }
-        // hitList.Add(creator);
     }
 
     public void SetProperties(Vector2 direction)

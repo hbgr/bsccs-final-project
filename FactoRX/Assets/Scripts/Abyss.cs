@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
+[RequireComponent(typeof(Collider2D))]
+[RequireComponent(typeof(SpriteRenderer))]
 public class Abyss : MonoBehaviourExtended
 {
     [SerializeField]
@@ -11,13 +12,10 @@ public class Abyss : MonoBehaviourExtended
     [SerializeField]
     private float maxSize;
 
-    private float currentSize;
+    [SerializeField]
+    private float minSize;
 
-    private float CurrentSize
-    {
-        get => currentSize;
-        set => currentSize = value;
-    }
+    private float currentSize;
 
     [SerializeField]
     private float cycleDuration;
@@ -26,7 +24,7 @@ public class Abyss : MonoBehaviourExtended
     private float growthRate;
 
     [SerializeField]
-    private int health;
+    private float shrinkAmount;
 
     [SerializeField]
     private AbyssalOrb orbPrefab;
@@ -34,20 +32,15 @@ public class Abyss : MonoBehaviourExtended
     // Start is called before the first frame update
     void Start()
     {
-        CurrentSize = spawnSize;
-        transform.localScale = Vector3.one * CurrentSize;
-        StartCoroutine(AbyssCoroutine(CurrentSize + growthRate));
+        currentSize = spawnSize;
+        transform.localScale = Vector3.one * currentSize;
+        StartCoroutine(SpawnCoroutine());
     }
 
     // Update is called once per frame
     void Update()
     {
         if (!Enabled) return;
-
-        if (health <= 0)
-        {
-            Destroy(gameObject);
-        }
     }
 
     private void OnTriggerEnter2D(Collider2D collider)
@@ -57,82 +50,80 @@ public class Abyss : MonoBehaviourExtended
         if (collider.TryGetComponent(out PowerOrbController powerOrb) && powerOrb.CanCollideWith(gameObject))
         {
             Destroy(collider.gameObject);
-            Shrink(0.05f);
+            Shrink(shrinkAmount);
         }
     }
 
     private void Shrink(float amount)
     {
-        CurrentSize -= amount;
+        currentSize = Mathf.Max(minSize, currentSize - amount);
+    }
+
+    private IEnumerator SpawnCoroutine()
+    {
+        float t = 0;
+        while (t <= 1f)
+        {
+            if (Enabled)
+            {
+                t += Time.fixedDeltaTime;
+            }
+
+            yield return new WaitForFixedUpdate();
+        }
+
+        StartCoroutine(AbyssCoroutine(currentSize + growthRate));
+        yield return null;
     }
 
     private IEnumerator AbyssCoroutine(float targetSize)
     {
-        var scale = Vector3.one * Mathf.Min(targetSize, maxSize);
-        var startScale = transform.localScale;
-
         var target = Mathf.Min(targetSize, maxSize);
 
         float t = 0;
-        float rate = Mathf.Abs(CurrentSize - target * 0.9f) * Time.fixedDeltaTime / (cycleDuration * 0.25f);
+        float rate = Mathf.Abs(currentSize - target * 0.9f) * Time.fixedDeltaTime / (cycleDuration * 0.25f);
         while (t <= cycleDuration * 0.25f)
         {
             if (Enabled)
             {
                 t += Time.fixedDeltaTime;
                 // transform.localScale = Vector3.Lerp(startScale, scale * 0.9f, t / (cycleDuration * 0.25f));
-                CurrentSize -= rate;
-                transform.localScale = Vector3.one * CurrentSize;
+                currentSize -= rate;
+                transform.localScale = Vector3.one * currentSize;
             }
 
             yield return new WaitForFixedUpdate();
         }
 
         t = 0;
-        rate = Mathf.Abs(CurrentSize - target * 1.1f) * Time.fixedDeltaTime / (cycleDuration * 0.5f);
+        rate = Mathf.Abs(currentSize - target * 1.1f) * Time.fixedDeltaTime / (cycleDuration * 0.5f);
         while (t <= cycleDuration * 0.5f)
         {
             if (Enabled)
             {
                 t += Time.fixedDeltaTime;
-                // transform.localScale = Vector3.Lerp(scale * 0.9f, scale * 1.1f, t / (cycleDuration * 0.5f));
-                CurrentSize += rate;
-                transform.localScale = Vector3.one * CurrentSize;
+                currentSize += rate;
+                transform.localScale = Vector3.one * currentSize;
             }
 
             yield return new WaitForFixedUpdate();
         }
 
-        // if (targetSize >= maxSize)
-        // {
-        //     // Shoot abyssal orbs
-        //     var directions = new List<Vector2> { new(-1, -1), new(-1, 1), new(1, -1), new(1, 1) };
-        //     foreach (var dir in directions)
-        //     {
-        //         var orb = Instantiate(orbPrefab, transform.position, Quaternion.identity);
-        //         orb.SetDirection(dir);
-        //     }
-        //     // events.OnPlayAudio(gameObject, orbAudio);
-        // }
-
         t = 0;
-        rate = Mathf.Abs(CurrentSize - target) * Time.fixedDeltaTime / (cycleDuration * 0.25f);
+        rate = Mathf.Abs(currentSize - target) * Time.fixedDeltaTime / (cycleDuration * 0.25f);
         while (t <= cycleDuration * 0.25f)
         {
             if (Enabled)
             {
                 t += Time.fixedDeltaTime;
-                // transform.localScale = Vector3.Lerp(scale * 1.1f, scale, t / (cycleDuration * 0.25f));
-                CurrentSize -= rate;
-                transform.localScale = Vector3.one * CurrentSize;
+                currentSize -= rate;
+                transform.localScale = Vector3.one * currentSize;
             }
 
             yield return new WaitForFixedUpdate();
         }
 
-        health++;
-
-        StartCoroutine(AbyssCoroutine(CurrentSize + growthRate));
+        StartCoroutine(AbyssCoroutine(currentSize + growthRate));
         yield return null;
     }
 }

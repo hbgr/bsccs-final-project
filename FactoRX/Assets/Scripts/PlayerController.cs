@@ -28,6 +28,15 @@ public class PlayerController : MonoBehaviourExtended
     [SerializeField]
     private float moveSpeed;
 
+    [SerializeField]
+    private PickUpIndicator pickUpIndicator;
+
+    [SerializeField]
+    private float pickUpRange;
+
+    [SerializeField]
+    private GameObject shielded;
+
     private PickUp heldObject;
 
     private bool Damageable => invincibilityDuration <= 0f;
@@ -64,6 +73,17 @@ public class PlayerController : MonoBehaviourExtended
         if (invincibilityDuration > 0f)
         {
             invincibilityDuration -= Time.deltaTime;
+            if (!shielded.activeSelf)
+            {
+                shielded.SetActive(true);
+            }
+        }
+        else
+        {
+            if (shielded.activeSelf)
+            {
+                shielded.SetActive(false);
+            }
         }
     }
 
@@ -103,6 +123,31 @@ public class PlayerController : MonoBehaviourExtended
         else
         {
             transform.rotation = Quaternion.identity;
+        }
+
+        if (heldObject == null)
+        {
+            var pickups = Physics2D.OverlapCircleAll(transform.position, pickUpRange).
+                    Where(c => c.gameObject.TryGetComponent(out PickUp p) && p.CanBePickedUp()).
+                    OrderBy(c => Vector2.Distance(c.transform.position, transform.position)).
+                    Select(c => c.gameObject.GetComponent<PickUp>()).
+                    ToList();
+
+            if (pickups.Count > 0)
+            {
+                pickUpIndicator.gameObject.SetActive(true);
+                pickUpIndicator.enabled = true;
+                pickUpIndicator.SetPosition(pickups[0]);
+            }
+            else
+            {
+                pickUpIndicator.enabled = false;
+                pickUpIndicator.gameObject.SetActive(false);
+            }
+        }
+        else
+        {
+            pickUpIndicator.gameObject.SetActive(false);
         }
     }
 
@@ -239,7 +284,7 @@ public class PlayerController : MonoBehaviourExtended
         {
             if (heldObject == null)
             {
-                var pickups = Physics2D.OverlapCircleAll(transform.position, 1f).
+                var pickups = Physics2D.OverlapCircleAll(transform.position, pickUpRange).
                     Where(c => c.gameObject.TryGetComponent(out PickUp p) && p.CanBePickedUp()).
                     OrderBy(c => Vector2.Distance(c.transform.position, transform.position)).
                     Select(c => c.gameObject.GetComponent<PickUp>()).
