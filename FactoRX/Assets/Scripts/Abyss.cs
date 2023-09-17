@@ -27,7 +27,7 @@ public class Abyss : MonoBehaviourExtended
     private float shrinkAmount;
 
     [SerializeField]
-    private AbyssalOrb orbPrefab;
+    private ScriptableAudio pulseAudio;
 
     // Start is called before the first frame update
     void Start()
@@ -43,7 +43,7 @@ public class Abyss : MonoBehaviourExtended
         if (!Enabled) return;
     }
 
-    private void OnTriggerEnter2D(Collider2D collider)
+    private void OnTriggerStay2D(Collider2D collider)
     {
         if (!Enabled) return;
 
@@ -56,13 +56,18 @@ public class Abyss : MonoBehaviourExtended
 
     private void Shrink(float amount)
     {
-        currentSize = Mathf.Max(minSize, currentSize - amount);
+        currentSize -= amount;
+        if (currentSize < minSize)
+        {
+            events.OnScorePoints(this, 1000);
+            Destroy(gameObject);
+        }
     }
 
     private IEnumerator SpawnCoroutine()
     {
         float t = 0;
-        while (t <= 1f)
+        while (t <= 0.5f)
         {
             if (Enabled)
             {
@@ -71,6 +76,8 @@ public class Abyss : MonoBehaviourExtended
 
             yield return new WaitForFixedUpdate();
         }
+
+        gameObject.AddComponent<DamagesPlayer>();
 
         StartCoroutine(AbyssCoroutine(currentSize + growthRate));
         yield return null;
@@ -95,6 +102,7 @@ public class Abyss : MonoBehaviourExtended
             yield return new WaitForFixedUpdate();
         }
 
+        pulseAudio.Play(gameObject);
         t = 0;
         rate = Mathf.Abs(currentSize - target * 1.1f) * Time.fixedDeltaTime / (cycleDuration * 0.5f);
         while (t <= cycleDuration * 0.5f)

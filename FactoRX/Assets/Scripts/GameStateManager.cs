@@ -10,6 +10,9 @@ public class GameStateManager : MonoBehaviour
     [SerializeField]
     private ScriptableGameEvents events;
 
+    [SerializeField]
+    private GameState initialState;
+
     private static GameStateManager instance;
 
     public static GameStateManager Instance
@@ -34,7 +37,7 @@ public class GameStateManager : MonoBehaviour
         events.LevelUpEvent += OnLevelUp;
         events.LevelUpCompletedEvent += OnLevelUpCompleted;
         events.LoseLifeEvent += OnLoseLife;
-        SetGameState(GameState.Game);
+        SetGameState(initialState);
     }
 
     private void OnDestroy()

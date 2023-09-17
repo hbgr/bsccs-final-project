@@ -10,10 +10,7 @@ public class Machine : MonoBehaviourExtended, IPickUpBehaviour
     [SerializeField]
     private MachineBrain brain;
 
-    public bool isActive = false;
-
-    [SerializeField]
-    private ScriptableArenaProperties arenaProps;
+    public bool isActive = false;   
 
     [SerializeField]
     private int energy;
@@ -38,13 +35,8 @@ public class Machine : MonoBehaviourExtended, IPickUpBehaviour
 
     private void Activate()
     {
-        StartCoroutine(brain.MachineCoroutine(this, arenaProps));
-    }
-
-    public void SetArenaProps(ScriptableArenaProperties arenaProps)
-    {
-        this.arenaProps = arenaProps;
-    }
+        StartCoroutine(brain.MachineCoroutine(this));
+    }    
 
     private void OnTriggerEnter2D(Collider2D collider)
     {

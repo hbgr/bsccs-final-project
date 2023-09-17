@@ -4,5 +4,8 @@ using UnityEngine;
 
 public abstract class ScriptableCollectable : ScriptableObject
 {
+    [SerializeField]
+    protected ScriptableAudio collectAudio;
+
     public abstract void Collect(Collectable collectable);
 }

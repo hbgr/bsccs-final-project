@@ -19,6 +19,11 @@ public class LivesText : MonoBehaviour
         SetText(lives.Lives);
     }
 
+    private void OnDestroy()
+    {
+        lives.LivesChangedEvent -= OnLivesChanged;
+    }
+
     private void OnLivesChanged(object sender, int lives)
     {
         SetText(lives);

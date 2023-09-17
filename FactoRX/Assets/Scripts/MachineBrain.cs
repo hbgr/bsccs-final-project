@@ -7,7 +7,10 @@ public abstract class MachineBrain : ScriptableObject
     [SerializeField]
     protected int activationEnergy;
 
+    [SerializeField]
+    protected ScriptableAudio activationAudio;
+
     public int ActivationEnergy => activationEnergy;
 
-    public abstract IEnumerator MachineCoroutine(Machine machine, ScriptableArenaProperties arenaProps);
+    public abstract IEnumerator MachineCoroutine(Machine machine);
 }

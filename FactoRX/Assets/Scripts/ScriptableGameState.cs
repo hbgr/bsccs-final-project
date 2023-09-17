@@ -12,7 +12,7 @@ public enum GameState
     GameOver
 }
 
-[CreateAssetMenu(menuName = "GameState")]
+[CreateAssetMenu(menuName = "Systems/GameState")]
 public class ScriptableGameState : ScriptableObject
 {
     [SerializeField]
