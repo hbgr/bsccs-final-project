@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -53,9 +54,24 @@ public class LevelUpMenu : MonoBehaviourExtended
         {
             menuObject.SetActive(true);
 
-            option1.SetProperties(levelUpBehaviourStore.LevelUpBehaviours[UnityEngine.Random.Range(0, levelUpBehaviourStore.LevelUpBehaviours.Count)]);
-            option2.SetProperties(levelUpBehaviourStore.LevelUpBehaviours[UnityEngine.Random.Range(0, levelUpBehaviourStore.LevelUpBehaviours.Count)]);
-            option3.SetProperties(levelUpBehaviourStore.LevelUpBehaviours[UnityEngine.Random.Range(0, levelUpBehaviourStore.LevelUpBehaviours.Count)]);
+            // Select from level up behaviourd without repetition
+            var index_list = Enumerable.Range(0, levelUpBehaviourStore.LevelUpBehaviours.Count).ToList();
+            var selected_indexes = new List<int>();
+
+            for (int i = 0; i < 3; i++)
+            {
+                int index = UnityEngine.Random.Range(0, index_list.Count);
+                selected_indexes.Add(index_list[index]);
+                index_list.RemoveAt(index);
+            }
+
+            option1.SetProperties(levelUpBehaviourStore.LevelUpBehaviours[selected_indexes[0]]);
+            option2.SetProperties(levelUpBehaviourStore.LevelUpBehaviours[selected_indexes[1]]);
+            option3.SetProperties(levelUpBehaviourStore.LevelUpBehaviours[selected_indexes[2]]);
+
+            // option1.SetProperties(levelUpBehaviourStore.LevelUpBehaviours[UnityEngine.Random.Range(0, levelUpBehaviourStore.LevelUpBehaviours.Count)]);
+            // option2.SetProperties(levelUpBehaviourStore.LevelUpBehaviours[UnityEngine.Random.Range(0, levelUpBehaviourStore.LevelUpBehaviours.Count)]);
+            // option3.SetProperties(levelUpBehaviourStore.LevelUpBehaviours[UnityEngine.Random.Range(0, levelUpBehaviourStore.LevelUpBehaviours.Count)]);
         }
         else
         {

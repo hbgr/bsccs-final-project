@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   collectAudio: {fileID: 11400000, guid: 400140abbafdf824fabe96ec9360e830, type: 2}
   events: {fileID: 11400000, guid: 1a3c4ae5866d2e344a4f1bfaf714a6bb, type: 2}
-  duration: 2
+  duration: 5
