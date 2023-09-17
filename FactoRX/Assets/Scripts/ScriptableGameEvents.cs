@@ -8,11 +8,6 @@ using UnityEngine.Events;
 [CreateAssetMenu(menuName = "Events/GameEvents")]
 public class ScriptableGameEvents : ScriptableObject
 {
-    private void Awake()
-    {
-
-    }
-
     public event EventHandler<GameState> GameStateChangedEvent;
 
     public void OnGameStateChanged(object sender, GameState state)
@@ -62,17 +57,25 @@ public class ScriptableGameEvents : ScriptableObject
         LoseLifeEvent?.Invoke(sender, remainingLives);
     }
 
-    public event EventHandler<ScriptableAudio> PlayAudioEvent;
+    // public event EventHandler<ScriptableAudio> PlayAudioEvent;
 
-    public void OnPlayAudio(GameObject obj, ScriptableAudio audio)
-    {
-        PlayAudioEvent?.Invoke(obj, audio);
-    }
+    // public void OnPlayAudio(GameObject obj, ScriptableAudio audio)
+    // {
+    //     Debug.Log("On Play Audio Event Fired");
+    //     PlayAudioEvent?.Invoke(obj, audio);
+    // }
 
     public event EventHandler<ShieldCollectable> ShieldCollectedEvent;
 
     public void OnShieldCollected(object sender, ShieldCollectable shield)
     {
         ShieldCollectedEvent?.Invoke(sender, shield);
+    }
+
+    public event EventHandler<int> ScorePointsEvent;
+
+    public void OnScorePoints(object sender, int points)
+    {
+        ScorePointsEvent?.Invoke(sender, points);
     }
 }

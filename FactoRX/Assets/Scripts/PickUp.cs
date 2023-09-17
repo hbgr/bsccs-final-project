@@ -7,6 +7,9 @@ using UnityEngine;
 [RequireComponent(typeof(SpriteRenderer))]
 public class PickUp : MonoBehaviour
 {
+    [SerializeField]
+    private ScriptableAudio pickUpAudio;
+
     public bool CanBePickedUp()
     {
         var pickUpBehavious = GetComponents<IPickUpBehaviour>();
@@ -30,6 +33,7 @@ public class PickUp : MonoBehaviour
 
         var renderer = GetComponent<SpriteRenderer>();
         renderer.color = new Color(renderer.color.r, renderer.color.g, renderer.color.b, 0.33f);
+        pickUpAudio.Play(gameObject);
     }
 
     public void OnDrop()
@@ -42,5 +46,6 @@ public class PickUp : MonoBehaviour
 
         var renderer = GetComponent<SpriteRenderer>();
         renderer.color = new Color(renderer.color.r, renderer.color.g, renderer.color.b, 1f);
+        pickUpAudio.Play(gameObject);
     }
 }

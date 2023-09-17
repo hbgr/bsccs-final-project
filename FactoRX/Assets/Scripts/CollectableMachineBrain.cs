@@ -11,7 +11,7 @@ public class CollectableMachineBrain : MachineBrain
     [SerializeField]
     private float radius;
 
-    public override IEnumerator MachineCoroutine(Machine machine, ScriptableArenaProperties arenaProps)
+    public override IEnumerator MachineCoroutine(Machine machine)
     {
         machine.isActive = true;
 
@@ -31,8 +31,12 @@ public class CollectableMachineBrain : MachineBrain
             yield return new WaitForFixedUpdate();
         }
 
-        Vector2 spawnPos = machine.transform.position + (Vector3)(radius * Random.Range(0.5f, 1.0f) * Random.insideUnitCircle.normalized);
-        Collectable col = Instantiate(collectable, spawnPos, Quaternion.identity);
+        if (collectable != null)
+        {
+            Vector2 spawnPos = machine.transform.position + (Vector3)(radius * Random.Range(0.5f, 1.0f) * Random.insideUnitCircle.normalized);
+            Collectable col = Instantiate(collectable, spawnPos, Quaternion.identity);
+        }
+        activationAudio.Play(machine.gameObject);
 
         t = 0;
         while (t <= 0.1f)

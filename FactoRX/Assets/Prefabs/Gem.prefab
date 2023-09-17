@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 7830232477198661075}
   - component: {fileID: 7830232477198661074}
   - component: {fileID: 7830232477198661072}
-  - component: {fileID: 7830232477198661073}
   - component: {fileID: 2768487579061046339}
   m_Layer: 0
   m_Name: Gem
@@ -103,18 +102,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.15
---- !u!114 &7830232477198661073
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7830232477198661069}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b1775dcda752e534e99d28383790ef36, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &2768487579061046339
 MonoBehaviour:
   m_ObjectHideFlags: 0

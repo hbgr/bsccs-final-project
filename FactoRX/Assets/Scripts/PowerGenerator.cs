@@ -55,7 +55,7 @@ public class PowerGenerator : MonoBehaviourExtended
         // Shoot power orb
         var powerOrb = Instantiate(powerOrbPrefab, transform.position + transform.rotation * (Vector2.right / 2f), Quaternion.identity);
         powerOrb.SetProperties(transform.rotation * Vector2.right, gameObject);
-        events.OnPlayAudio(gameObject, orbAudio);
+        orbAudio.Play(gameObject);
 
         t = 0;
         while (t <= 0.05 * cooldown)

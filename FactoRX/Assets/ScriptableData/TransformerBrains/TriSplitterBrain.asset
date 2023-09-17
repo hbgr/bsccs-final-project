@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 121100e39d56a2e4e8c23048e7280ac7, type: 3}
   m_Name: TriSplitterBrain
   m_EditorClassIdentifier: 
+  orbAudio: {fileID: 11400000, guid: 0e1f397c7d8209247b21762cd6a298ea, type: 2}
   splitDirections:
   - {x: 0, y: 1, z: 0}
   - {x: 1, y: 0, z: 0}

@@ -76,7 +76,6 @@ GameObject:
   - component: {fileID: 8194414780464766072}
   - component: {fileID: 8194414780464766069}
   - component: {fileID: 8194414780464766070}
-  - component: {fileID: 8194414780464766071}
   m_Layer: 0
   m_Name: Abyss
   m_TagString: Untagged
@@ -184,21 +183,8 @@ MonoBehaviour:
   activeGameStates: 01000000
   spawnSize: 0.75
   maxSize: 3
-  minSize: 0.5
+  minSize: 0.33
   cycleDuration: 1.5
   growthRate: 0.05
-  shrinkAmount: 0.1
-  orbPrefab: {fileID: 9095715005418213013, guid: 15d997e0cdd13d94d906f935c12233af, type: 3}
---- !u!114 &8194414780464766071
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8194414780464766074}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6858b5b82100e2c4985db815502db947, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  destroyOnDamage: 0
+  shrinkAmount: 0.2
+  pulseAudio: {fileID: 11400000, guid: 76ffaf9a44b329940ab53b4ba1b48bb4, type: 2}

@@ -6,6 +6,9 @@ using UnityEngine;
 public class ScriptableAudio : ScriptableObject
 {
     [SerializeField]
+    private AudioPlayer audioPlayer;
+
+    [SerializeField]
     private AudioClip audioClip;
 
     public AudioClip AudioClip => audioClip;
@@ -31,4 +34,9 @@ public class ScriptableAudio : ScriptableObject
     private bool isBackgroundMusic;
 
     public bool IsBackgroundMusic => isBackgroundMusic;
+
+    public void Play(GameObject source)
+    {
+        audioPlayer.Play(source, this);
+    }
 }

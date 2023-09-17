@@ -14,6 +14,8 @@ public class GemCollectable : ScriptableCollectable
     public override void Collect(Collectable collectable)
     {
         events.OnExperienceGained(this, value);
+        events.OnScorePoints(this, value * 10);
+        collectAudio.Play(collectable.gameObject);
         Destroy(collectable.gameObject);
     }
 }

@@ -10,9 +10,6 @@ public class LevelUpMenuOption : MonoBehaviour
     private TextMeshProUGUI nameText;
 
     [SerializeField]
-    private TextMeshProUGUI descriptionText;
-
-    [SerializeField]
     private Image image;
 
     private LevelUpBehaviour behaviour;
@@ -20,7 +17,6 @@ public class LevelUpMenuOption : MonoBehaviour
     public void SetProperties(LevelUpBehaviour levelUpBehaviour)
     {
         nameText.text = levelUpBehaviour.Name;
-        descriptionText.text = levelUpBehaviour.Description;
         image.sprite = levelUpBehaviour.Sprite;
         behaviour = levelUpBehaviour;
     }

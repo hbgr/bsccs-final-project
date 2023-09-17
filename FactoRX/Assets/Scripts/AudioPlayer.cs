@@ -7,48 +7,39 @@ using UnityEngine;
 public class AudioPlayer : ScriptableObject
 {
     [SerializeField]
-    private ScriptableGameEvents events;
-
-    [SerializeField]
     private DetachedAudioSource audioObject;
 
     [SerializeField]
     private int maxAudioSources;
 
-    private Queue<DetachedAudioSource> audioSourcePool;
+    private Queue<DetachedAudioSource> audioSourcePool = new Queue<DetachedAudioSource>();
 
-    private DetachedAudioSource backgroundMusicSource;
+    private DetachedAudioSource backgroundMusicSource;    
 
     private void OnEnable()
     {
-        events.PlayAudioEvent += OnPlayAudio;
-        audioSourcePool = new Queue<DetachedAudioSource>();
+        if (audioSourcePool == null)
+        {
+            audioSourcePool = new Queue<DetachedAudioSource>();
+        }
     }
 
     private void OnDisable()
     {
-        events.PlayAudioEvent -= OnPlayAudio;
         audioSourcePool.Clear();
     }
 
-    private void OnPlayAudio(object sender, ScriptableAudio audio)
+    public void Play(GameObject source, ScriptableAudio audio)
     {
-        if (sender is not GameObject)
-        {
-            return;
-        }
-
-        GameObject obj = sender as GameObject;
-
         if (audio.IsBackgroundMusic)
         {
-            PlayMusic(obj, audio);
+            PlayMusic(source, audio);
         }
         else
         {
-            PlayAudio(obj, audio);
+            PlayAudio(source, audio);
         }
-    }
+    }    
 
     private void PlayAudio(GameObject obj, ScriptableAudio audio)
     {

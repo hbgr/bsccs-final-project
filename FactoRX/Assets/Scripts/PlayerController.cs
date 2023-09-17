@@ -32,10 +32,16 @@ public class PlayerController : MonoBehaviourExtended
     private PickUpIndicator pickUpIndicator;
 
     [SerializeField]
+    private RotationIndicator rotationIndicator;
+
+    [SerializeField]
     private float pickUpRange;
 
     [SerializeField]
     private GameObject shielded;
+
+    [SerializeField]
+    private ScriptableAudio hurtAudio;
 
     private PickUp heldObject;
 
@@ -95,28 +101,7 @@ public class PlayerController : MonoBehaviourExtended
         if (moveInputDir != Vector2.zero)
         {
             facingDirection = moveInputDir;
-        }
 
-        if (heldObject != null)
-        {
-            heldObject.transform.position = Vector3Int.RoundToInt(transform.position + transform.rotation * facingDirection);
-        }
-
-        // Handle fliping sprite to match direction
-        if (moveInputDir.x > 0)
-        {
-            var renderer = GetComponent<SpriteRenderer>();
-            renderer.flipX = false;
-        }
-        else if (moveInputDir.x < 0)
-        {
-            var renderer = GetComponent<SpriteRenderer>();
-            renderer.flipX = true;
-        }
-
-        // Handle rotation when moving
-        if (moveInputDir != Vector2.zero)
-        {
             float rotationAmount = Mathf.PingPong(Time.time * 75f, 14f) - 7f;
             transform.rotation = Quaternion.Euler(new Vector3(0, 0, rotationAmount));
         }
@@ -125,13 +110,30 @@ public class PlayerController : MonoBehaviourExtended
             transform.rotation = Quaternion.identity;
         }
 
-        if (heldObject == null)
+        if (heldObject != null)
+        {
+            heldObject.transform.position = Vector3Int.RoundToInt(transform.position + transform.rotation * facingDirection);
+            pickUpIndicator.gameObject.SetActive(false);
+
+            if (heldObject.TryGetComponent(out Rotatable rotatable))
+            {
+                rotationIndicator.SetPosition(rotatable);
+                rotationIndicator.gameObject.SetActive(true);
+                rotationIndicator.enabled = true;
+            }
+            else
+            {
+                rotationIndicator.enabled = false;
+                rotationIndicator.gameObject.SetActive(false);
+            }
+        }
+        else
         {
             var pickups = Physics2D.OverlapCircleAll(transform.position, pickUpRange).
-                    Where(c => c.gameObject.TryGetComponent(out PickUp p) && p.CanBePickedUp()).
-                    OrderBy(c => Vector2.Distance(c.transform.position, transform.position)).
-                    Select(c => c.gameObject.GetComponent<PickUp>()).
-                    ToList();
+                                Where(c => c.gameObject.TryGetComponent(out PickUp p) && p.CanBePickedUp()).
+                                OrderBy(c => Vector2.Distance(c.transform.position, transform.position)).
+                                Select(c => c.gameObject.GetComponent<PickUp>()).
+                                ToList();
 
             if (pickups.Count > 0)
             {
@@ -144,10 +146,21 @@ public class PlayerController : MonoBehaviourExtended
                 pickUpIndicator.enabled = false;
                 pickUpIndicator.gameObject.SetActive(false);
             }
+
+            rotationIndicator.enabled = false;
+            rotationIndicator.gameObject.SetActive(false);
         }
-        else
+
+        // Handle fliping sprite to match direction
+        if (moveInputDir.x > 0)
         {
-            pickUpIndicator.gameObject.SetActive(false);
+            var renderer = GetComponent<SpriteRenderer>();
+            renderer.flipX = false;
+        }
+        else if (moveInputDir.x < 0)
+        {
+            var renderer = GetComponent<SpriteRenderer>();
+            renderer.flipX = true;
         }
     }
 
@@ -163,7 +176,7 @@ public class PlayerController : MonoBehaviourExtended
         events.ShieldCollectedEvent -= OnShieldCollected;
     }
 
-    private void OnTriggerEnter2D(Collider2D collider)
+    private void OnTriggerStay2D(Collider2D collider)
     {
         if (!Enabled) return;
 
@@ -187,6 +200,7 @@ public class PlayerController : MonoBehaviourExtended
         {
             lives.Lives--;
             events.OnLoseLife(this, lives.Lives);
+            hurtAudio.Play(gameObject);
         }
     }
 
@@ -196,6 +210,7 @@ public class PlayerController : MonoBehaviourExtended
         {
             lives.Lives--;
             events.OnLoseLife(this, lives.Lives);
+            hurtAudio.Play(gameObject);
         }
     }
 

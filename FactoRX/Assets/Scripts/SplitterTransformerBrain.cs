@@ -48,6 +48,7 @@ public class SplitterTransformerBrain : TransformerBrain
         {
             orb.gameObject.SetActive(true);
         }
+        orbAudio.Play(transformer.gameObject);
 
         t = 0;
         while (t <= 0.05f)

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -12,12 +13,19 @@ public class GameOverMenu : MonoBehaviourExtended
     [SerializeField]
     private GameObject menuObject;
 
+    [SerializeField]
+    private TextMeshProUGUI scoreText;
+
+    [SerializeField]
+    private TextMeshProUGUI highScoreText;
+
+    [SerializeField]
+    private ScoreManager score;
+
     // Start is called before the first frame update
     void Start()
     {
-        inputEvents.OnAction1Event += OnAction1;
         inputEvents.OnAction2Event += OnAction2;
-        inputEvents.OnAction3Event += OnAction3;
     }
 
     // Update is called once per frame
@@ -30,9 +38,7 @@ public class GameOverMenu : MonoBehaviourExtended
     {
         base.OnDestroy();
 
-        inputEvents.OnAction1Event -= OnAction1;
         inputEvents.OnAction2Event -= OnAction2;
-        inputEvents.OnAction3Event -= OnAction3;
     }
 
     protected override void OnGameStateChanged(object sender, GameState state)
@@ -40,20 +46,11 @@ public class GameOverMenu : MonoBehaviourExtended
         if (activeGameStates.Contains(state))
         {
             menuObject.SetActive(true);
+            SetText(score.Score, score.HighScore);
         }
         else
         {
             menuObject.SetActive(false);
-        }
-    }
-
-    private void OnAction1(object sender, InputAction.CallbackContext context)
-    {
-        if (!Enabled) return;
-
-        if (context.performed)
-        {
-
         }
     }
 
@@ -67,13 +64,16 @@ public class GameOverMenu : MonoBehaviourExtended
         }
     }
 
-    private void OnAction3(object sender, InputAction.CallbackContext context)
+    private void SetText(int score, int highscore)
     {
-        if (!Enabled) return;
-
-        if (context.performed)
+        scoreText.text = $"You scored {score} points!";
+        if (score > highscore)
         {
-
+            highScoreText.text = $"Wow! New HighScore!";
+        }
+        else
+        {
+            highScoreText.text = $"HighScore: {highscore}";
         }
     }
 }

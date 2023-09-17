@@ -9,7 +9,7 @@ public class Transformer : MonoBehaviourExtended, IPickUpBehaviour
     private TransformerBrain brain;
 
     [SerializeField]
-    private List<PowerDeadZone> deadZones;
+    private List<PowerDeadZone> deadZones;    
 
     private Vector3 scale;
 

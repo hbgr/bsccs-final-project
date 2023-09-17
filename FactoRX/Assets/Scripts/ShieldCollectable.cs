@@ -16,6 +16,7 @@ public class ShieldCollectable : ScriptableCollectable
     public override void Collect(Collectable collectable)
     {
         events.OnShieldCollected(this, this);
+        collectAudio.Play(collectable.gameObject);
         Destroy(collectable.gameObject);
     }
 }

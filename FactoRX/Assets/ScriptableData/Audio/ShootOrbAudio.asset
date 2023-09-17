@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f673d980ad8b8741b938280426e06bf, type: 3}
   m_Name: ShootOrbAudio
   m_EditorClassIdentifier: 
-  audioClip: {fileID: 8300000, guid: 1e7253c42512bb14ba6a073a1ea79b8f, type: 3}
-  volume: 1
+  audioPlayer: {fileID: 11400000, guid: c276a0ae85f319b40bcdb041454be67a, type: 2}
+  audioClip: {fileID: 8300000, guid: 25bf49b3e07f9304ebea8a07f06154c3, type: 3}
+  volume: 0.7
   loop: 0
-  spatialBlend: 0
+  spatialBlend: 1
   isBackgroundMusic: 0
