@@ -622,8 +622,8 @@ MonoBehaviour:
   events: {fileID: 11400000, guid: 1a3c4ae5866d2e344a4f1bfaf714a6bb, type: 2}
   activeGameStates: 01000000
   abyssPrefab: {fileID: 8194414780464766070, guid: 56b0da3b65094a5459bbca9e00b1f226, type: 3}
-  spawnDelay: 25
-  safeZoneRadius: 3
+  spawnDelay: 20
+  safeZoneRadius: 4
   arenaProps: {fileID: 11400000, guid: 2340910630860e345a45091d1036f7d1, type: 2}
 --- !u!1 &285088557
 GameObject:
@@ -3381,7 +3381,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.4
+  m_Radius: 0.35
 --- !u!212 &1635458244
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3422,7 +3422,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: a40299589bfc3e646ba22762faa94e73, type: 3}
   m_Color: {r: 1, g: 0.6556604, b: 0.91913414, a: 1}
   m_FlipX: 0

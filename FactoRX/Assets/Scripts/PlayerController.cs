@@ -236,31 +236,16 @@ public class PlayerController : MonoBehaviourExtended
 
     private void AddInvincibility(float duration)
     {
-        invincibilityDuration += duration;
+        if (invincibilityDuration <= duration * 2f)
+        {
+            invincibilityDuration += duration;
+        }
     }
 
     private void Respawn()
     {
-        AddInvincibility(1f);
+        AddInvincibility(3f);
         transform.position = spawnPosition.position;
-    }
-
-    protected override void OnGameStateChanged(object sender, GameState state)
-    {
-        // if (activeGameStates.Contains(state))
-        // {
-        //     inputEvents.OnMoveEvent += OnMove;
-        //     inputEvents.OnAction1Event += OnAction1;
-        //     inputEvents.OnAction2Event += OnAction2;
-        //     inputEvents.OnAction3Event += OnAction3;
-        // }
-        // else
-        // {
-        //     inputEvents.OnMoveEvent -= OnMove;
-        //     inputEvents.OnAction1Event -= OnAction1;
-        //     inputEvents.OnAction2Event -= OnAction2;
-        //     inputEvents.OnAction3Event -= OnAction3;
-        // }
     }
 
     private void OnMove(object sender, InputAction.CallbackContext context)

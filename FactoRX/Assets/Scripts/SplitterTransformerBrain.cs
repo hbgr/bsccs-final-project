@@ -23,7 +23,7 @@ public class SplitterTransformerBrain : TransformerBrain
 
         foreach (var direction in splitDirections)
         {
-            PowerOrbController orb = Instantiate(powerOrb, transformer.transform.position + transformer.transform.rotation * direction * 0.5f, Quaternion.identity);
+            PowerOrbController orb = Instantiate(powerOrb, transformer.transform.position + transformer.transform.rotation * direction * 0.55f, Quaternion.identity);
             orb.SetProperties(transformer.transform.rotation * direction, transformer.gameObject);
             orb.gameObject.SetActive(false);
             powerOrbs.Add(orb);
