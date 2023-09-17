@@ -63,7 +63,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   events: {fileID: 11400000, guid: 1a3c4ae5866d2e344a4f1bfaf714a6bb, type: 2}
   activeGameStates: 01000000
-  power: 0.5
+  power: 0.75
 --- !u!1 &8194414780464766074
 GameObject:
   m_ObjectHideFlags: 0
@@ -166,7 +166,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.75
+  m_Radius: 0.25
 --- !u!114 &8194414780464766070
 MonoBehaviour:
   m_ObjectHideFlags: 0
