@@ -236,14 +236,17 @@ public class PlayerController : MonoBehaviourExtended
 
     private void AddInvincibility(float duration)
     {
-        invincibilityDuration += duration;
+        if (invincibilityDuration <= duration * 2f)
+        {
+            invincibilityDuration += duration;
+        }
     }
 
     private void Respawn()
     {
         AddInvincibility(3f);
         transform.position = spawnPosition.position;
-    }    
+    }
 
     private void OnMove(object sender, InputAction.CallbackContext context)
     {

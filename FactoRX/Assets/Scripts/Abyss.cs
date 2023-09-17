@@ -29,6 +29,9 @@ public class Abyss : MonoBehaviourExtended
     [SerializeField]
     private ScriptableAudio pulseAudio;
 
+    [SerializeField]
+    private DamagesPlayer damageZone;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -66,6 +69,7 @@ public class Abyss : MonoBehaviourExtended
 
     private IEnumerator SpawnCoroutine()
     {
+        damageZone.gameObject.SetActive(false);
         float t = 0;
         while (t <= 0.5f)
         {
@@ -77,7 +81,7 @@ public class Abyss : MonoBehaviourExtended
             yield return new WaitForFixedUpdate();
         }
 
-        gameObject.AddComponent<DamagesPlayer>();
+        damageZone.gameObject.SetActive(true);
 
         StartCoroutine(AbyssCoroutine(currentSize + growthRate));
         yield return null;

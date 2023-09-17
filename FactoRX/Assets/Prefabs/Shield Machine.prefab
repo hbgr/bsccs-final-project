@@ -75,7 +75,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: 415a334f07fedb841afa904fc1e3846d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -129,7 +129,6 @@ MonoBehaviour:
   activeGameStates: 01000000
   brain: {fileID: 11400000, guid: fbd0df3eda62758408e2dcc2dd294508, type: 2}
   isActive: 0
-  arenaProps: {fileID: 0}
   energy: 0
 --- !u!114 &4895500026982794282
 MonoBehaviour:
