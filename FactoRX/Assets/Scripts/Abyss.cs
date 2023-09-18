@@ -122,6 +122,10 @@ public class Abyss : MonoBehaviourExtended
         }
 
         // Shoot projectiles?
+        if (cycleCount % 3 == 0)
+        {
+            
+        }
 
         t = 0;
         rate = Mathf.Abs(currentSize - target) * Time.fixedDeltaTime / (cycleDuration * 0.25f);

@@ -36,13 +36,14 @@ public class ScoreManager : ScriptableObject
 
     private void OnEnable()
     {
-        score = 0;
+        Score = 0;
         events.ScorePointsEvent += OnScorePoints;
         events.GameStateChangedEvent += OnGameStateChanged;
     }
 
     private void OnDisable()
     {
+        Score = 0;
         events.ScorePointsEvent -= OnScorePoints;
         events.GameStateChangedEvent -= OnGameStateChanged;
     }

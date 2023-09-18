@@ -140,7 +140,7 @@ MonoBehaviour:
   events: {fileID: 11400000, guid: 1a3c4ae5866d2e344a4f1bfaf714a6bb, type: 2}
   activeGameStates: 0100000002000000
   moveSpeed: 3
-  lifetime: 20
+  lifetime: 40
 --- !u!114 &3810821202557633149
 MonoBehaviour:
   m_ObjectHideFlags: 0

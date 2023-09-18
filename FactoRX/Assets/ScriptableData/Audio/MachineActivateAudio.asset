@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioPlayer: {fileID: 11400000, guid: c276a0ae85f319b40bcdb041454be67a, type: 2}
   audioClip: {fileID: 8300000, guid: 2417ae51731c80844963bf609c60b357, type: 3}
-  volume: 0.7
+  volume: 0.5
   loop: 0
   spatialBlend: 1
   isBackgroundMusic: 0

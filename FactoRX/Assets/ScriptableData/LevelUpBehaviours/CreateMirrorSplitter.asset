@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2636100811f52074f8abff3b204c829d, type: 3}
   m_Name: CreateMirrorSplitter
   m_EditorClassIdentifier: 
-  behaviourName: New Mirror Splitter
+  behaviourName: Mirror Splitter
   behaviourDescription: Creates a new mirror splitter at your location.
   sprite: {fileID: 21300000, guid: 85763be71dc3e93428392de04752a1e9, type: 3}
   transformer: {fileID: 6507309173711764986, guid: 7b93e7ebfe12ca94ab72db1b6e88a1e4, type: 3}
