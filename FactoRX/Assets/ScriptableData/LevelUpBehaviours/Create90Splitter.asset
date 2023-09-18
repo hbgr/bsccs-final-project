@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2636100811f52074f8abff3b204c829d, type: 3}
   m_Name: Create90Splitter
   m_EditorClassIdentifier: 
-  behaviourName: 90 Degree Splitter
+  behaviourName: 90 Splitter
   behaviourDescription: Creates a new 90 degree splitter at your location.
   sprite: {fileID: 21300000, guid: d9ab90fbd5119bc4183bedab6a536273, type: 3}
   transformer: {fileID: 9097657988841248872, guid: ecd2d34b1223df54eb6af88e6733cc34, type: 3}

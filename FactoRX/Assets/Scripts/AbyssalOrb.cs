@@ -21,7 +21,7 @@ public class AbyssalOrb : MonoBehaviourExtended
     {
         if (!Enabled) return;
 
-        transform.position += direction * speed * Time.fixedDeltaTime;
+        transform.position += speed * Time.fixedDeltaTime * direction;
     }
 
     public void SetDirection(Vector3 dir)
