@@ -20,7 +20,7 @@ public class AbyssSpawner : MonoBehaviourExtended
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(SpawnAbyssCoroutine(spawnDelay));
+        StartCoroutine(SpawnAbyssCoroutine(spawnDelay, 0));
     }
 
     // Update is called once per frame
@@ -29,7 +29,7 @@ public class AbyssSpawner : MonoBehaviourExtended
 
     }
 
-    private IEnumerator SpawnAbyssCoroutine(float cooldown)
+    private IEnumerator SpawnAbyssCoroutine(float cooldown, int cycleCount)
     {
         float t = 0;
         while (t <= 0.5f * cooldown)
@@ -42,7 +42,7 @@ public class AbyssSpawner : MonoBehaviourExtended
         }
 
         // spawn abyss
-        var spawnPos = Vector3Int.RoundToInt(Random.insideUnitCircle.normalized * Random.Range(safeZoneRadius, arenaProps.currentRadius));
+        var spawnPos = Vector3Int.RoundToInt(Random.insideUnitCircle.normalized * Random.Range(Mathf.Max(safeZoneRadius - cycleCount, 0), arenaProps.currentRadius));
         Abyss abyss = Instantiate(abyssPrefab, spawnPos, Quaternion.identity);
 
         t = 0;
@@ -55,7 +55,7 @@ public class AbyssSpawner : MonoBehaviourExtended
             yield return new WaitForFixedUpdate();
         }
 
-        StartCoroutine(SpawnAbyssCoroutine(cooldown));
+        StartCoroutine(SpawnAbyssCoroutine(cooldown, cycleCount + 1));
 
         yield return null;
     }

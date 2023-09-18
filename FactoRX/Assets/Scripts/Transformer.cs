@@ -29,10 +29,13 @@ public class Transformer : MonoBehaviourExtended, IPickUpBehaviour
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
-        if (!Enabled) return;
-
         if (collider.TryGetComponent(out PowerOrbController powerOrb) && powerOrb.CanCollideWith(gameObject))
         {
+            if (!Enabled)
+            {
+                Destroy(powerOrb.gameObject);
+                return;
+            }
             AcceptEnergy(powerOrb);
         }
     }
