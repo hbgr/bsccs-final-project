@@ -10,7 +10,7 @@ public class Machine : MonoBehaviourExtended, IPickUpBehaviour
     [SerializeField]
     private MachineBrain brain;
 
-    public bool isActive = false;   
+    public bool isActive = false;
 
     [SerializeField]
     private int energy;
@@ -36,15 +36,15 @@ public class Machine : MonoBehaviourExtended, IPickUpBehaviour
     private void Activate()
     {
         StartCoroutine(brain.MachineCoroutine(this));
-    }    
+    }
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
-        if (!Enabled) return;
-
         if (collider.TryGetComponent(out PowerOrbController powerOrb) && powerOrb.CanCollideWith(gameObject))
         {
             Destroy(collider.gameObject);
+            if (!Enabled) return;
+
             GainEnergy(1);
         }
     }

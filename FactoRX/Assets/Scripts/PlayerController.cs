@@ -236,7 +236,7 @@ public class PlayerController : MonoBehaviourExtended
 
     private void AddInvincibility(float duration)
     {
-        if (invincibilityDuration <= duration * 2f)
+        if (invincibilityDuration <= duration * 1.5f)
         {
             invincibilityDuration += duration;
         }

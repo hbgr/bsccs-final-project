@@ -83,11 +83,11 @@ public class Abyss : MonoBehaviourExtended
 
         damageZone.gameObject.SetActive(true);
 
-        StartCoroutine(AbyssCoroutine(currentSize + growthRate));
+        StartCoroutine(AbyssCoroutine(currentSize + growthRate, 0));
         yield return null;
     }
 
-    private IEnumerator AbyssCoroutine(float targetSize)
+    private IEnumerator AbyssCoroutine(float targetSize, int cycleCount)
     {
         var target = Mathf.Min(targetSize, maxSize);
 
@@ -121,6 +121,8 @@ public class Abyss : MonoBehaviourExtended
             yield return new WaitForFixedUpdate();
         }
 
+        // Shoot projectiles?
+
         t = 0;
         rate = Mathf.Abs(currentSize - target) * Time.fixedDeltaTime / (cycleDuration * 0.25f);
         while (t <= cycleDuration * 0.25f)
@@ -135,7 +137,7 @@ public class Abyss : MonoBehaviourExtended
             yield return new WaitForFixedUpdate();
         }
 
-        StartCoroutine(AbyssCoroutine(currentSize + growthRate));
+        StartCoroutine(AbyssCoroutine(currentSize + growthRate, cycleCount + 1));
         yield return null;
     }
 }
