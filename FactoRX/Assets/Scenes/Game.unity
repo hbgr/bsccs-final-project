@@ -622,8 +622,7 @@ MonoBehaviour:
   events: {fileID: 11400000, guid: 1a3c4ae5866d2e344a4f1bfaf714a6bb, type: 2}
   activeGameStates: 01000000
   abyssPrefab: {fileID: 8194414780464766070, guid: 56b0da3b65094a5459bbca9e00b1f226, type: 3}
-  spawnDelay: 15
-  safeZoneRadius: 5
+  spawnDelay: 20
   arenaProps: {fileID: 11400000, guid: 2340910630860e345a45091d1036f7d1, type: 2}
 --- !u!1 &285088557
 GameObject:

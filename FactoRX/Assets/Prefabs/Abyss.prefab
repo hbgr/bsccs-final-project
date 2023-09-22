@@ -110,7 +110,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 1.2
+  m_Radius: 1.5
 --- !u!114 &3411035403322570411
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -125,7 +125,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   events: {fileID: 11400000, guid: 1a3c4ae5866d2e344a4f1bfaf714a6bb, type: 2}
   activeGameStates: 01000000
-  power: 0.75
+  power: 1
 --- !u!1 &8194414780464766074
 GameObject:
   m_ObjectHideFlags: 0
@@ -245,10 +245,10 @@ MonoBehaviour:
   events: {fileID: 11400000, guid: 1a3c4ae5866d2e344a4f1bfaf714a6bb, type: 2}
   activeGameStates: 01000000
   spawnSize: 0.5
-  maxSize: 3
-  minSize: 0.33
-  cycleDuration: 1.5
-  growthRate: 0.05
-  shrinkAmount: 0.35
-  pulseAudio: {fileID: 11400000, guid: 76ffaf9a44b329940ab53b4ba1b48bb4, type: 2}
-  damageZone: {fileID: 6561350846774558272}
+  maxSize: 1.25
+  cycleDuration: 7.5
+  health: 10
+  orbPrefab: {fileID: 9095715005418213013, guid: 15d997e0cdd13d94d906f935c12233af, type: 3}
+  spawnAudio: {fileID: 11400000, guid: 76ffaf9a44b329940ab53b4ba1b48bb4, type: 2}
+  shootAudio: {fileID: 11400000, guid: ea8e91906bf2a21458fc3d593b95b3bf, type: 2}
+  damagedAudio: {fileID: 0}
