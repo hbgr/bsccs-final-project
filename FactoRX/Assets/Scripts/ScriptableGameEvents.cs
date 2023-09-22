@@ -22,18 +22,25 @@ public class ScriptableGameEvents : ScriptableObject
         MachineCreatedEvent?.Invoke(sender, machine);
     }
 
-    public event EventHandler<float> IncreaseArenaRadiusEvent;
+    // public event EventHandler<float> IncreaseArenaRadiusEvent;
 
-    public void OnIncreaseArenaRadius(object sender, float amount)
-    {
-        IncreaseArenaRadiusEvent?.Invoke(sender, amount);
-    }
+    // public void OnIncreaseArenaRadius(object sender, float amount)
+    // {
+    //     IncreaseArenaRadiusEvent?.Invoke(sender, amount);
+    // }
 
     public event EventHandler<int> ExperienceGainedEvent;
 
     public void OnExperienceGained(object sender, int experienceGained)
     {
         ExperienceGainedEvent?.Invoke(sender, experienceGained);
+    }
+
+    public event EventHandler<float> GainPercentLevelEvent;
+
+    public void OnGainPercentLevelEvent(object sender, float factor)
+    {
+        GainPercentLevelEvent?.Invoke(sender, factor);
     }
 
     public event EventHandler LevelUpEvent;
@@ -56,14 +63,6 @@ public class ScriptableGameEvents : ScriptableObject
     {
         LoseLifeEvent?.Invoke(sender, remainingLives);
     }
-
-    // public event EventHandler<ScriptableAudio> PlayAudioEvent;
-
-    // public void OnPlayAudio(GameObject obj, ScriptableAudio audio)
-    // {
-    //     Debug.Log("On Play Audio Event Fired");
-    //     PlayAudioEvent?.Invoke(obj, audio);
-    // }
 
     public event EventHandler<ShieldCollectable> ShieldCollectedEvent;
 

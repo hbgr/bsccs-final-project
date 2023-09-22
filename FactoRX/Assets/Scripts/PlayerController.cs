@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -41,6 +42,9 @@ public class PlayerController : MonoBehaviourExtended
     private GameObject shielded;
 
     [SerializeField]
+    private TextMeshPro shieldedText;
+
+    [SerializeField]
     private ScriptableAudio hurtAudio;
 
     private PickUp heldObject;
@@ -76,6 +80,7 @@ public class PlayerController : MonoBehaviourExtended
     {
         if (!Enabled) return;
 
+        // Handle shield visibility
         if (invincibilityDuration > 0f)
         {
             invincibilityDuration -= Time.deltaTime;
@@ -83,6 +88,7 @@ public class PlayerController : MonoBehaviourExtended
             {
                 shielded.SetActive(true);
             }
+            shieldedText.text = $"{invincibilityDuration:F1}";
         }
         else
         {
@@ -110,6 +116,7 @@ public class PlayerController : MonoBehaviourExtended
             transform.rotation = Quaternion.identity;
         }
 
+        // Handle pick up / put down indicators and held object positioning
         if (heldObject != null)
         {
             heldObject.transform.position = Vector3Int.RoundToInt(transform.position + transform.rotation * facingDirection);
@@ -151,7 +158,7 @@ public class PlayerController : MonoBehaviourExtended
             rotationIndicator.gameObject.SetActive(false);
         }
 
-        // Handle fliping sprite to match direction
+        // Handle fliping player sprite to match direction
         if (moveInputDir.x > 0)
         {
             var renderer = GetComponent<SpriteRenderer>();

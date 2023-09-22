@@ -25,6 +25,8 @@ public class LevelUpMenu : MonoBehaviourExtended
     [SerializeField]
     private LevelUpBehaviourStore levelUpBehaviourStore;
 
+    private bool acceptInput;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -69,13 +71,12 @@ public class LevelUpMenu : MonoBehaviourExtended
             option2.SetProperties(levelUpBehaviourStore.LevelUpBehaviours[selected_indexes[1]]);
             option3.SetProperties(levelUpBehaviourStore.LevelUpBehaviours[selected_indexes[2]]);
 
-            // option1.SetProperties(levelUpBehaviourStore.LevelUpBehaviours[UnityEngine.Random.Range(0, levelUpBehaviourStore.LevelUpBehaviours.Count)]);
-            // option2.SetProperties(levelUpBehaviourStore.LevelUpBehaviours[UnityEngine.Random.Range(0, levelUpBehaviourStore.LevelUpBehaviours.Count)]);
-            // option3.SetProperties(levelUpBehaviourStore.LevelUpBehaviours[UnityEngine.Random.Range(0, levelUpBehaviourStore.LevelUpBehaviours.Count)]);
+            StartCoroutine(WhenEnabledCoroutine());
         }
         else
         {
             menuObject.SetActive(false);
+            acceptInput = false;
         }
     }
 
@@ -87,7 +88,7 @@ public class LevelUpMenu : MonoBehaviourExtended
 
     private void OnAction1(object sender, InputAction.CallbackContext context)
     {
-        if (!Enabled) return;
+        if (!Enabled || !acceptInput) return;
 
         if (context.performed)
         {
@@ -97,7 +98,7 @@ public class LevelUpMenu : MonoBehaviourExtended
 
     private void OnAction2(object sender, InputAction.CallbackContext context)
     {
-        if (!Enabled) return;
+        if (!Enabled || !acceptInput) return;
 
         if (context.performed)
         {
@@ -107,11 +108,27 @@ public class LevelUpMenu : MonoBehaviourExtended
 
     private void OnAction3(object sender, InputAction.CallbackContext context)
     {
-        if (!Enabled) return;
+        if (!Enabled || !acceptInput) return;
 
         if (context.performed)
         {
             SelectLevelUpOption(option3);
         }
+    }
+
+    private IEnumerator WhenEnabledCoroutine()
+    {
+        float t = 0f;
+        while (t <= 0.25f)
+        {
+            if (Enabled)
+            {
+                t += Time.fixedDeltaTime;
+            }
+            yield return new WaitForFixedUpdate();
+        }
+
+        acceptInput = true;
+        yield return null;
     }
 }
