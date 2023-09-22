@@ -219,6 +219,10 @@ public class PlayerController : MonoBehaviourExtended
             events.OnLoseLife(this, lives.Lives);
             hurtAudio.Play(gameObject);
         }
+        else
+        {
+            invincibilityDuration -= 0.5f;
+        }
     }
 
     private void OnLoseLife(object sender, int remainingLives)
