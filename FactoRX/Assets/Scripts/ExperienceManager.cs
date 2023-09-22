@@ -47,14 +47,8 @@ public class ExperienceManager : ScriptableObject
         level = 0;
         levelUpThreshold = levelUpThresholdGrowth;
         events.ExperienceGainedEvent += OnExperienceGained;
+        events.GainPercentLevelEvent += OnGainPercentLevel;
         SceneManager.sceneLoaded += OnSceneLoaded;
-    }
-
-    private void OnSceneLoaded(Scene arg0, LoadSceneMode arg1)
-    {
-        experience = 0;
-        level = 0;
-        levelUpThreshold = levelUpThresholdGrowth;
     }
 
     private void OnDisable()
@@ -75,6 +69,19 @@ public class ExperienceManager : ScriptableObject
             Experience = leftoverExp;
             LevelUpThreshold += levelUpThresholdGrowth;
         }
+    }
+
+    private void OnGainPercentLevel(object sender, float e)
+    {
+        int exp = Mathf.RoundToInt(e * LevelUpThreshold);
+        OnExperienceGained(sender, exp);
+    }
+
+    private void OnSceneLoaded(Scene arg0, LoadSceneMode arg1)
+    {
+        experience = 0;
+        level = 0;
+        levelUpThreshold = levelUpThresholdGrowth;
     }
 
     public event EventHandler<ExperienceManager> ExperienceChangedEvent;

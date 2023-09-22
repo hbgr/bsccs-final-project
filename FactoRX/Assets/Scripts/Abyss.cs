@@ -63,6 +63,7 @@ public class Abyss : MonoBehaviourExtended
         if (currentSize < minSize)
         {
             events.OnScorePoints(this, 1000);
+            events.OnGainPercentLevelEvent(this, 0.8f);
             Destroy(gameObject);
         }
     }
@@ -124,7 +125,7 @@ public class Abyss : MonoBehaviourExtended
         // Shoot projectiles?
         if (cycleCount % 3 == 0)
         {
-            
+
         }
 
         t = 0;
