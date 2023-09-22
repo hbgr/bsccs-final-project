@@ -11,9 +11,6 @@ public class AbyssSpawner : MonoBehaviourExtended
     private float spawnDelay;
 
     [SerializeField]
-    private float safeZoneRadius;
-
-    [SerializeField]
     private ScriptableArenaProperties arenaProps;
 
 
@@ -42,7 +39,7 @@ public class AbyssSpawner : MonoBehaviourExtended
         }
 
         // spawn abyss
-        var spawnPos = Vector3Int.RoundToInt(Random.insideUnitCircle.normalized * Random.Range(Mathf.Max(safeZoneRadius - cycleCount, 0), arenaProps.currentRadius));
+        var spawnPos = Vector3Int.RoundToInt(Random.insideUnitCircle.normalized * (arenaProps.currentRadius - 0.5f));
         Abyss abyss = Instantiate(abyssPrefab, spawnPos, Quaternion.identity);
 
         t = 0;

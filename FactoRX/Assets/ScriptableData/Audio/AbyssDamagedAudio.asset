@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8f673d980ad8b8741b938280426e06bf, type: 3}
-  m_Name: PickUpAudio
+  m_Name: AbyssDamagedAudio
   m_EditorClassIdentifier: 
   audioPlayer: {fileID: 11400000, guid: c276a0ae85f319b40bcdb041454be67a, type: 2}
-  audioClip: {fileID: 8300000, guid: 81e6ba0979bc25c4d91605fe84dd4a2c, type: 3}
+  audioClip: {fileID: 8300000, guid: 2417ae51731c80844963bf609c60b357, type: 3}
   volume: 0.3
   loop: 0
-  spatialBlend: 0
+  spatialBlend: 1
   isBackgroundMusic: 0

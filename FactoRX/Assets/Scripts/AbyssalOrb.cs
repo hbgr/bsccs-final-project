@@ -22,6 +22,12 @@ public class AbyssalOrb : MonoBehaviourExtended
         if (!Enabled) return;
 
         transform.position += speed * Time.fixedDeltaTime * direction;
+        lifetime -= Time.fixedDeltaTime;
+
+        if (lifetime <= 0f)
+        {
+            Destroy(gameObject);
+        }
     }
 
     public void SetDirection(Vector3 dir)

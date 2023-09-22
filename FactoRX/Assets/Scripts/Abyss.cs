@@ -13,30 +13,27 @@ public class Abyss : MonoBehaviourExtended
     private float maxSize;
 
     [SerializeField]
-    private float minSize;
-
-    private float currentSize;
-
-    [SerializeField]
     private float cycleDuration;
 
     [SerializeField]
-    private float growthRate;
+    private int health;
 
     [SerializeField]
-    private float shrinkAmount;
+    private AbyssalOrb orbPrefab;
 
     [SerializeField]
-    private ScriptableAudio pulseAudio;
+    private ScriptableAudio spawnAudio;
 
     [SerializeField]
-    private DamagesPlayer damageZone;
+    private ScriptableAudio shootAudio;
+
+    [SerializeField]
+    private ScriptableAudio damagedAudio;
 
     // Start is called before the first frame update
     void Start()
     {
-        currentSize = spawnSize;
-        transform.localScale = Vector3.one * currentSize;
+        transform.localScale = Vector3.one * spawnSize;
         StartCoroutine(SpawnCoroutine());
     }
 
@@ -53,16 +50,16 @@ public class Abyss : MonoBehaviourExtended
         if (collider.TryGetComponent(out PowerOrbController powerOrb) && powerOrb.CanCollideWith(gameObject))
         {
             Destroy(collider.gameObject);
-            Shrink(shrinkAmount);
+            TakeDamage(1);
         }
     }
 
-    private void Shrink(float amount)
+    private void TakeDamage(int amount)
     {
-        currentSize -= amount;
-        if (currentSize < minSize)
+        health -= amount;
+        if (health <= 0)
         {
-            events.OnScorePoints(this, 1000);
+            events.OnScorePoints(this, 500);
             events.OnGainPercentLevelEvent(this, 0.8f);
             Destroy(gameObject);
         }
@@ -70,79 +67,87 @@ public class Abyss : MonoBehaviourExtended
 
     private IEnumerator SpawnCoroutine()
     {
-        damageZone.gameObject.SetActive(false);
+        spawnAudio.Play(gameObject);
         float t = 0;
         while (t <= 0.5f)
         {
             if (Enabled)
             {
                 t += Time.fixedDeltaTime;
+                transform.localScale = Vector3.Lerp(Vector3.one * spawnSize, Vector3.one * maxSize, t / 0.5f);
             }
-
             yield return new WaitForFixedUpdate();
         }
 
-        damageZone.gameObject.SetActive(true);
-
-        StartCoroutine(AbyssCoroutine(currentSize + growthRate, 0));
+        StartCoroutine(AbyssCoroutine(cycleDuration));
         yield return null;
     }
 
-    private IEnumerator AbyssCoroutine(float targetSize, int cycleCount)
+    private IEnumerator AbyssCoroutine(float cycleDuration)
     {
-        var target = Mathf.Min(targetSize, maxSize);
-
         float t = 0;
-        float rate = Mathf.Abs(currentSize - target * 0.9f) * Time.fixedDeltaTime / (cycleDuration * 0.25f);
-        while (t <= cycleDuration * 0.25f)
+        while (t <= cycleDuration * 0.45f)
         {
             if (Enabled)
             {
                 t += Time.fixedDeltaTime;
-                // transform.localScale = Vector3.Lerp(startScale, scale * 0.9f, t / (cycleDuration * 0.25f));
-                currentSize -= rate;
-                transform.localScale = Vector3.one * currentSize;
             }
 
             yield return new WaitForFixedUpdate();
         }
 
-        pulseAudio.Play(gameObject);
-        t = 0;
-        rate = Mathf.Abs(currentSize - target * 1.1f) * Time.fixedDeltaTime / (cycleDuration * 0.5f);
-        while (t <= cycleDuration * 0.5f)
-        {
-            if (Enabled)
-            {
-                t += Time.fixedDeltaTime;
-                currentSize += rate;
-                transform.localScale = Vector3.one * currentSize;
-            }
-
-            yield return new WaitForFixedUpdate();
-        }
-
-        // Shoot projectiles?
-        if (cycleCount % 3 == 0)
-        {
-
-        }
+        spawnAudio.Play(gameObject);
 
         t = 0;
-        rate = Mathf.Abs(currentSize - target) * Time.fixedDeltaTime / (cycleDuration * 0.25f);
-        while (t <= cycleDuration * 0.25f)
+        while (t <= 0.05)
         {
             if (Enabled)
             {
                 t += Time.fixedDeltaTime;
-                currentSize -= rate;
-                transform.localScale = Vector3.one * currentSize;
+                transform.localScale = Vector3.Lerp(Vector3.one * maxSize, 1.1f * maxSize * Vector3.one, t / 0.05f);
+            }
+            yield return new WaitForFixedUpdate();
+        }
+
+
+        Vector3 dir = Vector3Int.RoundToInt((Vector3.zero - transform.position).normalized);
+        dir = dir.normalized;
+        List<Vector3> directions = new()
+        {
+            dir,
+            Quaternion.AngleAxis(45, Vector3.forward) * dir,
+            Quaternion.AngleAxis(-45, Vector3.forward) * dir
+        };
+
+        foreach (var direction in directions)
+        {
+            AbyssalOrb orb = Instantiate(orbPrefab, transform.position, Quaternion.identity);
+            orb.SetDirection(direction);
+        }
+
+        t = 0;
+        while (t <= 0.05)
+        {
+            if (Enabled)
+            {
+                t += Time.fixedDeltaTime;
+                transform.localScale = Vector3.Lerp(1.1f * maxSize * Vector3.one, Vector3.one * maxSize, t / 0.05f);
+            }
+            yield return new WaitForFixedUpdate();
+        }
+
+        t = 0;
+        while (t <= cycleDuration * 0.45f)
+        {
+            if (Enabled)
+            {
+                t += Time.fixedDeltaTime;
             }
 
             yield return new WaitForFixedUpdate();
         }
 
-        StartCoroutine(AbyssCoroutine(currentSize + growthRate, cycleCount + 1));
+        StartCoroutine(AbyssCoroutine(cycleDuration));
         yield return null;
     }
 }
