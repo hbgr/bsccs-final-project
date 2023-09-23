@@ -18,11 +18,11 @@ public class JumpTransformerBrain : TransformerBrain
         var scale = transformer.Scale;
 
         float t = 0;
-        while (t <= 0.05f)
+        while (t <= 0.1f)
         {
             if (transformer.Enabled)
             {
-                transformer.transform.localScale = Vector3.Lerp(scale, scale * 1.2f, t / 0.05f);
+                transformer.transform.localScale = Vector3.Lerp(scale, scale * 1.15f, t / 0.05f);
                 t += Time.deltaTime;
             }
             yield return new WaitForFixedUpdate();
@@ -32,7 +32,7 @@ public class JumpTransformerBrain : TransformerBrain
         orbAudio.Play(transformer.gameObject);
 
         t = 0;
-        while (t <= 0.05f)
+        while (t <= 0.1f)
         {
             if (transformer.Enabled)
             {

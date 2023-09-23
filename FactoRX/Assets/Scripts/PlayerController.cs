@@ -251,6 +251,10 @@ public class PlayerController : MonoBehaviourExtended
         {
             invincibilityDuration += duration;
         }
+        else if (invincibilityDuration <= duration * 2.5f)
+        {
+            invincibilityDuration = duration * 2.5f;
+        }
     }
 
     private void Respawn()

@@ -41,44 +41,44 @@ public class BasicMachineController : MonoBehaviour, IMachine
 
     private IEnumerator MachineProcessCoroutine(float increaseRate)
     {
-        isActive = true;
-        var renderer = GetComponent<SpriteRenderer>();
-        var colour = new Color(renderer.color.r, renderer.color.g, renderer.color.b);
-        var scale = transform.localScale;
+        // isActive = true;
+        // var renderer = GetComponent<SpriteRenderer>();
+        // var colour = new Color(renderer.color.r, renderer.color.g, renderer.color.b);
+        // var scale = transform.localScale;
 
-        float t = 0;
-        while (t <= 0.5f)
-        {
-            renderer.color = Color.Lerp(colour, Color.red, t / 0.5f);
-            transform.localScale = Vector3.Lerp(scale, scale * 1.2f, t / 0.5f);
-            t += Time.deltaTime;
-            yield return new WaitForEndOfFrame();
-        }
+        // float t = 0;
+        // while (t <= 0.5f)
+        // {
+        //     renderer.color = Color.Lerp(colour, Color.red, t / 0.5f);
+        //     transform.localScale = Vector3.Lerp(scale, scale * 1.2f, t / 0.5f);
+        //     t += Time.deltaTime;
+        //     yield return new WaitForEndOfFrame();
+        // }
 
-        for (int i = 0; i < 3; i++)
-        {
-            Vector2 spawnPos = Random.insideUnitCircle.normalized * arenaController.GetCurrentRadius();
-            BulletController bullet = Instantiate(bulletPrefab, spawnPos, Quaternion.identity);
-            bullet.SetProperties(bulletSpeed, transform.position);
-            //arenaController.IncreaseRadius(increaseRate);
-            yield return new WaitForSeconds(0.25f);
-        }
+        // for (int i = 0; i < 3; i++)
+        // {
+        //     Vector2 spawnPos = Random.insideUnitCircle.normalized * arenaController.GetCurrentRadius();
+        //     BulletController bullet = Instantiate(bulletPrefab, spawnPos, Quaternion.identity);
+        //     bullet.SetProperties(bulletSpeed, transform.position);
+        //     //arenaController.IncreaseRadius(increaseRate);
+        //     yield return new WaitForSeconds(0.25f);
+        // }
 
-        yield return new WaitForSeconds(2f);
+        // yield return new WaitForSeconds(2f);
 
-        t = 0;
-        while (t <= 0.75f)
-        {
-            renderer.color = Color.Lerp(renderer.color, colour, t / 0.5f);
-            transform.localScale = Vector3.Lerp(transform.localScale, scale, t / 0.5f);
-            t += Time.deltaTime;
-            yield return new WaitForEndOfFrame();
-        }
+        // t = 0;
+        // while (t <= 0.75f)
+        // {
+        //     renderer.color = Color.Lerp(renderer.color, colour, t / 0.5f);
+        //     transform.localScale = Vector3.Lerp(transform.localScale, scale, t / 0.5f);
+        //     t += Time.deltaTime;
+        //     yield return new WaitForEndOfFrame();
+        // }
 
-        renderer.color = colour;
-        transform.localScale = scale;
+        // renderer.color = colour;
+        // transform.localScale = scale;
 
-        isActive = false;
+        // isActive = false;
         yield return null;
     }
 
