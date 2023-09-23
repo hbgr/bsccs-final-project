@@ -18,8 +18,7 @@ public class ArenaController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        arenaProps.currentRadius = arenaProps.startRadius;
-        SetRadius(arenaProps.startRadius);
+        arenaProps.radius = transform.localScale.x / 2f;
         arenaMusic.Play(gameObject);
     }
 
@@ -28,25 +27,4 @@ public class ArenaController : MonoBehaviour
     {
         if (!Enabled) return;
     }
-
-    private void SetRadius(float radius)
-    {
-        arenaProps.currentRadius = Mathf.Min(radius, arenaProps.maxRadius);
-        transform.localScale = new Vector3(2 * radius, 2 * radius, 1);
-    }
-
-    public float GetCurrentRadius()
-    {
-        return arenaProps.currentRadius;
-    }
-
-    // private void OnTriggerExit2D(Collider2D other)
-    // {
-    //     if (!Enabled) return;
-
-    //     if (other.gameObject.GetComponent<PlayerController>())
-    //     {
-
-    //     }
-    // }
 }

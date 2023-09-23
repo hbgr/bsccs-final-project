@@ -16,5 +16,5 @@ MonoBehaviour:
   audioClip: {fileID: 8300000, guid: 2417ae51731c80844963bf609c60b357, type: 3}
   volume: 0.3
   loop: 0
-  spatialBlend: 1
+  spatialBlend: 0.5
   isBackgroundMusic: 0

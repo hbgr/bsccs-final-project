@@ -12,7 +12,7 @@ public class SplitterTransformerBrain : TransformerBrain
 
     public override IEnumerator TransformerCoroutine(Transformer transformer, PowerOrbController powerOrb)
     {
-        if (splitDirections.Count < 1)
+        if (splitDirections.Count < 1 || powerOrb == null)
         {
             yield break;
         }

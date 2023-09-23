@@ -15,19 +15,12 @@ public class ScriptableGameEvents : ScriptableObject
         GameStateChangedEvent?.Invoke(sender, state);
     }
 
-    public event EventHandler<Machine> MachineCreatedEvent;
+    // public event EventHandler<Machine> MachineCreatedEvent;
 
-    public void OnMachineCreated(object sender, Machine machine)
-    {
-        MachineCreatedEvent?.Invoke(sender, machine);
-    }
-
-    // public event EventHandler<float> IncreaseArenaRadiusEvent;
-
-    // public void OnIncreaseArenaRadius(object sender, float amount)
+    // public void OnMachineCreated(object sender, Machine machine)
     // {
-    //     IncreaseArenaRadiusEvent?.Invoke(sender, amount);
-    // }
+    //     MachineCreatedEvent?.Invoke(sender, machine);
+    // }    
 
     public event EventHandler<int> ExperienceGainedEvent;
 
@@ -76,5 +69,12 @@ public class ScriptableGameEvents : ScriptableObject
     public void OnScorePoints(object sender, int points)
     {
         ScorePointsEvent?.Invoke(sender, points);
+    }
+
+    public event EventHandler<Abyss> AbyssDestroyedEvent;
+
+    public void OnAbyssDestroyed(object sender, Abyss abyss)
+    {
+        AbyssDestroyedEvent?.Invoke(sender, abyss);
     }
 }

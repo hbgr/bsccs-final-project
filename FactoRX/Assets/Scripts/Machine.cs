@@ -22,7 +22,6 @@ public class Machine : MonoBehaviourExtended, IPickUpBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        events.OnMachineCreated(this, this);
         energy = 0;
         scale = transform.localScale;
     }

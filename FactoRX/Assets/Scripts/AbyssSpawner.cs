@@ -13,11 +13,14 @@ public class AbyssSpawner : MonoBehaviourExtended
     [SerializeField]
     private ScriptableArenaProperties arenaProps;
 
+    private HashSet<Abyss> activeAbysses;
 
     // Start is called before the first frame update
     void Start()
     {
         StartCoroutine(SpawnAbyssCoroutine(spawnDelay, 0));
+        activeAbysses = new();
+        events.AbyssDestroyedEvent += OnAbyssDestroyed;
     }
 
     // Update is called once per frame
@@ -26,10 +29,16 @@ public class AbyssSpawner : MonoBehaviourExtended
 
     }
 
+    protected override void OnDestroy()
+    {
+        base.OnDestroy();
+        events.AbyssDestroyedEvent -= OnAbyssDestroyed;
+    }
+
     private IEnumerator SpawnAbyssCoroutine(float cooldown, int cycleCount)
     {
         float t = 0;
-        while (t <= 0.5f * cooldown)
+        while (t <= 0.33f * cooldown)
         {
             if (Enabled)
             {
@@ -39,11 +48,13 @@ public class AbyssSpawner : MonoBehaviourExtended
         }
 
         // spawn abyss
-        var spawnPos = Vector3Int.RoundToInt(Random.insideUnitCircle.normalized * (arenaProps.currentRadius - 0.5f));
+        // var spawnPos = Vector3Int.RoundToInt(Random.insideUnitCircle.normalized * (arenaProps.radius - 0.5f));
+        var spawnPos = ((Vector3)Vector3Int.RoundToInt(Random.insideUnitCircle.normalized)).normalized * (arenaProps.radius - 0.5f);
         Abyss abyss = Instantiate(abyssPrefab, spawnPos, Quaternion.identity);
+        activeAbysses.Add(abyss);
 
         t = 0;
-        while (t <= 0.5f * cooldown)
+        while (t <= 0.66f * cooldown)
         {
             if (Enabled)
             {
@@ -55,5 +66,10 @@ public class AbyssSpawner : MonoBehaviourExtended
         StartCoroutine(SpawnAbyssCoroutine(cooldown, cycleCount + 1));
 
         yield return null;
+    }
+
+    private void OnAbyssDestroyed(object sender, Abyss e)
+    {
+        activeAbysses.Remove(e);
     }
 }

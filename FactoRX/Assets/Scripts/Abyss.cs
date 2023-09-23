@@ -57,11 +57,14 @@ public class Abyss : MonoBehaviourExtended
     private void TakeDamage(int amount)
     {
         health -= amount;
+        damagedAudio.Play(gameObject);
         if (health <= 0)
         {
-            events.OnScorePoints(this, 500);
-            events.OnGainPercentLevelEvent(this, 0.8f);
-            Destroy(gameObject);
+            StartCoroutine(DestoryedAbyssCoroutine());
+        }
+        else
+        {
+            StartCoroutine(DamagedCoroutine());
         }
     }
 
@@ -148,6 +151,50 @@ public class Abyss : MonoBehaviourExtended
         }
 
         StartCoroutine(AbyssCoroutine(cycleDuration));
+        yield return null;
+    }
+
+    private IEnumerator DamagedCoroutine()
+    {
+        float t = 0;
+        while (t <= 0.05)
+        {
+            if (Enabled)
+            {
+                t += Time.fixedDeltaTime;
+                transform.localScale = Vector3.Lerp(Vector3.one * maxSize, 0.9f * maxSize * Vector3.one, t / 0.05f);
+            }
+            yield return new WaitForFixedUpdate();
+        }
+
+        t = 0;
+        while (t <= 0.05)
+        {
+            if (Enabled)
+            {
+                t += Time.fixedDeltaTime;
+                transform.localScale = Vector3.Lerp(0.9f * maxSize * Vector3.one, maxSize * Vector3.one, t / 0.05f);
+            }
+            yield return new WaitForFixedUpdate();
+        }
+    }
+
+    private IEnumerator DestoryedAbyssCoroutine()
+    {
+        float t = 0;
+        while (t <= 0.05f)
+        {
+            if (Enabled)
+            {
+                t += Time.fixedDeltaTime;
+                transform.localScale = Vector3.Lerp(maxSize * Vector3.one, 0.05f * maxSize * Vector3.one, t / 0.05f);
+            }
+
+            yield return new WaitForFixedUpdate();
+        }
+        events.OnScorePoints(this, 500);
+        events.OnGainPercentLevelEvent(this, 0.6f);
+        Destroy(gameObject);
         yield return null;
     }
 }
