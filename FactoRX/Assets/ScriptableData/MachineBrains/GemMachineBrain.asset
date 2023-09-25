@@ -15,4 +15,4 @@ MonoBehaviour:
   activationEnergy: 1
   activationAudio: {fileID: 11400000, guid: 906a00902d14e2c478f0e810f57701e5, type: 2}
   collectable: {fileID: 2768487579061046339, guid: b8e5b468a133e9642afc3e41d4954ff0, type: 3}
-  radius: 5
+  radius: 3.5

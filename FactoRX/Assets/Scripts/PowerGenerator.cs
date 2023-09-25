@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PowerGenerator : MonoBehaviourExtended
+public class PowerGenerator : MonoBehaviourExtended, IPickUpBehaviour
 {
     [SerializeField]
     private float cooldown;
@@ -80,5 +80,20 @@ public class PowerGenerator : MonoBehaviourExtended
             yield return new WaitForFixedUpdate();
         }
         StartCoroutine(PowerCoroutine(cooldown));
+    }
+
+    public bool CanBePickedUp()
+    {
+        return true;
+    }
+
+    public void OnPickUp()
+    {
+        enabled = false;
+    }
+
+    public void OnDrop()
+    {
+        enabled = true;
     }
 }

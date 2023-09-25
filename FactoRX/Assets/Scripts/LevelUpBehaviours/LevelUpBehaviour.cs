@@ -31,5 +31,11 @@ public abstract class LevelUpBehaviour : ScriptableObject
         private set => sprite = value;
     }
 
+    [SerializeField]
+    [Range(0, 200)]
+    private int weight;
+
+    public int Weight => weight;
+
     public abstract void Apply();
 }
