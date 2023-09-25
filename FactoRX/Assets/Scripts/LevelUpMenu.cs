@@ -56,15 +56,20 @@ public class LevelUpMenu : MonoBehaviourExtended
         {
             menuObject.SetActive(true);
 
-            // Select from level up behaviourd without repetition
-            var index_list = Enumerable.Range(0, levelUpBehaviourStore.LevelUpBehaviours.Count).ToList();
-            var selected_indexes = new List<int>();
+            // Generate weighted list of indexes for level up behaviours
+            var weighted_index_list = new List<int>();
+            for (int i = 0; i < levelUpBehaviourStore.LevelUpBehaviours.Count; i++)
+            {
+                weighted_index_list.AddRange(Enumerable.Repeat(i, levelUpBehaviourStore.LevelUpBehaviours[i].Weight));
+            }
 
+            // Select from weighted list without repetition
+            var selected_indexes = new List<int>();
             for (int i = 0; i < 3; i++)
             {
-                int index = UnityEngine.Random.Range(0, index_list.Count);
-                selected_indexes.Add(index_list[index]);
-                index_list.RemoveAt(index);
+                int index = UnityEngine.Random.Range(0, weighted_index_list.Count);
+                selected_indexes.Add(weighted_index_list[index]);
+                weighted_index_list.RemoveAll(x => x == weighted_index_list[index]);
             }
 
             option1.SetProperties(levelUpBehaviourStore.LevelUpBehaviours[selected_indexes[0]]);

@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 1371661097118027023}
   - component: {fileID: 1371661097118027120}
   - component: {fileID: 1371661097118027021}
+  - component: {fileID: 2353526022605278910}
+  - component: {fileID: 3333222899732206510}
   m_Layer: 0
   m_Name: Generator
   m_TagString: Untagged
@@ -119,3 +121,28 @@ MonoBehaviour:
   cooldown: 1.2
   powerOrbPrefab: {fileID: 7196507520383837509, guid: 30c0c294fe779f648bea759ad9bae338, type: 3}
   orbAudio: {fileID: 11400000, guid: 0e1f397c7d8209247b21762cd6a298ea, type: 2}
+--- !u!114 &2353526022605278910
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1371661097118027022}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b3690c1abecf7b4aa881fdd81a4d7ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pickUpAudio: {fileID: 11400000, guid: f56fb35adc8837d4786f6ce89dcdac24, type: 2}
+--- !u!114 &3333222899732206510
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1371661097118027022}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dcc9321ecb7f2c84992f41d6ea85d8e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

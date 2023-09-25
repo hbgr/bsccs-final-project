@@ -157,23 +157,23 @@ public class Abyss : MonoBehaviourExtended
     private IEnumerator DamagedCoroutine()
     {
         float t = 0;
-        while (t <= 0.05)
+        while (t <= 0.03)
         {
             if (Enabled)
             {
                 t += Time.fixedDeltaTime;
-                transform.localScale = Vector3.Lerp(Vector3.one * maxSize, 0.9f * maxSize * Vector3.one, t / 0.05f);
+                transform.localScale = Vector3.Lerp(Vector3.one * maxSize, 0.85f * maxSize * Vector3.one, t / 0.03f);
             }
             yield return new WaitForFixedUpdate();
         }
 
         t = 0;
-        while (t <= 0.05)
+        while (t <= 0.07)
         {
             if (Enabled)
             {
                 t += Time.fixedDeltaTime;
-                transform.localScale = Vector3.Lerp(0.9f * maxSize * Vector3.one, maxSize * Vector3.one, t / 0.05f);
+                transform.localScale = Vector3.Lerp(0.85f * maxSize * Vector3.one, maxSize * Vector3.one, t / 0.07f);
             }
             yield return new WaitForFixedUpdate();
         }
@@ -182,12 +182,12 @@ public class Abyss : MonoBehaviourExtended
     private IEnumerator DestoryedAbyssCoroutine()
     {
         float t = 0;
-        while (t <= 0.05f)
+        while (t <= 0.15f)
         {
             if (Enabled)
             {
                 t += Time.fixedDeltaTime;
-                transform.localScale = Vector3.Lerp(maxSize * Vector3.one, 0.05f * maxSize * Vector3.one, t / 0.05f);
+                transform.localScale = Vector3.Lerp(maxSize * Vector3.one, 0.05f * maxSize * Vector3.one, t / 0.15f);
             }
 
             yield return new WaitForFixedUpdate();
