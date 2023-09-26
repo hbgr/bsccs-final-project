@@ -85,6 +85,7 @@ GameObject:
   - component: {fileID: 6507309173711764986}
   - component: {fileID: 6485347121827993358}
   - component: {fileID: 5561068822339309696}
+  - component: {fileID: 8951834009226198915}
   m_Layer: 0
   m_Name: Mirror Splitter
   m_TagString: Untagged
@@ -228,6 +229,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dcc9321ecb7f2c84992f41d6ea85d8e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8951834009226198915
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6485347121827993362}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee9ae96fe095daf42999f7d43f386869, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &9099475810676895520

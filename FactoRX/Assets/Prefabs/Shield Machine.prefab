@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8979164634017074474}
   - component: {fileID: 4895500026982794283}
   - component: {fileID: 4895500026982794282}
+  - component: {fileID: -4199278305625529890}
   m_Layer: 0
   m_Name: Shield Machine
   m_TagString: Untagged
@@ -143,3 +144,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pickUpAudio: {fileID: 11400000, guid: f56fb35adc8837d4786f6ce89dcdac24, type: 2}
+--- !u!114 &-4199278305625529890
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4895500026982794294}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee9ae96fe095daf42999f7d43f386869, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
