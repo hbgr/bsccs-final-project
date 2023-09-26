@@ -26,6 +26,8 @@ public class PlayerController : MonoBehaviourExtended
 
     private Vector2 facingDirection;
 
+    public bool CanMove => !knockbackActive;
+
     [SerializeField]
     private float moveSpeed;
 
@@ -39,19 +41,23 @@ public class PlayerController : MonoBehaviourExtended
     private float pickUpRange;
 
     [SerializeField]
-    private GameObject shielded;
+    private GameObject shieldObject;
 
     [SerializeField]
-    private TextMeshPro shieldedText;
+    private TextMeshPro shieldText;
 
     [SerializeField]
     private ScriptableAudio hurtAudio;
 
     private PickUp heldObject;
 
-    private bool Damageable => invincibilityDuration <= 0f;
+    private bool Shielded => shieldDuration > 0f;
 
-    private float invincibilityDuration;
+    private float shieldDuration;
+
+    private Coroutine knockbackCoroutine;
+
+    private bool knockbackActive = false;
 
     protected override void Awake()
     {
@@ -64,7 +70,7 @@ public class PlayerController : MonoBehaviourExtended
     private void Start()
     {
         heldObject = null;
-        invincibilityDuration = 0f;
+        shieldDuration = 0f;
 
         inputEvents.OnMoveEvent += OnMove;
         inputEvents.OnAction1Event += OnAction1;
@@ -81,20 +87,21 @@ public class PlayerController : MonoBehaviourExtended
         if (!Enabled) return;
 
         // Handle shield visibility
-        if (invincibilityDuration > 0f)
+        if (shieldDuration > 0f)
         {
-            invincibilityDuration -= Time.deltaTime;
-            if (!shielded.activeSelf)
+            shieldDuration -= Time.deltaTime;
+            if (!shieldObject.activeSelf)
             {
-                shielded.SetActive(true);
+                shieldObject.SetActive(true);
             }
-            shieldedText.text = $"{invincibilityDuration:F1}";
+            shieldText.text = $"{shieldDuration:F1}";
         }
         else
         {
-            if (shielded.activeSelf)
+            shieldDuration = 0f;
+            if (shieldObject.activeSelf)
             {
-                shielded.SetActive(false);
+                shieldObject.SetActive(false);
             }
         }
     }
@@ -103,8 +110,12 @@ public class PlayerController : MonoBehaviourExtended
     {
         if (!Enabled) return;
 
-        transform.position += (Vector3)(moveSpeed * Time.deltaTime * moveInputDir);
-        if (moveInputDir != Vector2.zero)
+        if (CanMove)
+        {
+            transform.position += (Vector3)(moveSpeed * Time.deltaTime * moveInputDir);
+        }
+
+        if (moveInputDir != Vector2.zero && CanMove)
         {
             facingDirection = moveInputDir;
 
@@ -197,6 +208,12 @@ public class PlayerController : MonoBehaviourExtended
             TakeDamage();
             damager.DidDamage();
         }
+
+        if (collider.gameObject.TryGetComponent(out KnockbackPlayer knockbacker))
+        {
+            TakeKnockback(knockbacker);
+            knockbacker.DidKnockback();
+        }
     }
 
     private void OnTriggerExit2D(Collider2D other)
@@ -213,7 +230,7 @@ public class PlayerController : MonoBehaviourExtended
 
     private void TakeDamage()
     {
-        if (Damageable)
+        if (!Shielded)
         {
             lives.Lives--;
             events.OnLoseLife(this, lives.Lives);
@@ -221,7 +238,7 @@ public class PlayerController : MonoBehaviourExtended
         }
         else
         {
-            invincibilityDuration -= 0.5f;
+            shieldDuration -= 0.5f;
         }
     }
 
@@ -247,13 +264,13 @@ public class PlayerController : MonoBehaviourExtended
 
     private void AddInvincibility(float duration)
     {
-        if (invincibilityDuration <= duration * 1.5f)
+        if (shieldDuration <= duration * 1.5f)
         {
-            invincibilityDuration += duration;
+            shieldDuration += duration;
         }
-        else if (invincibilityDuration <= duration * 2.5f)
+        else if (shieldDuration <= duration * 2.5f)
         {
-            invincibilityDuration = duration * 2.5f;
+            shieldDuration = duration * 2.5f;
         }
     }
 
@@ -261,6 +278,44 @@ public class PlayerController : MonoBehaviourExtended
     {
         AddInvincibility(3f);
         transform.position = spawnPosition.position;
+    }
+
+    private void TakeKnockback(KnockbackPlayer source)
+    {
+        if (!Shielded)
+        {
+            var dir = (transform.position - source.transform.position).normalized;
+            var power = source.KnockbackPower;
+            if (knockbackCoroutine != null)
+            {
+                StopCoroutine(knockbackCoroutine);
+            }
+            knockbackCoroutine = StartCoroutine(KnockbackCoroutine(dir, power));
+        }
+        else
+        {
+            shieldDuration -= 0.5f;
+        }
+    }
+
+    private IEnumerator KnockbackCoroutine(Vector3 direction, float power)
+    {
+        knockbackActive = true;
+
+        float t = 0;
+        while (t <= 0.33f)
+        {
+            if (Enabled)
+            {
+                t += Time.fixedDeltaTime;
+                transform.position += power * Time.fixedDeltaTime * direction;
+                power *= 0.9f;
+            }
+            yield return new WaitForFixedUpdate();
+        }
+
+        knockbackActive = false;
+        yield return null;
     }
 
     private void OnMove(object sender, InputAction.CallbackContext context)
@@ -313,8 +368,15 @@ public class PlayerController : MonoBehaviourExtended
             }
             else
             {
-                heldObject.OnDrop();
-                heldObject = null;
+                var blockers = Physics2D.OverlapCircleAll(heldObject.transform.position, 0.1f).
+                    Where(c => c.gameObject.TryGetComponent(out PlacementBlocker p) && p.gameObject != heldObject.gameObject).
+                    ToList();
+
+                if (blockers.Count <= 0)
+                {
+                    heldObject.OnDrop();
+                    heldObject = null;
+                }
             }
         }
     }

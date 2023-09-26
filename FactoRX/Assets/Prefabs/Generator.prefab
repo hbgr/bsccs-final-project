@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1371661097118027021}
   - component: {fileID: 2353526022605278910}
   - component: {fileID: 3333222899732206510}
+  - component: {fileID: -3886760206141700481}
   m_Layer: 0
   m_Name: Generator
   m_TagString: Untagged
@@ -118,7 +119,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   events: {fileID: 11400000, guid: 1a3c4ae5866d2e344a4f1bfaf714a6bb, type: 2}
   activeGameStates: 01000000
-  cooldown: 1.2
+  cooldown: 1
   powerOrbPrefab: {fileID: 7196507520383837509, guid: 30c0c294fe779f648bea759ad9bae338, type: 3}
   orbAudio: {fileID: 11400000, guid: 0e1f397c7d8209247b21762cd6a298ea, type: 2}
 --- !u!114 &2353526022605278910
@@ -144,5 +145,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dcc9321ecb7f2c84992f41d6ea85d8e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-3886760206141700481
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1371661097118027022}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee9ae96fe095daf42999f7d43f386869, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
