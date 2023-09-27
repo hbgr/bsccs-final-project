@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1371661097118027020}
   - component: {fileID: 1371661097118027023}
-  - component: {fileID: 1371661097118027120}
+  - component: {fileID: 8155794603285122525}
   - component: {fileID: 1371661097118027021}
   - component: {fileID: 2353526022605278910}
   - component: {fileID: 3333222899732206510}
@@ -89,8 +89,8 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!58 &1371661097118027120
-CircleCollider2D:
+--- !u!61 &8155794603285122525
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -102,9 +102,19 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.0028509498, y: 0.0014254153}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 0.64, y: 0.64}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Size: {x: 0.6807028, y: 0.67785174}
+  m_EdgeRadius: 0
 --- !u!114 &1371661097118027021
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -119,7 +129,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   events: {fileID: 11400000, guid: 1a3c4ae5866d2e344a4f1bfaf714a6bb, type: 2}
   activeGameStates: 01000000
-  cooldown: 1
+  cooldown: 1.2
   powerOrbPrefab: {fileID: 7196507520383837509, guid: 30c0c294fe779f648bea759ad9bae338, type: 3}
   orbAudio: {fileID: 11400000, guid: 0e1f397c7d8209247b21762cd6a298ea, type: 2}
 --- !u!114 &2353526022605278910

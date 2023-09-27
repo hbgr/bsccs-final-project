@@ -40,36 +40,24 @@ public class AbyssalOrb : MonoBehaviourExtended
         var scale = transform.localScale;
 
         float t = 0;
-        while (t <= 0.25f)
+        while (t <= 0.33f)
         {
             if (Enabled)
             {
                 t += Time.fixedDeltaTime;
-                transform.localScale = Vector3.Lerp(scale, scale * 0.9f, t / 0.25f);
+                transform.localScale = Vector3.Lerp(scale, scale * 1.2f, t / 0.5f);
             }
 
             yield return new WaitForFixedUpdate();
         }
 
         t = 0;
-        while (t <= 0.5f)
+        while (t <= 0.33f)
         {
             if (Enabled)
             {
                 t += Time.fixedDeltaTime;
-                transform.localScale = Vector3.Lerp(scale * 0.9f, scale * 1.1f, t / 0.5f);
-            }
-
-            yield return new WaitForFixedUpdate();
-        }
-
-        t = 0;
-        while (t <= 0.25f)
-        {
-            if (Enabled)
-            {
-                t += Time.fixedDeltaTime;
-                transform.localScale = Vector3.Lerp(scale * 1.1f, scale, t / 0.25f);
+                transform.localScale = Vector3.Lerp(scale * 1.2f, scale, t / 0.5f);
             }
 
             yield return new WaitForFixedUpdate();

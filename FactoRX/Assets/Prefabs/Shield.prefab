@@ -114,4 +114,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ddb49eba3c3fa7439c8aeab4aba1755, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  events: {fileID: 11400000, guid: 1a3c4ae5866d2e344a4f1bfaf714a6bb, type: 2}
+  activeGameStates: 01000000
   collectable: {fileID: 11400000, guid: 2ff8c86c74088f947acd869d08cd6f76, type: 2}

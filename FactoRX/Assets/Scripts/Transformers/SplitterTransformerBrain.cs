@@ -10,6 +10,9 @@ public class SplitterTransformerBrain : TransformerBrain
     [SerializeField]
     private List<Vector3> splitDirections;
 
+    [SerializeField]
+    private float outputDelay;
+
     public override IEnumerator TransformerCoroutine(Transformer transformer, PowerOrbController powerOrb)
     {
         if (splitDirections.Count < 1 || powerOrb == null)
@@ -47,8 +50,27 @@ public class SplitterTransformerBrain : TransformerBrain
         foreach (var orb in powerOrbs)
         {
             orb.gameObject.SetActive(true);
+
+            if (outputDelay > 0f)
+            {
+                orbAudio.Play(transformer.gameObject);
+            }
+
+            float time = 0f;
+            while (time <= outputDelay)
+            {
+                if (transformer.Enabled)
+                {
+                    time += Time.fixedDeltaTime;
+                }
+                yield return new WaitForFixedUpdate();
+            }
         }
-        orbAudio.Play(transformer.gameObject);
+
+        if (outputDelay <= 0f)
+        {
+            orbAudio.Play(transformer.gameObject);
+        }
 
         t = 0;
         while (t <= 0.05f)
