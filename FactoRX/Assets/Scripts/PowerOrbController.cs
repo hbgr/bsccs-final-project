@@ -14,6 +14,9 @@ public class PowerOrbController : MonoBehaviourExtended
     [SerializeField]
     private float lifetime;
 
+    [SerializeField]
+    private float maxLifetime;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -61,8 +64,18 @@ public class PowerOrbController : MonoBehaviourExtended
         return false;
     }
 
+    private void SetLifetime(float newLifetime)
+    {
+        lifetime = Mathf.Min(newLifetime, maxLifetime);
+    }
+
     public void MultiplyLifetime(float amount)
     {
-        lifetime *= amount;
+        SetLifetime(lifetime * amount);
+    }
+
+    public void AddLifetime(float amount)
+    {
+        SetLifetime(lifetime + amount);
     }
 }

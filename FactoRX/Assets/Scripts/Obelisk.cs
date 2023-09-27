@@ -36,9 +36,14 @@ public class Obelisk : MonoBehaviourExtended
     [SerializeField]
     private AbyssalOrb orbPrefab;
 
+    [SerializeField]
+    private int maxShootRepeats;
+
     private int shootCount;
 
     private int shootRepeats;
+
+    private bool shooting;
 
     [SerializeField]
     private float activationDelay;
@@ -69,6 +74,7 @@ public class Obelisk : MonoBehaviourExtended
         energyText.gameObject.SetActive(false);
         shootCount = 0;
         shootRepeats = 1;
+        shooting = false;
         render = GetComponent<SpriteRenderer>();
         render.sprite = inactiveSprite;
         StartCoroutine(ActivateCoroutine());
@@ -81,6 +87,8 @@ public class Obelisk : MonoBehaviourExtended
 
         if (!activated) return;
 
+        if (shooting) return;
+
         elapsedInterval += Time.deltaTime;
         if (elapsedInterval >= energyInterval)
         {
@@ -91,7 +99,6 @@ public class Obelisk : MonoBehaviourExtended
 
         if (energy <= 0)
         {
-            SetEnergy(maxEnergy);
             StartCoroutine(ShootCoroutine());
         }
     }
@@ -103,7 +110,7 @@ public class Obelisk : MonoBehaviourExtended
         if (collider.TryGetComponent(out PowerOrbController powerOrb) && powerOrb.CanCollideWith(gameObject))
         {
             Destroy(collider.gameObject);
-            if (activated)
+            if (activated && !shooting)
             {
                 AbsorbPower();
             }
@@ -112,8 +119,8 @@ public class Obelisk : MonoBehaviourExtended
 
     private void SetEnergy(float e)
     {
-        energy = math.min(100, math.max(e, 0));
-        energyText.text = $"{energy:F}";
+        energy = math.min(maxEnergy, math.max(e, 0));
+        energyText.text = $"{energy:F0}";
     }
 
     private void AbsorbPower()
@@ -140,16 +147,18 @@ public class Obelisk : MonoBehaviourExtended
         activationAudio.Play(gameObject);
         render.sprite = activeSprite;
         activated = true;
+        StartCoroutine(ShootCoroutine());
         StartCoroutine(EnergyLossGrowthCoroutine());
         yield return null;
     }
 
     private IEnumerator ShootCoroutine()
     {
+        shooting = true;
         var scale = transform.localScale;
         int randRotation = UnityEngine.Random.Range(0, 45);
 
-        for (int i = 0; i < shootRepeats; i++)
+        for (int i = 0; i < math.min(maxShootRepeats, shootRepeats); i++)
         {
             float t = 0;
             while (t <= 0.03f)
@@ -195,7 +204,7 @@ public class Obelisk : MonoBehaviourExtended
             }
 
             t = 0;
-            while (t <= 0.15f)
+            while (t <= 0.25f)
             {
                 if (Enabled)
                 {
@@ -206,20 +215,23 @@ public class Obelisk : MonoBehaviourExtended
         }
 
         shootCount++;
-        if (shootCount % 2 == 0)
+        if (shootCount % 3 == 0)
         {
             shootRepeats++;
         }
 
+        SetEnergy(maxEnergy);
+        shooting = false;
+
         yield return null;
-    }
+    }    
 
     private IEnumerator EnergyLossGrowthCoroutine()
     {
         float t = 0;
         while (t <= energyLossGrowthInterval)
         {
-            if (Enabled)
+            if (Enabled && !shooting)
             {
                 t += Time.fixedDeltaTime;
             }

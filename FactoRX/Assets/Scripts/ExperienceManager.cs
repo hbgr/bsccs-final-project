@@ -67,7 +67,8 @@ public class ExperienceManager : ScriptableObject
             events.OnLevelUp(this, EventArgs.Empty);
             int leftoverExp = Experience % LevelUpThreshold;
             Experience = leftoverExp;
-            LevelUpThreshold += levelUpThresholdGrowth;
+            int growthThresholdMultiplier = (5 + level - level % 5) / 5;
+            LevelUpThreshold += levelUpThresholdGrowth * growthThresholdMultiplier;
         }
     }
 

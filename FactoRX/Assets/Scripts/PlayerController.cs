@@ -49,6 +49,9 @@ public class PlayerController : MonoBehaviourExtended
     [SerializeField]
     private ScriptableAudio hurtAudio;
 
+    [SerializeField]
+    private ScriptableAudio knockbackAudio;
+
     private PickUp heldObject;
 
     private bool Shielded => shieldDuration > 0f;
@@ -284,6 +287,7 @@ public class PlayerController : MonoBehaviourExtended
     {
         if (!Shielded)
         {
+            knockbackAudio.Play(gameObject);
             var dir = (transform.position - source.transform.position).normalized;
             var power = source.KnockbackPower;
             if (knockbackCoroutine != null)
@@ -303,13 +307,13 @@ public class PlayerController : MonoBehaviourExtended
         knockbackActive = true;
 
         float t = 0;
-        while (t <= 0.33f)
+        while (t <= 0.25f)
         {
             if (Enabled)
             {
                 t += Time.fixedDeltaTime;
                 transform.position += power * Time.fixedDeltaTime * direction;
-                power *= 0.9f;
+                power *= 0.8f;
             }
             yield return new WaitForFixedUpdate();
         }

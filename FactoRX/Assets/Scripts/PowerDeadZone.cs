@@ -9,7 +9,7 @@ public class PowerDeadZone : MonoBehaviour
     {
         if (collider.TryGetComponent(out PowerOrbController powerOrb) && enabled)
         {
-            Destroy(powerOrb.gameObject);
+            Destroy(collider.gameObject);
         }
     }
 }
