@@ -6,7 +6,7 @@ using UnityEngine;
 public class PowerGenerator : MonoBehaviourExtended, IPickUpBehaviour
 {
     [SerializeField]
-    private float cooldown;
+    private PowerOrbManager powerOrbManager;
 
     [SerializeField]
     private PowerOrbController powerOrbPrefab;
@@ -17,7 +17,7 @@ public class PowerGenerator : MonoBehaviourExtended, IPickUpBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(PowerCoroutine(cooldown));
+        StartCoroutine(PowerCoroutine());
     }
 
     void OnEnable()
@@ -25,10 +25,10 @@ public class PowerGenerator : MonoBehaviourExtended, IPickUpBehaviour
         //StartCoroutine(PowerCoroutine(cooldown));
     }
 
-    private IEnumerator PowerCoroutine(float cooldown)
+    private IEnumerator PowerCoroutine()
     {
         float t = 0;
-        while (t <= 0.7f * cooldown)
+        while (t <= 0.7f * powerOrbManager.GeneratorCooldown)
         {
             if (Enabled)
             {
@@ -42,11 +42,11 @@ public class PowerGenerator : MonoBehaviourExtended, IPickUpBehaviour
         var scale = transform.localScale;
 
         t = 0;
-        while (t <= 0.05f * cooldown)
+        while (t <= 0.05f * powerOrbManager.GeneratorCooldown)
         {
             if (Enabled)
             {
-                transform.localScale = Vector3.Lerp(transform.localScale, scale * 1.2f, t / (0.05f * cooldown));
+                transform.localScale = Vector3.Lerp(transform.localScale, scale * 1.2f, t / (0.05f * powerOrbManager.GeneratorCooldown));
                 t += Time.deltaTime;
             }
             yield return new WaitForFixedUpdate();
@@ -58,11 +58,11 @@ public class PowerGenerator : MonoBehaviourExtended, IPickUpBehaviour
         orbAudio.Play(gameObject);
 
         t = 0;
-        while (t <= 0.05 * cooldown)
+        while (t <= 0.05 * powerOrbManager.GeneratorCooldown)
         {
             if (Enabled)
             {
-                transform.localScale = Vector3.Lerp(transform.localScale, scale, t / (0.05f * cooldown));
+                transform.localScale = Vector3.Lerp(transform.localScale, scale, t / (0.05f * powerOrbManager.GeneratorCooldown));
                 t += Time.deltaTime;
             }
             yield return new WaitForFixedUpdate();
@@ -70,7 +70,7 @@ public class PowerGenerator : MonoBehaviourExtended, IPickUpBehaviour
         transform.localScale = scale;
 
         t = 0;
-        while (t <= 0.2f * cooldown)
+        while (t <= 0.2f * powerOrbManager.GeneratorCooldown)
         {
             if (Enabled)
             {
@@ -79,7 +79,7 @@ public class PowerGenerator : MonoBehaviourExtended, IPickUpBehaviour
 
             yield return new WaitForFixedUpdate();
         }
-        StartCoroutine(PowerCoroutine(cooldown));
+        StartCoroutine(PowerCoroutine());
     }
 
     public bool CanBePickedUp()

@@ -16,8 +16,11 @@ public class RedirectorTransformerBrain : TransformerBrain
 
     public override IEnumerator TransformerCoroutine(Transformer transformer, PowerOrbController powerOrb)
     {
-        powerOrb.MultiplyLifetime(boostFactor);
-        powerOrb.AddLifetime(flatBoost);
+        // powerOrb.MultiplyLifetime(boostFactor);
+        // powerOrb.AddLifetime(flatBoost);
+
+        powerOrb.Split(-1);
+
         PowerOrbController orb = Instantiate(powerOrb, transformer.transform.position + transformer.transform.rotation * direction * 0.55f, Quaternion.identity);
         orb.SetProperties(transformer.transform.rotation * direction, transformer.gameObject);
         orb.gameObject.SetActive(false);

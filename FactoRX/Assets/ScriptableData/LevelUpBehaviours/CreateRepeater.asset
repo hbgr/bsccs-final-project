@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: CreateRepeater
   m_EditorClassIdentifier: 
   behaviourName: Repeater
-  behaviourDescription: 
+  behaviourDescription: Splits power into two travelling the same direction
   sprite: {fileID: 21300000, guid: f000feb6f8fbc5b46babc4d6064b759f, type: 3}
   weight: 75
   transformer: {fileID: 6644583073150602878, guid: 9c626004211465c49ade423e14e6b861, type: 3}

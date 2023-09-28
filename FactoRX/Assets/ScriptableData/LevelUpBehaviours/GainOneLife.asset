@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cdf1491d2709934ba3703fa7334dca7, type: 3}
   m_Name: GainOneLife
   m_EditorClassIdentifier: 
-  behaviourName: +1 Lives
-  behaviourDescription: Gain two lives.
+  behaviourName: +1 Life
+  behaviourDescription: Gain a life
   sprite: {fileID: 21300000, guid: c6b6a1e237a6ce143bc70c96f797420a, type: 3}
   weight: 25
   lives: {fileID: 11400000, guid: d1c67909e6a60f148a1ae0d23f029508, type: 2}

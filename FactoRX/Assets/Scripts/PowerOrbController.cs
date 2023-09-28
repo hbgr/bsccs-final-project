@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class PowerOrbController : MonoBehaviourExtended
 {
     [SerializeField]
-    private float moveSpeed = 2f;
+    private PowerOrbManager powerOrbManager;    
 
     private Vector2 moveDirection;
 
@@ -14,8 +15,13 @@ public class PowerOrbController : MonoBehaviourExtended
     [SerializeField]
     private float lifetime;
 
+    // [SerializeField]
+    // private float maxLifetime;
+
     [SerializeField]
-    private float maxLifetime;
+    private int splitCount;
+
+    public bool CanSplit => splitCount < powerOrbManager.MaxSplits;
 
     // Start is called before the first frame update
     void Start()
@@ -31,10 +37,10 @@ public class PowerOrbController : MonoBehaviourExtended
     {
         if (!Enabled) return;
 
-        transform.position += (Vector3)(moveSpeed * Time.deltaTime * moveDirection);
-        lifetime -= Time.deltaTime;
+        transform.position += (Vector3)(powerOrbManager.OrbSpeed * Time.deltaTime * moveDirection);
+        lifetime += Time.deltaTime;
 
-        if (lifetime <= 0)
+        if (lifetime >= powerOrbManager.OrbLifetime)
         {
             Destroy(gameObject);
         }
@@ -64,18 +70,23 @@ public class PowerOrbController : MonoBehaviourExtended
         return false;
     }
 
-    private void SetLifetime(float newLifetime)
-    {
-        lifetime = Mathf.Min(newLifetime, maxLifetime);
-    }
+    // private void SetLifetime(float newLifetime)
+    // {
+    //     lifetime = Mathf.Min(newLifetime, maxLifetime);
+    // }
 
-    public void MultiplyLifetime(float amount)
-    {
-        SetLifetime(lifetime * amount);
-    }
+    // public void MultiplyLifetime(float amount)
+    // {
+    //     SetLifetime(lifetime * amount);
+    // }
 
-    public void AddLifetime(float amount)
+    // public void AddLifetime(float amount)
+    // {
+    //     SetLifetime(lifetime + amount);
+    // }
+
+    public void Split(int count)
     {
-        SetLifetime(lifetime + amount);
+        splitCount = math.max(0, splitCount + count);
     }
 }

@@ -129,7 +129,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   events: {fileID: 11400000, guid: 1a3c4ae5866d2e344a4f1bfaf714a6bb, type: 2}
   activeGameStates: 01000000
-  cooldown: 1.2
+  powerOrbManager: {fileID: 11400000, guid: 1c5dd8cce85a9d6418fba4e6a4569948, type: 2}
   powerOrbPrefab: {fileID: 7196507520383837509, guid: 30c0c294fe779f648bea759ad9bae338, type: 3}
   orbAudio: {fileID: 11400000, guid: 0e1f397c7d8209247b21762cd6a298ea, type: 2}
 --- !u!114 &2353526022605278910
