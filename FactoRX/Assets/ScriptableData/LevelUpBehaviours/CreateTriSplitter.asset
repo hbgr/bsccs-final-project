@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: CreateTriSplitter
   m_EditorClassIdentifier: 
   behaviourName: Tri Splitter
-  behaviourDescription: Creates a new triple splitter at your location.
+  behaviourDescription: Splits power into three
   sprite: {fileID: 21300000, guid: 66fe5ab264ed8944196e5546046abbb0, type: 3}
   weight: 50
   transformer: {fileID: 2574166658854285881, guid: 34ec71b6fd9dc9d4d94ef50ebbd463f5, type: 3}

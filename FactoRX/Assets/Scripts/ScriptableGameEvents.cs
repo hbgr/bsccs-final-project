@@ -57,11 +57,11 @@ public class ScriptableGameEvents : ScriptableObject
         LoseLifeEvent?.Invoke(sender, remainingLives);
     }
 
-    public event EventHandler<ShieldCollectable> ShieldCollectedEvent;
+    public event EventHandler<float> ShieldCollectedEvent;
 
-    public void OnShieldCollected(object sender, ShieldCollectable shield)
+    public void OnShieldCollected(object sender, float duration)
     {
-        ShieldCollectedEvent?.Invoke(sender, shield);
+        ShieldCollectedEvent?.Invoke(sender, duration);
     }
 
     public event EventHandler<int> ScorePointsEvent;

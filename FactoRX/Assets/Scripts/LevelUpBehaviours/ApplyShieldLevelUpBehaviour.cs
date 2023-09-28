@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Collectable/Shield")]
-public class ShieldCollectable : ScriptableCollectable
+[CreateAssetMenu(menuName = "LevelUpBehaviour/ShieldPlayer")]
+public class ApplyShieldLevelUpBehaviour : LevelUpBehaviour
 {
     [SerializeField]
     private ScriptableGameEvents events;
@@ -11,10 +11,8 @@ public class ShieldCollectable : ScriptableCollectable
     [SerializeField]
     private float duration;
 
-    public override void Collect(Collectable collectable)
+    public override void Apply()
     {
         events.OnShieldCollected(this, duration);
-        collectAudio.Play(collectable.gameObject);
-        Destroy(collectable.gameObject);
     }
 }

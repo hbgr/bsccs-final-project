@@ -239,10 +239,6 @@ public class PlayerController : MonoBehaviourExtended
             events.OnLoseLife(this, lives.Lives);
             hurtAudio.Play(gameObject);
         }
-        else
-        {
-            shieldDuration -= 0.5f;
-        }
     }
 
     private void OnLoseLife(object sender, int remainingLives)
@@ -260,9 +256,9 @@ public class PlayerController : MonoBehaviourExtended
         }
     }
 
-    private void OnShieldCollected(object sender, ShieldCollectable shield)
+    private void OnShieldCollected(object sender, float duration)
     {
-        AddInvincibility(shield.Duration);
+        AddInvincibility(duration);
     }
 
     private void AddInvincibility(float duration)
@@ -295,10 +291,6 @@ public class PlayerController : MonoBehaviourExtended
                 StopCoroutine(knockbackCoroutine);
             }
             knockbackCoroutine = StartCoroutine(KnockbackCoroutine(dir, power));
-        }
-        else
-        {
-            shieldDuration -= 0.5f;
         }
     }
 

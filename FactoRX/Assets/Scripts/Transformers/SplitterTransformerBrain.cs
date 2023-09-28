@@ -15,12 +15,26 @@ public class SplitterTransformerBrain : TransformerBrain
 
     public override IEnumerator TransformerCoroutine(Transformer transformer, PowerOrbController powerOrb)
     {
-        if (splitDirections.Count < 1 || powerOrb == null)
+        if (powerOrb == null)
         {
             yield break;
         }
 
-        powerOrb.MultiplyLifetime(1f / splitDirections.Count);
+        if (splitDirections.Count < 1)
+        {
+            Destroy(powerOrb.gameObject);
+            yield break;
+        }
+
+        if (!powerOrb.CanSplit)
+        {
+            Destroy(powerOrb.gameObject);
+            yield break;
+        }
+
+        powerOrb.Split(splitDirections.Count);
+
+        //powerOrb.MultiplyLifetime(1f / splitDirections.Count);
 
         var powerOrbs = new List<PowerOrbController>();
 

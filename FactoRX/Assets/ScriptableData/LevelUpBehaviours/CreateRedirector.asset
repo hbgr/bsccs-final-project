@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2636100811f52074f8abff3b204c829d, type: 3}
   m_Name: CreateRedirector
   m_EditorClassIdentifier: 
-  behaviourName: Boost & Redirector
-  behaviourDescription: Creates a new redirector at your location.
+  behaviourName: Booster
+  behaviourDescription: Increases the number of times power can split
   sprite: {fileID: 21300000, guid: 1db4e86e3a6904c439e7b803f3e14515, type: 3}
   weight: 150
   transformer: {fileID: 7664416805545349795, guid: 6111b042c016aba47a9da8ed0a7a28ec, type: 3}
