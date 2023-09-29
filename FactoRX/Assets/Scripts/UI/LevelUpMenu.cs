@@ -11,6 +11,9 @@ public class LevelUpMenu : MonoBehaviourExtended
     private ScriptableInputEvents inputEvents;
 
     [SerializeField]
+    private ExperienceManager experienceManager;
+
+    [SerializeField]
     private GameObject menuObject;
 
     [SerializeField]
@@ -56,11 +59,28 @@ public class LevelUpMenu : MonoBehaviourExtended
         {
             menuObject.SetActive(true);
 
-            // Generate weighted list of indexes for level up behaviours
-            var weighted_index_list = new List<int>();
-            for (int i = 0; i < levelUpBehaviourStore.LevelUpBehaviours.Count; i++)
+            // Select available level up behaviours based on current level
+            List<LevelUpBehaviour> availableLevelUpBehaviours = new();
+
+            if (experienceManager.Level == 1)
             {
-                weighted_index_list.AddRange(Enumerable.Repeat(i, levelUpBehaviourStore.LevelUpBehaviours[i].Weight));
+                availableLevelUpBehaviours = levelUpBehaviourStore.LevelUpBehaviours.Where(b => b.Level1Behaviour).ToList();
+            }
+            else if (experienceManager.Level % 5 == 0)
+            {
+                availableLevelUpBehaviours = levelUpBehaviourStore.LevelUpBehaviours.Where(b => b.SpecialBehaviour).ToList();
+            }
+            else
+            {
+                availableLevelUpBehaviours = levelUpBehaviourStore.LevelUpBehaviours.Where(b => !b.SpecialBehaviour).ToList();
+            }
+
+
+            // Generate weighted list of indexes for  available level up behaviours
+            var weighted_index_list = new List<int>();
+            for (int i = 0; i < availableLevelUpBehaviours.Count; i++)
+            {
+                weighted_index_list.AddRange(Enumerable.Repeat(i, availableLevelUpBehaviours[i].Weight));
             }
 
             // Select from weighted list without repetition
@@ -72,9 +92,9 @@ public class LevelUpMenu : MonoBehaviourExtended
                 weighted_index_list.RemoveAll(x => x == weighted_index_list[index]);
             }
 
-            option1.SetProperties(levelUpBehaviourStore.LevelUpBehaviours[selected_indexes[0]]);
-            option2.SetProperties(levelUpBehaviourStore.LevelUpBehaviours[selected_indexes[1]]);
-            option3.SetProperties(levelUpBehaviourStore.LevelUpBehaviours[selected_indexes[2]]);
+            option1.SetProperties(availableLevelUpBehaviours[selected_indexes[0]]);
+            option2.SetProperties(availableLevelUpBehaviours[selected_indexes[1]]);
+            option3.SetProperties(availableLevelUpBehaviours[selected_indexes[2]]);
 
             StartCoroutine(WhenEnabledCoroutine());
         }

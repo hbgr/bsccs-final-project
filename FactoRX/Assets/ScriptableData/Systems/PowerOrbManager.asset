@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: PowerOrbManager
   m_EditorClassIdentifier: 
   generatorCooldown: 1.2
-  maxSplits: 8
-  orbLifetime: 20
+  maxSplits: 7
+  orbLifetime: 10
   orbSpeed: 3.5

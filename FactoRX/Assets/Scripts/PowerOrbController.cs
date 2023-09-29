@@ -6,7 +6,7 @@ using UnityEngine;
 public class PowerOrbController : MonoBehaviourExtended
 {
     [SerializeField]
-    private PowerOrbManager powerOrbManager;    
+    private PowerOrbManager powerOrbManager;
 
     private Vector2 moveDirection;
 
@@ -68,25 +68,10 @@ public class PowerOrbController : MonoBehaviourExtended
             return true;
         }
         return false;
-    }
-
-    // private void SetLifetime(float newLifetime)
-    // {
-    //     lifetime = Mathf.Min(newLifetime, maxLifetime);
-    // }
-
-    // public void MultiplyLifetime(float amount)
-    // {
-    //     SetLifetime(lifetime * amount);
-    // }
-
-    // public void AddLifetime(float amount)
-    // {
-    //     SetLifetime(lifetime + amount);
-    // }
+    }    
 
     public void Split(int count)
     {
-        splitCount = math.max(0, splitCount + count);
+        splitCount += count;
     }
 }

@@ -16,5 +16,7 @@ MonoBehaviour:
   behaviourDescription: Splits power into two at a 90 degree angle
   sprite: {fileID: 21300000, guid: d9ab90fbd5119bc4183bedab6a536273, type: 3}
   weight: 100
+  level1Behaviour: 1
+  specialBehaviour: 0
   transformer: {fileID: 9097657988841248872, guid: ecd2d34b1223df54eb6af88e6733cc34, type: 3}
   playerTransform: {fileID: 11400000, guid: 32a30e4295a43794593ab82ad20eb363, type: 2}

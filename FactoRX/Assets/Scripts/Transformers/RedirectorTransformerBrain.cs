@@ -9,17 +9,11 @@ public class RedirectorTransformerBrain : TransformerBrain
     private Vector3 direction;
 
     [SerializeField]
-    private float boostFactor;
-
-    [SerializeField]
-    private float flatBoost;
+    private int amount;
 
     public override IEnumerator TransformerCoroutine(Transformer transformer, PowerOrbController powerOrb)
     {
-        // powerOrb.MultiplyLifetime(boostFactor);
-        // powerOrb.AddLifetime(flatBoost);
-
-        powerOrb.Split(-1);
+        powerOrb.Split(-amount);
 
         PowerOrbController orb = Instantiate(powerOrb, transformer.transform.position + transformer.transform.rotation * direction * 0.55f, Quaternion.identity);
         orb.SetProperties(transformer.transform.rotation * direction, transformer.gameObject);
