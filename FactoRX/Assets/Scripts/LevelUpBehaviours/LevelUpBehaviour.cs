@@ -37,5 +37,15 @@ public abstract class LevelUpBehaviour : ScriptableObject
 
     public int Weight => weight;
 
+    [SerializeField]
+    private bool level1Behaviour;
+
+    public bool Level1Behaviour => level1Behaviour;
+
+    [SerializeField]
+    private bool specialBehaviour;
+
+    public bool SpecialBehaviour => specialBehaviour;
+
     public abstract void Apply();
 }

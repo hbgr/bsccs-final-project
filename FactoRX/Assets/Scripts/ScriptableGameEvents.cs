@@ -77,4 +77,11 @@ public class ScriptableGameEvents : ScriptableObject
     {
         AbyssDestroyedEvent?.Invoke(sender, abyss);
     }
+
+    public event EventHandler<Obelisk> ObeliskDeactivatedEvent;
+
+    public void OnObeliskDeactivated(object sender, Obelisk obelisk)
+    {
+        ObeliskDeactivatedEvent?.Invoke(sender, obelisk);
+    }
 }

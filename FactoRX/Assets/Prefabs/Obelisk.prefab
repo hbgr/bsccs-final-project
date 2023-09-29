@@ -77,8 +77,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: 6226b37a4389db84fb2bd78af1d7fab9, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 44aed89475278854582b30478ed279f6, type: 3}
+  m_Color: {r: 0.36862746, g: 0.21568629, b: 0.2901961, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -128,18 +128,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   events: {fileID: 11400000, guid: 1a3c4ae5866d2e344a4f1bfaf714a6bb, type: 2}
   activeGameStates: 01000000
-  maxEnergy: 5
-  maxEnergyGrowth: 2
+  maxEnergy: 10
+  maxEnergyGrowth: 10
   energyLossOnHit: 1
   energyText: {fileID: 2276870466149569215}
   orbPrefab: {fileID: 9095715005418213013, guid: 15d997e0cdd13d94d906f935c12233af, type: 3}
   shootDelay: 2.5
+  shootDelayGrowth: 0.1
+  minShootdelay: 0.5
   firstActivationDelay: 0
-  deactivationDuration: 20
+  deactivationDuration: 25
   activationAudio: {fileID: 11400000, guid: 76ffaf9a44b329940ab53b4ba1b48bb4, type: 2}
   shootAudio: {fileID: 11400000, guid: ea8e91906bf2a21458fc3d593b95b3bf, type: 2}
-  activeSprite: {fileID: 21300000, guid: 068e0d6622df15f47a4ca9b76d84e8ee, type: 3}
-  inactiveSprite: {fileID: 21300000, guid: 6226b37a4389db84fb2bd78af1d7fab9, type: 3}
+  activeSprite: {fileID: 21300000, guid: c43410ae91b76884d8efb4a7f90e643e, type: 3}
+  inactiveSprite: {fileID: 21300000, guid: 44aed89475278854582b30478ed279f6, type: 3}
+  activeColour: {r: 0.72156864, g: 0.5764706, b: 0.64705884, a: 1}
+  inactiveColour: {r: 0.36862746, g: 0.21568628, b: 0.2901961, a: 1}
 --- !u!114 &-4773757195800796943
 MonoBehaviour:
   m_ObjectHideFlags: 0

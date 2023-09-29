@@ -15,6 +15,8 @@ MonoBehaviour:
   behaviourName: Repeater
   behaviourDescription: Splits power into two travelling the same direction
   sprite: {fileID: 21300000, guid: f000feb6f8fbc5b46babc4d6064b759f, type: 3}
-  weight: 75
+  weight: 100
+  level1Behaviour: 1
+  specialBehaviour: 0
   transformer: {fileID: 6644583073150602878, guid: 9c626004211465c49ade423e14e6b861, type: 3}
   playerTransform: {fileID: 11400000, guid: 32a30e4295a43794593ab82ad20eb363, type: 2}

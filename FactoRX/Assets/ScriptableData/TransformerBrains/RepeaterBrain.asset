@@ -16,4 +16,4 @@ MonoBehaviour:
   splitDirections:
   - {x: 0, y: 1, z: 0}
   - {x: 0, y: 1, z: 0}
-  outputDelay: 0.075
+  outputDelay: 0.066

@@ -16,5 +16,7 @@ MonoBehaviour:
   behaviourDescription: Generate power faster
   sprite: {fileID: 21300000, guid: 1c649cb55471d584dbd19fd4a0d31074, type: 3}
   weight: 50
+  level1Behaviour: 0
+  specialBehaviour: 1
   powerOrbManager: {fileID: 11400000, guid: 1c5dd8cce85a9d6418fba4e6a4569948, type: 2}
   amount: 0.2

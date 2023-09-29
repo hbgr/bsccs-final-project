@@ -619,6 +619,7 @@ MonoBehaviour:
   events: {fileID: 11400000, guid: 1a3c4ae5866d2e344a4f1bfaf714a6bb, type: 2}
   activeGameStates: 03000000
   inputEvents: {fileID: 11400000, guid: eb9765ee8ddf4c24b82d73c664408ad8, type: 2}
+  experienceManager: {fileID: 11400000, guid: 2ca4f93a0fd93e847a36d0cd8f2d17d1, type: 2}
   menuObject: {fileID: 5706598126673186886}
   option1: {fileID: 6972579565404535485}
   option2: {fileID: 6972579565493514507}
