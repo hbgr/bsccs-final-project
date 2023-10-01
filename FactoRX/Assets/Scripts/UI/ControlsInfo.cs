@@ -13,13 +13,7 @@ public class ControlsInfo : MonoBehaviour
     void Start()
     {
         inputEvents.OnMoveEvent += OnMove;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
+    }    
 
     private void OnDestroy()
     {

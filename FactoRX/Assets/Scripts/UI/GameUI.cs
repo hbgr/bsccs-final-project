@@ -5,19 +5,7 @@ using UnityEngine;
 public class GameUI : MonoBehaviourExtended
 {
     [SerializeField]
-    private GameObject uiObject;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
+    private GameObject uiObject;    
 
     protected override void OnGameStateChanged(object sender, GameState state)
     {

@@ -16,13 +16,7 @@ public class ScoreText : MonoBehaviour
     void Start()
     {
         score.ScoreChangedEvent += OnScoreChanged;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
+    }    
 
     private void OnDestroy()
     {

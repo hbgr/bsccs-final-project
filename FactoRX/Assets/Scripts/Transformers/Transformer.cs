@@ -19,13 +19,7 @@ public class Transformer : MonoBehaviourExtended, IPickUpBehaviour
     void Start()
     {
         scale = transform.localScale;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
+    }    
 
     private void OnTriggerEnter2D(Collider2D collider)
     {

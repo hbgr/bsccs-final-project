@@ -13,10 +13,7 @@ public class PowerOrbController : MonoBehaviourExtended
     private HashSet<GameObject> hitList;
 
     [SerializeField]
-    private float lifetime;
-
-    // [SerializeField]
-    // private float maxLifetime;
+    private float lifetime;    
 
     [SerializeField]
     private int splitCount;
@@ -33,12 +30,12 @@ public class PowerOrbController : MonoBehaviourExtended
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if (!Enabled) return;
 
-        transform.position += (Vector3)(powerOrbManager.OrbSpeed * Time.deltaTime * moveDirection);
-        lifetime += Time.deltaTime;
+        transform.position += (Vector3)(powerOrbManager.OrbSpeed * Time.fixedDeltaTime * moveDirection);
+        lifetime += Time.fixedDeltaTime;
 
         if (lifetime >= powerOrbManager.OrbLifetime)
         {

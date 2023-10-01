@@ -35,13 +35,7 @@ public class LevelUpProgressBar : MonoBehaviour
 
         currentLevelText.text = $"{e.Level}";
         nextLevelText.text = $"{e.Level + 1}";
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
+    }    
 
     private void OnDestroy()
     {
