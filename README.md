@@ -2,6 +2,7 @@
 Final project for BSc Computer Science
 
 Credits
+
 Sound Effects:
 - Retro Sounds by Dagurasu (https://dagurasusketch.itch.io/retrosounds)
 - Classic Arcade Sound Effects by Rupert_Spore (https://yourpalrob.itch.io/classic-arcade-sound-effects)
