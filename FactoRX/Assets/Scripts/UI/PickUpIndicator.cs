@@ -6,13 +6,7 @@ using UnityEngine;
 public class PickUpIndicator : MonoBehaviourExtended
 {
     [SerializeField]
-    private GameObject icon;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
+    private GameObject icon;    
 
     // Update is called once per frame
     void Update()

@@ -36,13 +36,7 @@ public class LevelUpMenu : MonoBehaviourExtended
         inputEvents.OnAction1Event += OnAction1;
         inputEvents.OnAction2Event += OnAction2;
         inputEvents.OnAction3Event += OnAction3;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
+    }    
 
     protected override void OnDestroy()
     {

@@ -18,12 +18,7 @@ public class PowerGenerator : MonoBehaviourExtended, IPickUpBehaviour
     void Start()
     {
         StartCoroutine(PowerCoroutine());
-    }
-
-    void OnEnable()
-    {
-        //StartCoroutine(PowerCoroutine(cooldown));
-    }
+    }    
 
     private IEnumerator PowerCoroutine()
     {
@@ -52,7 +47,6 @@ public class PowerGenerator : MonoBehaviourExtended, IPickUpBehaviour
             yield return new WaitForFixedUpdate();
         }
 
-        // Shoot power orb
         var powerOrb = Instantiate(powerOrbPrefab, transform.position + transform.rotation * (Vector2.right / 2f), Quaternion.identity);
         powerOrb.SetProperties(transform.rotation * Vector2.right, gameObject);
         orbAudio.Play(gameObject);

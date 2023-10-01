@@ -26,13 +26,7 @@ public class GameOverMenu : MonoBehaviourExtended
     void Start()
     {
         inputEvents.OnAction2Event += OnAction2;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
+    }    
 
     protected override void OnDestroy()
     {

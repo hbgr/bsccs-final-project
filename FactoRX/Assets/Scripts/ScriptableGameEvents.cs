@@ -13,14 +13,7 @@ public class ScriptableGameEvents : ScriptableObject
     public void OnGameStateChanged(object sender, GameState state)
     {
         GameStateChangedEvent?.Invoke(sender, state);
-    }
-
-    // public event EventHandler<Machine> MachineCreatedEvent;
-
-    // public void OnMachineCreated(object sender, Machine machine)
-    // {
-    //     MachineCreatedEvent?.Invoke(sender, machine);
-    // }    
+    }        
 
     public event EventHandler<int> ExperienceGainedEvent;
 

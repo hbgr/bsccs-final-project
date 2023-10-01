@@ -34,8 +34,6 @@ public class SplitterTransformerBrain : TransformerBrain
 
         powerOrb.Split(splitDirections.Count);
 
-        //powerOrb.MultiplyLifetime(1f / splitDirections.Count);
-
         var powerOrbs = new List<PowerOrbController>();
 
         foreach (var direction in splitDirections)

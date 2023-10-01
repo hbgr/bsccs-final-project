@@ -243,7 +243,6 @@ public class PlayerController : MonoBehaviourExtended
 
     private void OnLoseLife(object sender, int remainingLives)
     {
-        // drop held object
         if (heldObject != null)
         {
             heldObject.OnDrop();
